@@ -6,6 +6,8 @@ dotfiles
 Installation
 ------------
 ```
+git clone git@github.com:dbalatero/dotfiles.git ~/.dotfiles
+
 brew install macvim --custom-icons \
   --override-system-vim --with-lua --with-luajit --with-python
 

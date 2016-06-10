@@ -20,3 +20,18 @@ map <leader>f :let g:ctrlp_default_input = 0<cr>:CtrlP<cr>
 map <leader>u :let g:ctrlp_default_input = 0<cr>:CtrlPBuffer<cr>
 map <leader>U :let g:ctrlp_default_input = 0<cr>:CtrlPLine<cr>
 map <leader><leader>f :let g:ctrlp_default_input = 0<cr>:CtrlPClearCache<cr>:CtrlP<cr>
+
+" Auto refresh the CtrlP index
+function! AddCtrlPRefresh()
+  if exists ("g:loaded_ctrlp") && g:loaded_ctrlp
+    augroup CtrlPExtension
+      autocmd!
+      autocmd FocusGained * CtrlPClearCache
+      autocmd BufWritePost * CtrlPClearCache
+    augroup END
+  endif
+endfunction
+
+if has("autocmd")
+  autocmd VimEnter * :call AddCtrlPRefresh()
+endif
