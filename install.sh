@@ -90,14 +90,14 @@ if [ ! -f ~/.gitconfig.user ]; then
   git config -f ~/.gitconfig.user user.email "$git_email"
 fi
 
-echo "Setting up ZSH..."
-if [ ! -f ~/.zshrc ]; then
-  ln -s ~/.dotfiles/zshrc ~/.zshrc
-fi
-
-if [ ! -d ~/.zsh ]; then
-  ln -s ~/.dotfiles/zsh ~/.zsh
-fi
+#echo "Setting up ZSH..."
+#if [ ! -f ~/.zshrc ]; then
+#  ln -s ~/.dotfiles/zshrc ~/.zshrc
+#fi
+#
+#if [ ! -d ~/.zsh ]; then
+#  ln -s ~/.dotfiles/zsh ~/.zsh
+#fi
 
 if [ ! -d ~/.zshenv ]; then
   ln -s ~/.dotfiles/zsh/zshenv ~/.zshenv

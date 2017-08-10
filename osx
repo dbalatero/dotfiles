@@ -1,5 +1,7 @@
 # Gratuitously stolen from @mathiasbynens
 # https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+# Show hidden files
+defaults write com.apple.finder AppleShowAllFiles -string "YES"
 
 # Disable menu bar transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
