@@ -1,5 +1,0 @@
---fields=+l
---output-format=e-ctags
---exclude=.git
---exclude=.hg
---languages=-javascript,sql

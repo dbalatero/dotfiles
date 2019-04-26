@@ -4,10 +4,6 @@ source "${BASH_SOURCE%/*}/shared.sh"
 
 require_installer package-manager
 
-function configure_ctags() {
-  symlink_dotfile ctags.d ~/.ctags.d
-}
-
 dotheader "Setting up devtools..."
 
 brew_cask_install chromedriver
@@ -17,16 +13,8 @@ brew_install fd
 
 brew_install postgres
 
-apt_install phantomjs
-brew_install phantomjs
-
 brew_install wakatime-cli
 brew_install coreutils
-
-brew_install ctags
-rehash
-brew_install global --with-ctags
-configure_ctags
 
 brew_install the_silver_searcher
 apt_install silversearcher-ag
@@ -43,6 +31,5 @@ apt_install ack-grep
 brew_install qpdf
 brew_install gnu-tar
 brew_install mysql
-brew_install heroku
 brew_install hub
 brew_install redis
