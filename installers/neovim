@@ -116,7 +116,7 @@ function install_lua_language_server() {
 }
 
 function install_typescript_language_server() {
-  npm install -g typescript-language-server
+  yarn global add typescript-language-server
 }
 
 function install_emmet_lsp() {
