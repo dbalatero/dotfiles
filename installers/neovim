@@ -115,6 +115,10 @@ function install_lua_language_server() {
   fi
 }
 
+function install_typescript_language_server() {
+  npm install -g typescript-language-server
+}
+
 function install_emmet_lsp() {
   if ! command_exists "emmet-ls"; then
     dotsay "@b@blue[[+ Installing Emmet LSP]]"
@@ -128,6 +132,7 @@ install_emmet_lsp
 install_lua_language_server
 install_bash_language_server
 install_ruby_neovim
+install_typescript_language_server
 install_neovim
 setup_neovim_config
 install_tern
