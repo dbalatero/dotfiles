@@ -297,9 +297,6 @@ lspconfig.emmet_ls.setup({
 
 lspconfig.tsserver.setup({
   capabilities = lspCapabilities,
-  -- This sucks - npm install -g typescript-language-server is not able to be seen
-  -- by my $PATH, so I just hard code the path here for my laptop.
-  cmd = {'/Users/dbalatero/.nodenv/versions/14.18.1/bin/typescript-language-server', '--stdio'},
   cmd_env = { NODE_OPTIONS = "--max-old-space-size=8192" }, -- Give 8gb of RAM to node
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   init_options = {
