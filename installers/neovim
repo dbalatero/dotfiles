@@ -115,8 +115,16 @@ function install_lua_language_server() {
   fi
 }
 
+function install_emmet_lsp() {
+  if ! command_exists "emmet-ls"; then
+    dotsay "@b@blue[[+ Installing Emmet LSP]]"
+    npm install -g emmet-ls
+  fi
+}
+
 dotheader "Setting up Neovim..."
 
+install_emmet_lsp
 install_lua_language_server
 install_bash_language_server
 install_ruby_neovim

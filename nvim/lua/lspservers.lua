@@ -1,4 +1,5 @@
 local lspconfig = require('lspconfig')
+local configs = require('lspconfig/configs')
 local lsp_status = require('lsp-status')
 local lspkind = require('lspkind')
 local trouble = require('trouble')
@@ -39,6 +40,8 @@ lspconfig.util.default_config = vim.tbl_extend(
 
 -- diagnostics setup
 require("nvim-ale-diagnostic")
+
+foo = "bar"
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -270,6 +273,26 @@ lspconfig.rust_analyzer.setup({
       },
     }
   }
+})
+
+-- Emmet
+lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
+
+if not lspconfig.emmet_ls then
+  configs.emmet_ls = {
+    default_config = {
+      cmd = {'emmet-ls', '--stdio'};
+      filetypes = {'html', 'css', 'blade', 'javascriptreact', 'javascript.jsx'};
+      root_dir = function()
+        return vim.loop.cwd()
+      end;
+      settings = {};
+    };
+  }
+end
+
+lspconfig.emmet_ls.setup({
+  capabilities = lspCapabilities,
 })
 
 -- Sorbet lsp for Stripe, if it exists

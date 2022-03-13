@@ -25,6 +25,7 @@ require "jira-markdown"
 require "read-later"
 require "pull-request-comments"
 require "paste-code-to-gdocs"
+require "keys-pressed"
 
 local SkyRocket = hs.loadSpoon("SkyRocket")
 
