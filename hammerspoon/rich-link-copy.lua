@@ -67,6 +67,7 @@ local function getRichLinkToCurrentChromeTab()
     ["docs.google.com/spreadsheets"] = ":google-sheets:",
     ["figma.com"] = ":figma-:",
     ["git.corp.stripe.com"] = ":octocat:",
+    ["github.com"] = ":octocat:",
     ["jira.corp.stripe.com"] = ":jira:",
     ["paper.dropbox.com"] = ":paper:",
     ["whimsical.com"] = ":whimsical:",
