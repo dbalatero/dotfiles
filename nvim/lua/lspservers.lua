@@ -295,6 +295,25 @@ lspconfig.emmet_ls.setup({
   capabilities = lspCapabilities,
 })
 
+lspconfig.tsserver.setup({
+  capabilities = lspCapabilities,
+  -- This sucks - npm install -g typescript-language-server is not able to be seen
+  -- by my $PATH, so I just hard code the path here for my laptop.
+  cmd = {'/Users/dbalatero/.nodenv/versions/14.18.1/bin/typescript-language-server', '--stdio'},
+  cmd_env = { NODE_OPTIONS = "--max-old-space-size=8192" }, -- Give 8gb of RAM to node
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  init_options = {
+    maxTsServerMemory = "8192",
+  },
+  root_dir = lspconfig.util.root_pattern("tsconfig.json"),
+  on_attach = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+
+    on_attach(client, bufnr)
+  end
+})
+
 -- Sorbet lsp for Stripe, if it exists
 function setupVanillaLspClients()
   lspconfig.sorbet.setup({
