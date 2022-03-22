@@ -545,7 +545,7 @@ let g:ale_linters = {
 \ 'javascript': ['eslint'],
 \ 'javascript.jsx': ['eslint'],
 \ 'typescript': ['eslint'],
-\ 'typescript.tsx': ['eslint'],
+\ 'typescriptreact': ['eslint'],
 \ 'ruby': ['rubocop'],
 \}
 
@@ -553,7 +553,7 @@ let g:ale_fixers = {
 \ 'javascript': ['eslint'],
 \ 'javascript.jsx': ['eslint'],
 \ 'typescript': ['eslint'],
-\ 'typescript.tsx': ['eslint'],
+\ 'typescriptreact': ['eslint'],
 \ 'ruby': ['rubocop'],
 \}
 
