@@ -62,4 +62,4 @@ local function refreshNytimesSubscription()
   end)
 end
 
-hyperKey:bind('n'):toFunction("NYTimes sub", refreshNytimesSubscription)
+-- hyperKey:bind('n'):toFunction("NYTimes sub", refreshNytimesSubscription)
