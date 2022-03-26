@@ -273,7 +273,6 @@ Plug 'janko-m/vim-test'
 " Writing
 Plug 'junegunn/goyo.vim'       " distraction-free writing with :Goyo
 Plug 'junegunn/limelight.vim'  " dim other paragraphs while writing
-Plug 'nvim-orgmode/orgmode'    " emacs org mode clone
 
 " Theming
 Plug 'chrisbra/Colorizer'            " show hex colors in CSS/HTML files
@@ -608,7 +607,6 @@ require('nvim-treesitter.configs').setup {
     'json',
     'lua',
     'nix',
-    'org',
     'php',
     'python',
     'ruby',
@@ -630,15 +628,6 @@ require('nvim-treesitter.configs').setup {
     enable = true,
   },
 }
-LUA
-
-" ================= Org mode ====================
-
-lua <<LUA
-require('orgmode').setup({
-  org_agenda_files = {'~/.config/orgmode/**/*'},
-  org_default_notes_file = '~/.config/orgmode/refile.org',
-})
 LUA
 
 " ================== status line ================
