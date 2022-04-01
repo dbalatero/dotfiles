@@ -239,6 +239,7 @@ Plug 'nvim-lua/lsp-status.nvim'          " provides statusline information for L
 Plug 'onsails/lspkind-nvim'              " add vscode-style icons to completion menu
 Plug 'nathunsmitty/nvim-ale-diagnostic'  " route lsp diagnostics to ALE
 Plug 'ray-x/lsp_signature.nvim'          " floating signature 'as you type'
+Plug 'folke/trouble.nvim'                " diagnostic collector
 
 " Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -523,6 +524,23 @@ nnoremap <silent> <space>lw  <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 " gutter space for lsp info on left
 set signcolumn=yes
+
+" =================== Trouble ===================
+
+lua << EOF
+  require("trouble").setup({
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  })
+EOF
+
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " =================== ALE =======================
 
