@@ -234,11 +234,11 @@ Plug 'Shougo/unite.vim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'             " out of the box LSP configs for common langs
-Plug 'glepnir/lspsaga.nvim'              " code action plugin
 Plug 'nvim-lua/lsp-status.nvim'          " provides statusline information for LSP
 Plug 'onsails/lspkind-nvim'              " add vscode-style icons to completion menu
 Plug 'ray-x/lsp_signature.nvim'          " floating signature 'as you type'
 Plug 'folke/trouble.nvim'                " diagnostic collector
+Plug 'folke/lsp-colors.nvim'             " replace missing colors
 
 " Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -500,8 +500,8 @@ set completeopt=menu,menuone,noselect
 " 300ms before CursorHold events fire (like hover text on errors)
 set updatetime=300
 
-autocmd CursorHold * lua vim.diagnostic.open_float(nil, {scope = "line", close_events = {"CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinLeave"}})
-autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
+" autocmd CursorHold * lua vim.diagnostic.open_float(nil, {scope = "line", close_events = {"CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinLeave"}})
+" autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
 
 call luaeval('require("lspservers")')
 
