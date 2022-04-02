@@ -237,7 +237,6 @@ Plug 'neovim/nvim-lspconfig'             " out of the box LSP configs for common
 Plug 'glepnir/lspsaga.nvim'              " code action plugin
 Plug 'nvim-lua/lsp-status.nvim'          " provides statusline information for LSP
 Plug 'onsails/lspkind-nvim'              " add vscode-style icons to completion menu
-Plug 'nathunsmitty/nvim-ale-diagnostic'  " route lsp diagnostics to ALE
 Plug 'ray-x/lsp_signature.nvim'          " floating signature 'as you type'
 Plug 'folke/trouble.nvim'                " diagnostic collector
 
@@ -535,6 +534,7 @@ lua << EOF
   })
 EOF
 
+" Vim Script
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
 nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
@@ -548,6 +548,7 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_options = ''
 let g:ale_javascript_eslint_use_global = 1
+let g:ale_send_to_neovim_diagnostics = 1
 
 let g:ale_ruby_rubocop_executable = 'rubocop'
 

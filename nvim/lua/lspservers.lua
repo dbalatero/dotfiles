@@ -38,11 +38,6 @@ lspconfig.util.default_config = vim.tbl_extend(
 
 -- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- diagnostics setup
-require("nvim-ale-diagnostic")
-
-foo = "bar"
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = false,
