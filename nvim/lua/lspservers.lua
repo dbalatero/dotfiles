@@ -4,6 +4,8 @@ local lsp_status = require('lsp-status')
 local lspkind = require('lspkind')
 local trouble = require('trouble')
 local cmp = require('cmp')
+local cmp_buffer = require('cmp_buffer')
+local compare = require('cmp.config.compare')
 
 trouble.setup({
   use_diagnostic_signs = true,
@@ -172,7 +174,26 @@ cmp.setup({
         end
       },
     },
-  })
+  }),
+  sorting = {
+    comparators = {
+      -- Sort by distance of the word from the cursor
+      -- https://github.com/hrsh7th/cmp-buffer#locality-bonus-comparator-distance-based-sorting
+      function(...)
+        return cmp_buffer:compare_locality(...)
+      end,
+      compare.offset,
+      compare.exact,
+      compare.score,
+      require("cmp-under-comparator").under,
+      compare.recently_used,
+      compare.locality,
+      compare.kind,
+      compare.sort_text,
+      compare.length,
+      compare.order,
+    },
+  },
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work
