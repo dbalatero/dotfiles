@@ -163,7 +163,15 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'ultisnips' }, -- For ultisnips users.
   }, {
-    { name = 'buffer' },
+    {
+      name = 'buffer',
+      option = {
+        -- Complete from all visible buffers.
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end
+      },
+    },
   })
 })
 
