@@ -2,8 +2,6 @@
 -- Uses my `bin/daily` script to get the values.
 
 waterMenu = hs.menubar.new()
-waterMenu:setIcon(hs.image.imageFromPath(os.getenv('HOME') .. '/.hammerspoon/water-menubar/water-glass.png'))
-waterMenu:setTitle("...") -- Loading
 
 local function refreshWaterMenu()
   -- Get the current ounces from `daily water show`
@@ -22,8 +20,12 @@ local function refreshWaterMenu()
   task:start()
 end
 
--- Set it once
+-- Init the menu
+waterMenu:setIcon(hs.image.imageFromPath(os.getenv('HOME') .. '/.hammerspoon/water-menubar/water-glass.png'))
+waterMenu:setTitle("...") -- Loading
+
+-- Read the first value immediately
 refreshWaterMenu()
 
--- Refresh every 5 seconds
+-- Refresh the menu every 5 seconds
 waterRefresh = hs.timer.doEvery(5, refreshWaterMenu)
