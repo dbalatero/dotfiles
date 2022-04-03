@@ -1,3 +1,6 @@
+-- Shows a macOS menubar item with how much water I've drank today.
+-- Uses my `bin/daily` script to get the values.
+
 waterMenu = hs.menubar.new()
 waterMenu:setIcon(hs.image.imageFromPath(os.getenv('HOME') .. '/.hammerspoon/water-menubar/water-glass.png'))
 waterMenu:setTitle("...") -- Loading
