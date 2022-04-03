@@ -26,6 +26,7 @@ require "read-later"
 require "pull-request-comments"
 require "paste-code-to-gdocs"
 require "keys-pressed"
+require "water-menubar"
 
 local SkyRocket = hs.loadSpoon("SkyRocket")
 
