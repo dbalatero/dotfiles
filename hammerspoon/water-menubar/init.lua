@@ -8,7 +8,7 @@ local function refreshWaterMenu()
   local task = hs.task.new(
     os.getenv('HOME') .. '/.dotfiles/bin/daily',
     function (_, stdout)
-      ounces = string.gsub(stdout, "%s$", "")
+      ounces = string.gsub(stdout, "%s$", "") -- strip the \n off the output
       waterMenu:setTitle("" .. ounces .. " oz")
     end,
     {
