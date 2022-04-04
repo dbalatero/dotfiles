@@ -41,6 +41,11 @@ vim.call('which_key#register', ',', "g:which_key_leader")
 
 vim.g.which_key_space = {
   ['name'] = 'Spacebar',
+  ['f']    = {
+    ['name'] = '+find',
+    ['d']    = 'find-pattern',
+    ['s']    = 'find-under-cursor',
+  },
   ['g']    = {
     ['name'] = '+git',
     ['b']    = 'blame',
