@@ -9,7 +9,7 @@ local function refreshWaterMenu()
     os.getenv('HOME') .. '/.dotfiles/bin/daily',
     function (_, stdout)
       ounces = string.gsub(stdout, "%s$", "") -- strip the \n off the output
-      waterMenu:setTitle("" .. ounces .. " oz")
+      waterMenu:setTitle(" " .. ounces .. " oz")
     end,
     {
       'water',
