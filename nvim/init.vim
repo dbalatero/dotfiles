@@ -239,6 +239,8 @@ Plug 'onsails/lspkind-nvim'              " add vscode-style icons to completion 
 Plug 'ray-x/lsp_signature.nvim'          " floating signature 'as you type'
 Plug 'folke/trouble.nvim'                " diagnostic collector
 Plug 'folke/lsp-colors.nvim'             " replace missing colors
+Plug 'kosayoda/nvim-lightbulb'           " show possible code actions as lightbulb icons in the gutter
+Plug 'weilbith/nvim-code-action-menu'    " add popup menu for running code actions
 
 " Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -489,12 +491,10 @@ set updatetime=300
 
 call luaeval('require("lspservers")')
 
-" nnoremap <silent> gh :Lspsaga lsp_finder<CR>
-" nnoremap <silent>K :Lspsaga hover_doc<CR>
+" Update code action lightbulbs on cursor rest
+autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
 
-nnoremap <silent><space>la :Lspsaga code_action<CR>
-vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
-
+nnoremap <silent><space>la :CodeActionMenu<CR>
 nnoremap <silent> <space>l0  <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> <space>ld  <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <space>li  :LspInfo<CR>
