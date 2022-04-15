@@ -3,4 +3,6 @@ function theme_colors() {
     "$code: %F{$code}This is how your text would look like%f"
 }
 
-export GITSTATUS_DAEMON=$HOME/.nix-profile/bin/gitstatusd
+if [[ $(hostname -s) = st-* ]]; then
+  export GITSTATUS_DAEMON=$HOME/.nix-profile/bin/gitstatusd
+fi
