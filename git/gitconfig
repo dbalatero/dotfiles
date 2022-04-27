@@ -109,6 +109,7 @@
   summary = true
   verbosity = 1
   tool = mvimdiff
+	conflictstyle = diff3
 
 [apply]
   whitespace = nowarn
