@@ -44,6 +44,7 @@ pcall(require, "private.init")
 -- only do vim3 dev on my desktop
 if hs.host.localizedName() == "sorny" then
   -- require "vim3"
+  require "vim-mode"
 end
 
 if hs.host.localizedName() == "st-dbalatero3" then
