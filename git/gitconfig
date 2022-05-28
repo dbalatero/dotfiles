@@ -36,6 +36,31 @@
   # cherry-pick
   cp = cherry-pick -x               # grab a change from a branch
 
+  # churn
+  # taken from: https://github.com/garybernhardt/dotfiles/blob/main/bin/git-churn
+  # usage:
+  # Churn means "frequency of change". You'll get an output like this:
+  #
+  # $ git churn
+  #    1 file1
+  #   22 file2
+  #  333 file3
+  #
+  # This means that file1 changed one time, file2 changes 22 times, and file3
+  # changes 333 times.
+  #
+  # Show churn for whole repo:
+  #   $ git churn
+  #
+  # Show churn for specific directories:
+  #   $ git churn app lib
+  #
+  # Show churn for a time range:
+  #   $ git churn --since='1 month ago'
+  #
+  # (These are all standard arguments to `git log`.)
+  churn = ! git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort -n
+
   # diff
   d = diff                          # diff unstaged changes
   dc = diff --cached                # diff staged changes
