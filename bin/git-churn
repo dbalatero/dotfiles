@@ -3,6 +3,8 @@
 # Written by Corey Haines
 # Scriptified by Gary Bernhardt
 #
+# Grabbed from https://raw.githubusercontent.com/garybernhardt/dotfiles/main/bin/git-churn
+#
 # Put this anywhere on your $PATH (~/bin is recommended). Then git will see it
 # and you'll be able to do `git churn`.
 #
