@@ -220,7 +220,7 @@ local lspCapabilities = require('cmp_nvim_lsp')
 
 ---------------------------------
 
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 
 -- Setup LSP statusline
 lsp_status.register_progress()
