@@ -325,6 +325,10 @@ lspconfig.tsserver.setup({
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   init_options = {
     maxTsServerMemory = "8192",
+    preferences = {
+      -- Ensure we always import from absolute paths
+      importModuleSpecifierPreference = "non-relative",
+    },
   },
   root_dir = lspconfig.util.root_pattern("tsconfig.json"),
   on_attach = function(client, bufnr)
