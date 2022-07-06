@@ -153,7 +153,9 @@ cmp.setup({
         end
       end,
       c = function(fallback)
-        if cmp.visible() then
+        local selected = cmp.get_selected_entry()
+
+        if cmp.visible() and selected then
           cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
         else
           fallback()
