@@ -153,6 +153,10 @@ cmp.setup({
         end
       end,
       c = function(fallback)
+        -- On the command line, we only want to select from the autocomplete
+        -- menu if we've actually tabbed to an item. Otherwise, we just want to
+        -- fire the search/command/whatever we've typed in and not get hassled
+        -- by the autocomplete.
         local selected = cmp.get_selected_entry()
 
         if cmp.visible() and selected then
