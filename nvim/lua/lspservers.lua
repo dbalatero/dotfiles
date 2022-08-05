@@ -327,6 +327,12 @@ lspconfig.emmet_ls.setup({
 
 lspconfig.tsserver.setup({
   capabilities = lspCapabilities,
+  cmd = {
+    'typescript-language-server',
+    '--stdio',
+    -- attempt to speed up TypeScript
+    '--tsserver-path=' .. vim.fn.getenv("HOME") .. '/.nodenv/shims/tsserver',
+  },
   cmd_env = { NODE_OPTIONS = "--max-old-space-size=8192" }, -- Give 8gb of RAM to node
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   init_options = {
