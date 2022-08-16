@@ -242,6 +242,8 @@ Plug 'kosayoda/nvim-lightbulb'           " show possible code actions as lightbu
 Plug 'weilbith/nvim-code-action-menu'    " add popup menu for running code actions
 
 " Completion
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -262,7 +264,6 @@ Plug 'joker1007/vim-ruby-heredoc-syntax'  " fenced syntax colors in heredocs
 Plug 'ecomba/vim-ruby-refactoring'        " extract vars, methods, etc
 
 " Snippets
-Plug 'SirVer/UltiSnips'
 Plug 'honza/vim-snippets'
 
 " Syntax checking
@@ -637,10 +638,6 @@ LUA
 
 " ================== status line ================
 lua require("statusline")
-
-" ================== snippets ==================
-
-let g:UltiSnipsExpandTrigger = "<nop>"
 
 " ================= which key ==================
 lua require("which-key")
