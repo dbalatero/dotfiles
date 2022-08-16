@@ -264,7 +264,7 @@ Plug 'joker1007/vim-ruby-heredoc-syntax'  " fenced syntax colors in heredocs
 Plug 'ecomba/vim-ruby-refactoring'        " extract vars, methods, etc
 
 " Snippets
-Plug 'honza/vim-snippets'
+Plug 'rafamadriz/friendly-snippets'
 
 " Syntax checking
 Plug 'dense-analysis/ale'
