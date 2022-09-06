@@ -676,3 +676,6 @@ call SourceIfExists('~/.config/nvim/layers/private/config.vim')
 
 " Load lua/init.lua
 lua require("init")
+
+" Go away perl
+let g:loaded_perl_provider = 0
