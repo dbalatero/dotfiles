@@ -61,3 +61,5 @@ export PATH=/opt/homebrew/bin:$PATH
 
 # dotfiles
 export PATH=$PATH:$HOME/.dotfiles/bin
+
+export PATH=$HOME/.nix-profile/bin:$PATH
