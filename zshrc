@@ -66,6 +66,7 @@ antigen apply
 
 eval "$(direnv hook zsh)"
 eval "$(fasd --init auto)"
+eval "$(nodenv init -)"
 
 # =========== Custom settings ================
 
@@ -87,7 +88,6 @@ if [ ! -f ~/.config/dotfiles/rbenv ]; then
   [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 fi
 
-eval "$(nodenv init -)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
