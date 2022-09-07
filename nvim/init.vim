@@ -436,12 +436,14 @@ else
   let test#strategy = "neovim"
 endif
 
-let test#enabled_runners = ["lua#busted", "ruby#rspec"]
+let test#enabled_runners = ["lua#busted", "ruby#rspec", "javascript#jest"]
 
 let test#custom_runners = {}
 let test#custom_runners['ruby'] = ['rspec']
 let test#custom_runners['lua'] = ['busted']
 
+let test#custom_runners['javascript'] = ['jest']
+let test#custom_runners['typescript'] = ['jest']
 
 " ================= Editing plugins ==============
 
