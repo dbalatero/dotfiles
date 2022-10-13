@@ -11,7 +11,7 @@ local function file_exists(name)
   end
 end
 
-local proximity_sort_path = os.getenv('HOME') .. '/.nix-profile/bin/proximity-sort'
+local proximity_sort_path = os.getenv('HOME') .. '/.cargo/bin/proximity-sort'
 local proximity_sort_exists = file_exists(proximity_sort_path)
 
 module.fzfFiles = function()
