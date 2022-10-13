@@ -56,9 +56,8 @@ function install_nodenv() {
   brew_upgrade node-build
 
   nodenv init
-  nodenv install -s 8.11.3
-  nodenv install -s 10.16.0
-  nodenv global 10.16.0
+  nodenv install -s 18.10.0
+  nodenv global 18.10.0
 }
 
 if use_nvm; then
