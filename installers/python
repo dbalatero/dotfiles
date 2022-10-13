@@ -17,14 +17,14 @@ function load_pyenv() {
 }
 
 function install_python_versions() {
-  pyenv install -s 2.7.16
+  pyenv install -s 2.7.18
   pyenv install -s 3.9.1
-  pyenv global 2.7.16
+  pyenv global 2.7.18
 }
 
 function install_pyenv_virtualenvs() {
   if ! pyenv virtualenvs | grep -q py2neovim; then
-    pyenv virtualenv 2.7.16 py2neovim
+    pyenv virtualenv 2.7.18 py2neovim
     pyenv activate py2neovim
     pip install --upgrade pip
     pip install neovim
