@@ -16,7 +16,7 @@ function zsh_binary() {
   if is_linux; then
     echo /bin/zsh
   elif is_macos; then
-    echo /usr/local/bin/zsh
+    echo /opt/homebrew/bin/zsh
   fi
 }
 
