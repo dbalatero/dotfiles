@@ -64,6 +64,8 @@ antigen theme romkatv/powerlevel10k
 
 antigen apply
 
+source ~/.base16_theme
+
 eval "$(direnv hook zsh)"
 eval "$(fasd --init auto)"
 eval "$(nodenv init -)"
