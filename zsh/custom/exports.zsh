@@ -63,3 +63,7 @@ export PATH=/opt/homebrew/bin:$PATH
 export PATH=$PATH:$HOME/.dotfiles/bin
 
 export PATH=$HOME/.nix-profile/bin:$PATH
+
+# Keyboard/qmk
+export PATH="/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
+export PATH="/opt/homebrew/opt/arm-gcc-bin@8/bin:$PATH"
