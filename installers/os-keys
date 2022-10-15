@@ -48,7 +48,24 @@ function install_spoon() {
   fi
 }
 
+function install_m1ddc() {
+  local location="$HOME/.local/bin/m1ddc"
+
+  if [ ! -f "$location" ]; then
+    dotsay "@blue@b[[+ installing m1ddc ]]"
+
+    git clone git@github.com:waydabber/m1ddc.git /tmp/m1ddc
+    cd /tmp/m1ddc && make
+    cp /tmp/m1ddc/m1ddc "$location"
+    rm -fr /tmp/m1ddc
+  fi
+}
+
+install_m1ddc
 symlink_dotfile bin/dnd-toggle ~/.local/bin/dnd-toggle
+
+# monitor switching
+brew_install ddcctl
 
 brew_install lua
 brew_install luarocks
