@@ -6,15 +6,9 @@ require_installer package-manager
 
 dotheader "Setting up devtools..."
 
-brew_cask_install chromedriver
-apt_install chromium-chromedriver
-
 brew_cask_install alacritty
 
 brew_install fd
-
-brew_install postgres
-
 brew_install coreutils
 
 brew_install the_silver_searcher
@@ -31,10 +25,7 @@ apt_install ack-grep
 
 brew_install gnu-tar
 brew_install heroku
-brew_install hub
 brew_install gh
 brew_install redis
-
-heroku plugins:install heroku-repo
 
 symlink_dotfile ideavimrc ~/.ideavimrc
