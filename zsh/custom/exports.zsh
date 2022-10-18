@@ -67,3 +67,7 @@ export PATH=$HOME/.nix-profile/bin:$PATH
 # Keyboard/qmk
 export PATH="/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
 export PATH="/opt/homebrew/opt/arm-gcc-bin@8/bin:$PATH"
+
+# Java11 SDK support
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
