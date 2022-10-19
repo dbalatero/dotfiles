@@ -41,7 +41,7 @@
   dc = diff --cached                # diff staged changes
   last = diff HEAD^                 # diff last committed change
 
-  done = !git fetch origin master:master && git checkout master
+  done = !git fetch origin $(git main-branch):$(git main-branch) && git checkout $(git main-branch)
 
   # log
   l = log --graph --date=short
