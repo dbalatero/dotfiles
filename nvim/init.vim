@@ -548,16 +548,16 @@ let g:ale_linters_explicit = 1
 let g:ale_linters = {
 \ 'javascript': ['eslint'],
 \ 'javascript.jsx': ['eslint'],
-\ 'typescript': ['eslint'],
-\ 'typescriptreact': ['eslint'],
+\ 'typescript': ['eslint', 'prettier'],
+\ 'typescriptreact': ['eslint', 'prettier'],
 \ 'ruby': ['rubocop'],
 \}
 
 let g:ale_fixers = {
 \ 'javascript': ['eslint'],
 \ 'javascript.jsx': ['eslint'],
-\ 'typescript': ['eslint'],
-\ 'typescriptreact': ['eslint'],
+\ 'typescript': ['eslint', 'prettier'],
+\ 'typescriptreact': ['eslint', 'prettier'],
 \ 'ruby': ['rubocop'],
 \}
 
