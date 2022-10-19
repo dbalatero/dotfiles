@@ -43,3 +43,5 @@ brew_install diff-so-fancy
 setup_git_scripts
 setup_user_gitconfig
 setup_git_dotfiles
+
+symlink_dotfile bin/git-main-branch ~/.local/bin/git-main-branch
