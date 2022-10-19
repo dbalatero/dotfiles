@@ -32,7 +32,7 @@ function command_exists() {
 
 function require_gh() {
   if ! command_exists "gh"; then
-    print_action "[prereq] Installing FZF"
+    print_action "[prereq] Installing FZF (awesome CLI fuzzy finder)"
     brew install gh
   fi
 }
@@ -43,7 +43,7 @@ function require_gh() {
 
 function require_fzf() {
   if ! command_exists "fzf"; then
-    print_action "[prereq] Installing FZF"
+    print_action "[prereq] Installing gh (Github CLI tools)"
     brew install fzf
   fi
 }
@@ -53,12 +53,37 @@ function pr_switch() {
   require_gh
   # ensure_gh_is_logged_in
 
-  local pull_requests=$(gh pr list --author "@me" --json state,title,url)
+  local pull_requests=$(gh pr list --author "@me" --json headRefName,number,title,url)
 
   if [ "$pull_requests" = "[]" ]; then
     echo "You have no open PRs in this repo."
     exit 0
   fi
+
+  local as_table=$(
+    echo $pull_requests | \
+      jq --raw-output '. | map("\(.number),\(.title),\(.headRefName)") | flatten[]' | \
+      sort
+  )
+
+  local selected_pr=$(
+    echo -e "ID,Title,Branch name\n$as_table" | \
+      column -t -s ',' | \
+      fzf \
+        --header "Select a PR to switch branches" \
+        --layout reverse \
+        --height=10 \
+        --header-lines 1
+  )
+
+  local selected_num=$(echo $selected_pr | awk '{print $1}')
+  local selected_branch=$(
+    echo $pull_requests | \
+      jq --raw-output ".[] | select(.number == $selected_num) | .headRefName"
+  )
+
+  dotsay "Checking out branch @yellow[[$selected_branch]]"
+  git checkout "$selected_branch"
 }
 
 # https://sookocheff.com/post/bash/parsing-bash-script-arguments-with-shopts/
