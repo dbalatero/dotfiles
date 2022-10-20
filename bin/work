@@ -137,15 +137,15 @@ EOF
   fi
 }
 
-trim() {
-    local var="$*"
+function trim() {
+  local var="$*"
 
-    # remove leading whitespace characters
-    var="${var#"${var%%[![:space:]]*}"}"
-    # remove trailing whitespace characters
-    var="${var%"${var##*[![:space:]]}"}"
+  # remove leading whitespace characters
+  var="${var#"${var%%[![:space:]]*}"}"
+  # remove trailing whitespace characters
+  var="${var%"${var##*[![:space:]]}"}"
 
-    printf '%s' "$var"
+  printf '%s' "$var"
 }
 
 function branch_name_from_title() {
