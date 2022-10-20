@@ -278,6 +278,56 @@ function pr_switch() {
   git checkout "$selected_branch"
 }
 
+function edit_pr_in_editor() {
+  if [ "$EDITOR" = "" ]; then
+    echo "Error: your EDITOR is not set"
+    exit 1
+  fi
+
+  # Create the description file
+  local branch_name_basename=$(git_current_branch | sed "s/\\//-/g")
+  local description_dir=/tmp/work-cli/descriptions
+  local description_file=$description_dir/$branch_name_basename.md
+
+  mkdir -p $description_dir
+  gh pr view --json body -q ".body" > $description_file
+
+  print_action "Opening $description_file..."
+
+  # Open Vim
+  $EDITOR $description_file
+  echo "Done editing"
+  echo
+
+  # Update the PR
+  print_action "Updating PR description..."
+  gh pr edit -F "$description_file"
+  echo
+
+  print_action "Marking PR ready..."
+  gh pr ready
+  echo
+
+  # Cleanup
+  rm $description_file
+}
+
+function review() {
+  local reviewer=$(echo $1 | sed 's/@//g')
+
+  if [ "$reviewer" = "" ]; then
+    echo "Error: No reviewer passed"
+    exit 1
+  fi
+
+  edit_pr_in_editor
+
+  # Assign reviewer
+  print_action "Assigning reviewer..."
+  gh pr edit --add-reviewer "$reviewer"
+  echo
+}
+
 ####################################################################
 # Script start - arg parsing / command calling
 ####################################################################
@@ -321,6 +371,11 @@ case "$subcommand" in
         exit 1
         ;;
     esac
+    ;;
+  review)
+    reviewer=$1; shift
+
+    review "$reviewer"
     ;;
   *)
     echo "Unknown subcommand: $subcommand"
