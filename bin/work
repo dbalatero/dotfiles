@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+api_key_file="$HOME/.config/work-cli/linear-api-key"
+
 function dotsay() {
   local result=$(_colorized $@)
   echo "$result"
@@ -34,6 +36,54 @@ function require_gh() {
   if ! command_exists "gh"; then
     print_action "[prereq] Installing FZF (awesome CLI fuzzy finder)"
     brew install gh
+  fi
+}
+
+function linear_api_key() {
+  cat "$api_key_file"
+}
+
+function require_linear_api_key() {
+  if [[ ! -f "$api_key_file" ]]; then
+    echo '
+******************************
+* Linear setup
+******************************
+'
+    dotsay "You need to @yellow[[set up your Linear API key]]."
+    echo
+    echo   "Would you like to:"
+    echo   "  1. Open the Linear settings page"
+    echo -n "  "
+    dotsay "  2. Generate a @yellow[[Personal API Token]]"
+    echo   "  3. Paste it back here"
+    echo
+
+    read -r -p "? (y/n) > " response
+    echo
+
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+      mkdir -p $(dirname "$api_key_file")
+
+      local url="https://linear.app/stainless/settings/api"
+
+      print_action "Opening $url in Chrome"
+      open -na "Google Chrome" --args --new-window "$url"
+
+      echo
+      read -r -p "Paste your Linear API token and press enter > " api_token
+
+      echo
+      echo "$api_token" > "$api_key_file"
+
+      echo "Finished one-time Linear setup"
+      echo
+      echo "******************************"
+      echo
+    else
+      echo "non-yes answer, exiting"
+      exit 1
+    fi
   fi
 }
 
@@ -83,15 +133,53 @@ EOF
   fi
 }
 
+trim() {
+    local var="$*"
+
+    # remove leading whitespace characters
+    var="${var#"${var%%[![:space:]]*}"}"
+    # remove trailing whitespace characters
+    var="${var%"${var##*[![:space:]]}"}"
+
+    printf '%s' "$var"
+}
+
+function branch_name_from_title() {
+  echo "$1" | \
+    sed "s/[^[:alpha:] ]//g" | \
+    tr '[:upper:]' '[:lower:]' | \
+    sed -r 's/ +/-/g'
+}
+
 ####################################################################
 # Commands
 ####################################################################
 
 function begin() {
-  echo "begin"
+  require_gh
+  require_linear_api_key
+
+  echo
+  read -r -p "Enter a title for your PR:
+
+  > " pr_title
+
+  echo
+
+  pr_title=$(trim "$pr_title")
+
+  if [ "$pr_title" = "" ]; then
+    echo "Error: Empty PR title, aborting"
+    exit 1
+  fi
+
+  branch_name="$USER/$(branch_name_from_title "$pr_title")"
+  echo $branch_name
 }
 
 function pr_show() {
+  require_gh
+
   local url
   url=$(gh pr view --json url -q ".url" 2>/dev/null)
   local status=$?
