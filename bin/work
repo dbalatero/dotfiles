@@ -48,6 +48,53 @@ function require_fzf() {
   fi
 }
 
+function git_current_branch() {
+  git symbolic-ref --short HEAD
+}
+
+# https://medium.com/@bit2pixel/how-i-navigate-hundreds-of-tabs-on-chrome-with-jxa-and-alfred-9bbf971af02b
+function focus_tab_or_open() {
+  local url="$1"
+  local focus_result=$(osascript -s o -l JavaScript << EOF 2>&1
+      const chrome = Application('Google Chrome');
+      let found = false;
+
+      chrome.windows().forEach((window) => {
+        window.tabs().forEach((tab, tabIdx) => {
+          if (tab.url().startsWith("$url")) {
+            // focus the tab
+            window.visible = true;
+            window.index = 1;
+            window.activeTabIndex = tabIdx + 1;
+            chrome.activate();
+
+            found = true;
+          }
+        });
+      });
+
+      console.log(found ? "Focused" : "Not found");
+EOF
+  )
+
+  if [ "$focus_result" != "Focused" ]; then
+    # Open the URL instead
+    open -a "Google Chrome" "$url"
+  fi
+}
+
+function pr_show() {
+  local url
+  url=$(gh pr view --json url -q ".url" 2>/dev/null)
+  local status=$?
+
+  if test $status -eq 0; then
+    focus_tab_or_open "$url"
+  else
+    dotsay "Error: Could not find a PR for the @yellow[[$(git_current_branch)]] branch"
+  fi
+}
+
 function pr_switch() {
   require_fzf
   require_gh
@@ -94,6 +141,9 @@ case "$subcommand" in
     pr_command=$1; shift
 
     case "$pr_command" in
+      show)
+        pr_show
+        ;;
       switch)
         pr_switch
         ;;
