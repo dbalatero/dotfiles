@@ -83,6 +83,14 @@ EOF
   fi
 }
 
+####################################################################
+# Commands
+####################################################################
+
+function begin() {
+  echo "begin"
+}
+
 function pr_show() {
   local url
   url=$(gh pr view --json url -q ".url" 2>/dev/null)
@@ -133,10 +141,17 @@ function pr_switch() {
   git checkout "$selected_branch"
 }
 
+####################################################################
+# Script start - arg parsing / command calling
+####################################################################
+
 # https://sookocheff.com/post/bash/parsing-bash-script-arguments-with-shopts/
 subcommand=$1; shift
 
 case "$subcommand" in
+  begin)
+    begin
+    ;;
   pr)
     pr_command=$1; shift
 
