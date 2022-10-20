@@ -163,6 +163,8 @@ function begin() {
   require_gh
   require_linear_api_key
 
+  linear_id=$1
+
   # TODO: dirty repo
 
   echo
@@ -179,8 +181,14 @@ function begin() {
     exit 1
   fi
 
-  base_branch=$(git_main_branch)
-  branch_name="$USER/$(branch_name_from_title "$pr_title")"
+  local base_branch=$(git_main_branch)
+  local branch_name
+
+  if [ "$linear_id" = "" ]; then
+    branch_name="$USER/$(branch_name_from_title "$pr_title")"
+  else
+    branch_name="$USER/$linear_id/$(branch_name_from_title "$pr_title")"
+  fi
 
   print_action "Fetching origin main"
   git fetch origin $base_branch
@@ -279,7 +287,24 @@ subcommand=$1; shift
 
 case "$subcommand" in
   begin)
-    begin
+    while getopts ":l:" opt; do
+      case ${opt} in
+        l )
+          linear_id=$OPTARG
+          ;;
+        \? )
+          echo "Invalid Option: -$OPTARG" 1>&2
+          exit 1
+          ;;
+        : )
+          echo "Invalid Option: -$OPTARG requires an argument" 1>&2
+          exit 1
+          ;;
+      esac
+    done
+    shift $((OPTIND -1))
+
+    begin "$linear_id"
     ;;
   pr)
     pr_command=$1; shift
