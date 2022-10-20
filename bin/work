@@ -165,7 +165,13 @@ function begin() {
 
   linear_id=$1
 
-  # TODO: dirty repo
+  if ! git diff --quiet ; then
+    echo "Error: git tree is dirty, cannot branch"
+    echo
+    git status
+    echo
+    exit 1
+  fi
 
   echo
   read -r -p "Enter a title for your PR:
