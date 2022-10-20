@@ -102,6 +102,10 @@ function git_current_branch() {
   git symbolic-ref --short HEAD
 }
 
+function git_main_branch() {
+  sed -e "s/^.*\///" < .git/refs/remotes/origin/HEAD
+}
+
 # https://medium.com/@bit2pixel/how-i-navigate-hundreds-of-tabs-on-chrome-with-jxa-and-alfred-9bbf971af02b
 function focus_tab_or_open() {
   local url="$1"
@@ -159,6 +163,8 @@ function begin() {
   require_gh
   require_linear_api_key
 
+  # TODO: dirty repo
+
   echo
   read -r -p "Enter a title for your PR:
 
@@ -173,8 +179,43 @@ function begin() {
     exit 1
   fi
 
+  base_branch=$(git_main_branch)
   branch_name="$USER/$(branch_name_from_title "$pr_title")"
-  echo $branch_name
+
+  print_action "Fetching origin main"
+  git fetch origin $base_branch
+  echo
+
+  print_action "Creating $branch_name"
+  git checkout -b "$branch_name" "origin/$base_branch"
+  echo
+
+  print_action "Creating initial commit"
+  git commit --allow-empty -m "[skip ci] Initial commit"
+  echo
+
+  print_action "Pushing branch to Github"
+  git push -u origin "$branch_name"
+  echo
+
+  print_action "Creating PR"
+
+  local pr_url=$(
+    gh pr create \
+      --assignee "@me" \
+      --base "$base_branch" \
+      --body "<!-- body -->" \
+      --draft \
+      --head "$branch_name" \
+      --title "$pr_title"
+  )
+
+  echo "Done"
+  echo
+
+  print_action "Opening PR in Chrome"
+  open -a "Google Chrome" "$pr_url"
+  echo "Done"
 }
 
 function pr_show() {
