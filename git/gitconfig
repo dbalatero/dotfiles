@@ -178,3 +178,5 @@
 	autocorrect = 0
 [work "features"]
 	gh = true
+[init]
+	defaultBranch = main
