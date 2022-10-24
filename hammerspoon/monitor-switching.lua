@@ -1,28 +1,11 @@
-local function file_exists(name)
-  local f = io.open(name,"r")
-
-  if f ~= nil then
-    io.close(f)
-    return true
-  else
-    return false
-  end
-end
+local resolvePath = require('utils.resolve-path')
 
 local function getDDCCTLBinary()
-  local binaryLocations = {
+  return resolvePath({
     os.getenv("HOME") .. "/.nix-profile/bin/ddcctl", -- crazy
     "/usr/local/bin/ddcctl", -- intel
     "/opt/homebrew/bin/ddcctl", -- m1
-  }
-
-  for _, path in ipairs(binaryLocations) do
-    if file_exists(path) then
-      return path
-    end
-  end
-
-  return nil
+  })
 end
 
 local function switchMonitor()

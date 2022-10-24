@@ -1,6 +1,13 @@
+local resolvePath = require('utils.resolve-path')
+
 -- Sony WH-1000XM4
 local headphoneDeviceId = "94-db-56-47-6a-86"
-local blueUtil = "/usr/local/bin/blueutil"
+
+local blueUtil = resolvePath({
+  "/opt/homebrew/bin/blueutil",
+  "/usr/local/bin/blueutil",
+})
+
 
 local function disconnectHeadphones()
   hs.task.new(
