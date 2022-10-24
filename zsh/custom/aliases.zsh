@@ -12,6 +12,8 @@ alias tn="tmuxinator"
 alias emacs="TERM=xterm-24bit emacs -nw"
 alias vim="nvim"
 alias 6="exec zsh"
+
+alias b="work begin"
 alias p="work pr show"
 
 # OS X apps
