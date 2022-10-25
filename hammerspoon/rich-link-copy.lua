@@ -72,6 +72,8 @@ local function getRichLinkToCurrentChromeTab()
     ["paper.dropbox.com"] = ":paper:",
     ["whimsical.com"] = ":whimsical:",
     ["groups.google.com"] = ":e-mail:",
+    ["notion.so"] = ":notion:",
+    ["linear.app"] = ":linear:",
   }
 
   for pattern, emoji in pairs(emojiPatterns) do
