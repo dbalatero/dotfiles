@@ -7,7 +7,8 @@
 local dummyScript = {
   {
     type = 'type',
-    text = "import EdgeImpulse from './index';"
+    text = "import EdgeImpulse from './index';",
+    speed = 'slow',
   },
   { type = "newLine" },
   { type = "newLine" },
@@ -20,7 +21,8 @@ local dummyScript = {
   { type = "newLine" },
   {
     type = 'type',
-    text = "const main = async () => {"
+    text = "const main = async () => {",
+    speed = 'slow',
   },
   { type = "waitForEditor" },
   { type = "newLine" },
