@@ -1,3 +1,8 @@
+-- TODO:
+--
+--   disable auto close quotes
+--   disable auto close brackets
+--
 -- Our "movie script"
 local dummyScript = {
   {
@@ -8,7 +13,8 @@ local dummyScript = {
   { type = "newLine" },
   {
     type = 'type',
-    text = "const client = new EdgeImpulse({ apiKey: 'ei_yourkey' });"
+    text = "const client = new EdgeImpulse({ apiKey: 'ei_yourkey' });",
+    speed = 'slow',
   },
   { type = "newLine" },
   { type = "newLine" },
@@ -20,17 +26,21 @@ local dummyScript = {
   { type = "newLine" },
   {
     type = 'type',
+    speed = 'slow',
     text = "const { projects } = await client.projects.",
   },
   { type = "wait", waitMs = 750 },
   { type = "keyPress", keyName = "down", waitMs = 500 },
   { type = "keyPress", keyName = "return", waitMs = 200 },
   -- open parens
-  { type = "keyPress", modifiers = {'shift'}, keyName = "9", waitMs = 200 },
-  -- end of line
-  { type = "keyPress", modifiers = {'ctrl'}, keyName = "e", waitMs = 200 },
-  { type = "keyPress", keyName = ";" },
+  {
+    type = 'type',
+    speed = 'slow',
+    text = "();",
+  },
   { type = "newLine" },
+  { type = "newLine" },
+  { type = "wait", waitMs = 750 },
   {
     type = 'type',
     text = "projects.forEach((project) => {",
@@ -38,42 +48,66 @@ local dummyScript = {
   { type = "newLine" },
   {
     type = 'type',
+    speed = 'slow',
     text = "console.log(`- Found project ${project.",
   },
-  { type = "wait", waitMs = 1500 },
+  { type = "wait", waitMs = 500 },
   {
     type = 'type',
     text = "id",
+    speed = 'slow',
   },
-  { type = "wait", waitMs = 1500 },
+  { type = "wait", waitMs = 500 },
   { type = "keyPress", keyName = "return" },
   {
     type = 'type',
+    speed = 'slow',
     text = "}, description: ${project.desc",
   },
-  { type = "wait", waitMs = 1500 },
+  { type = "wait", waitMs = 500 },
   { type = "keyPress", keyName = "return" },
-  -- end of line
-  { type = "keyPress", modifiers = {'ctrl'}, keyName = "e", waitMs = 200 },
   {
     type = 'type',
-    text = "`);",
+    speed = 'slow',
+    text = "}`);",
   },
-  { type = "keyPress", keyName = "down" },
-  { type = "keyPress", modifiers = {'ctrl'}, keyName = "e" },
-  { type = "keyPress", keyName = ";" },
   { type = "newLine" },
-  { type = "keyPress", modifiers = {'cmd'}, keyName = "delete", waitMs = 200 },
+  { type = "wait", waitMs = 200 },
+  {
+    type = 'type',
+    text = "});",
+    speed = 'slow',
+  },
+  { type = "newLine" },
+  { type = "wait", waitMs = 200 },
   {
     type = 'type',
     text = "};",
+    speed = 'slow',
   },
   { type = "newLine" },
   { type = "newLine" },
   {
     type = 'type',
     text = "main();",
+    speed = 'slow',
   },
+
+  -- { type = "keyPress", keyName = "down" },
+  -- { type = "keyPress", modifiers = {'ctrl'}, keyName = "e" },
+  -- { type = "keyPress", keyName = ";" },
+  -- { type = "newLine" },
+  -- { type = "keyPress", modifiers = {'cmd'}, keyName = "delete", waitMs = 200 },
+  -- {
+  --   type = 'type',
+  --   text = "};",
+  -- },
+  -- { type = "newLine" },
+  -- { type = "newLine" },
+  -- {
+  --   type = 'type',
+  --   text = "main();",
+  -- },
 }
 
 local function stringToChars(str)
@@ -138,31 +172,41 @@ local actionHandlers = {
     local speed = action.speed or "fast"
 
     if speed == "slow" then
-      local sleepMicroseconds = 20 * 1000
+      local sleepSeconds = 20 / 1000 -- 20ms between each key
+      local characters = stringToChars(action.text)
 
-      eachCharacter(action.text, function(char)
-        local character = char
-        local modifiers = {}
+      local handleCharacter = nil
+      handleCharacter = function()
+        -- shift the first one off
+        local char = table.remove(characters, 1)
 
-        if characterOverrides[char] then
-          modifiers = characterOverrides[char][1] or {}
-          character = characterOverrides[char][2]
+        if char then
+          local character = char
+          local modifiers = {}
+
+          if characterOverrides[char] then
+            modifiers = characterOverrides[char][1] or {}
+            character = characterOverrides[char][2]
+          end
+
+          if char:find("[A-Z]") then
+            table.insert(modifiers, 'shift')
+          end
+
+          hs.eventtap.keyStroke(modifiers, character, 0)
+          hs.timer.doAfter(sleepSeconds, handleCharacter)
+        else
+          -- done!
+          nextAction()
         end
+      end
 
-        if char:find("[A-Z]") then
-          table.insert(modifiers, 'shift')
-        end
-
-        print("Doing: " .. inspect(modifiers) .. ", " .. character)
-
-        hs.eventtap.keyStroke(modifiers, character, 0)
-        -- hs.timer.usleep(sleepMicroseconds)
-      end)
+      -- loop thru the characters, waiting between each one.
+      handleCharacter()
     else
       hs.eventtap.keyStrokes(action.text)
+      nextAction()
     end
-
-    nextAction()
   end,
   wait = function(action, nextAction)
     hs.timer.doAfter(action.waitMs / 1000, nextAction)
