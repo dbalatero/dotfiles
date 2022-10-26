@@ -10,10 +10,12 @@
     "window.nativeFullScreen": false,
     "window.newWindowDimensions": "fullscreen",
     "window.restoreFullscreen": true,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 3,
     "workbench.colorTheme": "Base16 Dark Oceanic Next",
     "workbench.panel.defaultLocation": "right",
     "editor.accessibilitySupport": "off",
     "update.channel": "none",
-    "security.workspace.trust.enabled": false
+    "security.workspace.trust.enabled": false,
+    "zenMode.fullScreen": false,
+    "workbench.statusBar.visible": false
 }
