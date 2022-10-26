@@ -17,5 +17,7 @@
     "update.channel": "none",
     "security.workspace.trust.enabled": false,
     "zenMode.fullScreen": false,
-    "workbench.statusBar.visible": false
+    "workbench.statusBar.visible": false,
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never"
 }
