@@ -25,7 +25,8 @@ require "pull-request-comments"
 require "paste-code-to-gdocs"
 require "keys-pressed"
 require "water-menubar"
-require "good-morning-obsidian"
+-- require "good-morning-obsidian"
+require "code-screen-recorder"
 
 local SkyRocket = hs.loadSpoon("SkyRocket")
 
