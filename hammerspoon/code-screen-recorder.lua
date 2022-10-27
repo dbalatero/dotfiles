@@ -1,68 +1,3 @@
--- TODO:
---
---   disable auto close quotes
---   disable auto close brackets
---   disable auto indent
---
--- Our "movie script"
-local dummyScript = {
-  {
-    type = 'type',
-    lines = {
-      "import EdgeImpulse from './index';",
-      "",
-      "const client = new EdgeImpulse({ apiKey: 'ei_yourkey' });",
-      "",
-      "const main = async () => {",
-    }
-  },
-  {
-    type = 'type',
-    lines = {
-      "  const { projects } = await client.projects.",
-    },
-    afterLastLine = "waitForAutocomplete",
-  },
-  {
-    type = 'selectFromAutocomplete',
-    movesBeforeSelect = { 'down' },
-  },
-  {
-    type = 'type',
-    lines = {
-      "();",
-      "",
-      "  projects.forEach((project) => {",
-      "    console.log(`- Found project ${project.",
-    },
-    afterLastLine = "waitForAutocomplete",
-  },
-  {
-    type = 'selectFromAutocomplete',
-    narrowResults = "id",
-  },
-  {
-    type = 'type',
-    lines = { '}, description: ${project.' },
-    afterLastLine = "waitForAutocomplete",
-  },
-  {
-    type = 'selectFromAutocomplete',
-    narrowResults = "desc",
-  },
-  {
-    type = 'type',
-    lines = {
-      "}`);",
-      "  });",
-      "};",
-      "",
-      "main();",
-    },
-    afterLastLine = "nothing",
-  },
-}
-
 local function stringToChars(str)
   local chars = {}
   local current = 1
@@ -259,5 +194,70 @@ local function runMovieScript(movieScript)
 end
 
 hs.hotkey.bind(super, '0', function()
+  -- TODO:
+  --
+  --   disable auto close quotes
+  --   disable auto close brackets
+  --   disable auto indent
+  --
+  -- Our "movie script"
+  local dummyScript = {
+    {
+      type = 'type',
+      lines = {
+        "import EdgeImpulse from './index';",
+        "",
+        "const client = new EdgeImpulse({ apiKey: 'ei_yourkey' });",
+        "",
+        "const main = async () => {",
+      }
+    },
+    {
+      type = 'type',
+      lines = {
+        "  const { projects } = await client.projects.",
+      },
+      afterLastLine = "waitForAutocomplete",
+    },
+    {
+      type = 'selectFromAutocomplete',
+      movesBeforeSelect = { 'down' },
+    },
+    {
+      type = 'type',
+      lines = {
+        "();",
+        "",
+        "  projects.forEach((project) => {",
+        "    console.log(`- Found project ${project.",
+      },
+      afterLastLine = "waitForAutocomplete",
+    },
+    {
+      type = 'selectFromAutocomplete',
+      narrowResults = "id",
+    },
+    {
+      type = 'type',
+      lines = { '}, description: ${project.' },
+      afterLastLine = "waitForAutocomplete",
+    },
+    {
+      type = 'selectFromAutocomplete',
+      narrowResults = "desc",
+    },
+    {
+      type = 'type',
+      lines = {
+        "}`);",
+        "  });",
+        "};",
+        "",
+        "main();",
+      },
+      afterLastLine = "nothing",
+    },
+  }
+
   runMovieScript(dummyScript)
 end)
