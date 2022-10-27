@@ -2,114 +2,65 @@
 --
 --   disable auto close quotes
 --   disable auto close brackets
+--   disable auto indent
 --
 -- Our "movie script"
 local dummyScript = {
   {
     type = 'type',
-    text = "import EdgeImpulse from './index';",
-    speed = 'slow',
+    lines = {
+      "import EdgeImpulse from './index';",
+      "",
+      "const client = new EdgeImpulse({ apiKey: 'ei_yourkey' });",
+      "",
+      "const main = async () => {",
+    }
   },
-  { type = "newLine" },
-  { type = "newLine" },
   {
     type = 'type',
-    text = "const client = new EdgeImpulse({ apiKey: 'ei_yourkey' });",
-    speed = 'slow',
+    lines = {
+      "  const { projects } = await client.projects.",
+    },
+    afterLastLine = "waitForAutocomplete",
   },
-  { type = "newLine" },
-  { type = "newLine" },
+  {
+    type = 'selectFromAutocomplete',
+    movesBeforeSelect = { 'down' },
+  },
   {
     type = 'type',
-    text = "const main = async () => {",
-    speed = 'slow',
+    lines = {
+      "();",
+      "",
+      "  projects.forEach((project) => {",
+      "    console.log(`- Found project ${project.",
+    },
+    afterLastLine = "waitForAutocomplete",
   },
-  { type = "waitForEditor" },
-  { type = "newLine" },
+  {
+    type = 'selectFromAutocomplete',
+    narrowResults = "id",
+  },
   {
     type = 'type',
-    speed = 'slow',
-    text = "const { projects } = await client.projects.",
+    lines = { '}, description: ${project.' },
+    afterLastLine = "waitForAutocomplete",
   },
-  { type = "wait", waitMs = 750 },
-  { type = "keyPress", keyName = "down", waitMs = 500 },
-  { type = "keyPress", keyName = "return", waitMs = 200 },
-  -- open parens
+  {
+    type = 'selectFromAutocomplete',
+    narrowResults = "desc",
+  },
   {
     type = 'type',
-    speed = 'slow',
-    text = "();",
+    lines = {
+      "}`);",
+      "  });",
+      "};",
+      "",
+      "main();",
+    },
+    afterLastLine = "nothing",
   },
-  { type = "newLine" },
-  { type = "newLine" },
-  { type = "wait", waitMs = 750 },
-  {
-    type = 'type',
-    text = "projects.forEach((project) => {",
-  },
-  { type = "newLine" },
-  {
-    type = 'type',
-    speed = 'slow',
-    text = "console.log(`- Found project ${project.",
-  },
-  { type = "wait", waitMs = 500 },
-  {
-    type = 'type',
-    text = "id",
-    speed = 'slow',
-  },
-  { type = "wait", waitMs = 500 },
-  { type = "keyPress", keyName = "return" },
-  {
-    type = 'type',
-    speed = 'slow',
-    text = "}, description: ${project.desc",
-  },
-  { type = "wait", waitMs = 500 },
-  { type = "keyPress", keyName = "return" },
-  {
-    type = 'type',
-    speed = 'slow',
-    text = "}`);",
-  },
-  { type = "newLine" },
-  { type = "wait", waitMs = 200 },
-  {
-    type = 'type',
-    text = "});",
-    speed = 'slow',
-  },
-  { type = "newLine" },
-  { type = "wait", waitMs = 200 },
-  {
-    type = 'type',
-    text = "};",
-    speed = 'slow',
-  },
-  { type = "newLine" },
-  { type = "newLine" },
-  {
-    type = 'type',
-    text = "main();",
-    speed = 'slow',
-  },
-
-  -- { type = "keyPress", keyName = "down" },
-  -- { type = "keyPress", modifiers = {'ctrl'}, keyName = "e" },
-  -- { type = "keyPress", keyName = ";" },
-  -- { type = "newLine" },
-  -- { type = "keyPress", modifiers = {'cmd'}, keyName = "delete", waitMs = 200 },
-  -- {
-  --   type = 'type',
-  --   text = "};",
-  -- },
-  -- { type = "newLine" },
-  -- { type = "newLine" },
-  -- {
-  --   type = 'type',
-  --   text = "main();",
-  -- },
 }
 
 local function stringToChars(str)
@@ -155,6 +106,62 @@ local characterOverrides = {
   ["~"] = {{'shift'}, '`'},
 }
 
+local function printKeys(characters, options)
+  print("Printing: " .. inspect(characters))
+
+  local doneFn = options.doneFn
+
+  -- Default to 20ms between keypresses
+  local pauseMilliseconds = options.pauseMilliseconds or 20
+  local sleepSeconds = pauseMilliseconds / 1000
+
+  local handleCharacter = nil
+  handleCharacter = function()
+    -- shift the first one off
+    local char = table.remove(characters, 1)
+
+    if char then
+      local character = char
+      local modifiers = {}
+
+      if characterOverrides[char] then
+        modifiers = characterOverrides[char][1] or {}
+        character = characterOverrides[char][2]
+      end
+
+      if char:find("[A-Z]") then
+        table.insert(modifiers, 'shift')
+      end
+
+      hs.eventtap.keyStroke(modifiers, character, 0)
+      hs.timer.doAfter(sleepSeconds, handleCharacter)
+    else
+      doneFn()
+    end
+  end
+
+  -- loop thru the characters, waiting between each one.
+  handleCharacter()
+end
+
+local function printLine(line, options)
+  local newLineAtEnd = options.newLineAtEnd == nil and true or options.newLineAtEnd
+
+  -- Pull out the passed in doneFn so we can wrap it:
+  local doneFn = options.doneFn
+
+  options.doneFn = function()
+    if newLineAtEnd then
+      hs.eventtap.keyStroke({}, 'return', 0)
+    end
+
+    hs.timer.doAfter(20 / 1000, doneFn)
+  end
+
+  local characters = stringToChars(line)
+  printKeys(characters, options)
+end
+
 local actionHandlers = {
   keyPress = function(action, nextAction)
     local modifiers = action.modifiers or {}
@@ -170,45 +177,60 @@ local actionHandlers = {
     hs.eventtap.keyStroke({}, "return", 0)
     nextAction()
   end,
-  type = function(action, nextAction)
-    local speed = action.speed or "fast"
+  selectFromAutocomplete = function(action, nextAction)
+    local movesBeforeSelect = action.movesBeforeSelect or {}
 
-    if speed == "slow" then
-      local sleepSeconds = 20 / 1000 -- 20ms between each key
-      local characters = stringToChars(action.text)
+    local doSelection = function()
+      printKeys(movesBeforeSelect, {
+        pauseMilliseconds = 270,
+        newLineAtEnd = false,
+        doneFn = function()
+          -- Select autocomplete result
+          hs.eventtap.keyStroke({}, "return", 0)
 
-      local handleCharacter = nil
-      handleCharacter = function()
-        -- shift the first one off
-        local char = table.remove(characters, 1)
-
-        if char then
-          local character = char
-          local modifiers = {}
-
-          if characterOverrides[char] then
-            modifiers = characterOverrides[char][1] or {}
-            character = characterOverrides[char][2]
-          end
-
-          if char:find("[A-Z]") then
-            table.insert(modifiers, 'shift')
-          end
-
-          hs.eventtap.keyStroke(modifiers, character, 0)
-          hs.timer.doAfter(sleepSeconds, handleCharacter)
-        else
-          -- done!
           nextAction()
         end
-      end
-
-      -- loop thru the characters, waiting between each one.
-      handleCharacter()
-    else
-      hs.eventtap.keyStrokes(action.text)
-      nextAction()
+      })
     end
+
+    if action.narrowResults then
+      printKeys(stringToChars(action.narrowResults), {
+        pauseMilliseconds = 125, -- type a little slower to show refinements
+        newLineAtEnd = false,
+        doneFn = function()
+          -- Wait before selecting to let them see the refined results.
+          hs.timer.doAfter(600 / 1000, doSelection)
+        end
+      })
+    else
+      doSelection()
+    end
+  end,
+  type = function(action, nextAction)
+    local lines = action.lines
+
+    local afterLastLine = action.afterLastLine or "printNewLine"
+    local newLineAfterLastLine = afterLastLine == "printNewLine"
+
+    local handleLine = nil
+    handleLine = function()
+      local line = table.remove(lines, 1)
+
+      if line then
+        local newLineAtEnd = newLineAfterLastLine or #lines > 0
+
+        printLine(line, {
+          doneFn = handleLine,
+          newLineAtEnd = newLineAtEnd,
+        })
+      else
+        -- Either wait for autocomplete to popup, or immediately fire nextAction.
+        local waitTimeout = action.afterLastLine == "waitForAutocomplete" and 750 or 0
+        hs.timer.doAfter(waitTimeout / 1000, nextAction)
+      end
+    end
+
+    handleLine()
   end,
   wait = function(action, nextAction)
     hs.timer.doAfter(action.waitMs / 1000, nextAction)

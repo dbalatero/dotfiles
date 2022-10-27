@@ -19,5 +19,6 @@
     "zenMode.fullScreen": false,
     "workbench.statusBar.visible": false,
     "editor.autoClosingBrackets": "never",
-    "editor.autoClosingQuotes": "never"
+    "editor.autoClosingQuotes": "never",
+    "editor.autoIndent": "none"
 }
