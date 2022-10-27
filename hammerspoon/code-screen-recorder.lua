@@ -112,6 +112,10 @@ local actionHandlers = {
     hs.eventtap.keyStroke({}, "return", 0)
     nextAction()
   end,
+  saveFile = function(_action, nextAction)
+    hs.eventtap.keyStroke({"cmd"}, "s", 0)
+    nextAction()
+  end,
   selectFromAutocomplete = function(action, nextAction)
     local movesBeforeSelect = action.movesBeforeSelect or {}
 
@@ -194,70 +198,142 @@ local function runMovieScript(movieScript)
 end
 
 hs.hotkey.bind(super, '0', function()
+  local dummyScript = {
+    {
+      type = 'type',
+      lines = {
+        "import Mux from 'mux';",
+        "",
+        "const mux = new Mux({",
+        "  // These are dev env values",
+        '  tokenId: "<your api token>",',
+        '  tokenSecret: "<your api secret>",',
+        "});",
+        "",
+        "async function main() {",
+        "  const asset = await mux.video.",
+      },
+      afterLastLine = "waitForAutocomplete",
+    },
+    {
+      type = 'selectFromAutocomplete',
+      narrowResults = "as",
+    },
+    {
+      type = 'type',
+      lines = {
+        ".",
+      },
+      afterLastLine = "waitForAutocomplete",
+    },
+    {
+      type = 'selectFromAutocomplete',
+    },
+    {
+      type = 'type',
+      lines = {
+        "({",
+        "    input: [{ url: 'https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4' }],",
+        "    playback_policy: ['public'],",
+        "  });",
+        "  console.log(asset);",
+        "",
+        "  const assets = [];",
+        "  for await (const asset of mux.video.assets.",
+      },
+      afterLastLine = "waitForAutocomplete",
+    },
+    {
+      type = 'selectFromAutocomplete',
+      narrowResults = "li",
+    },
+    {
+      type = 'type',
+      lines = {
+        "()) {",
+        "    console.log(asset.id);",
+        "    assets.push(asset);",
+        "  }",
+        "  console.log(assets.length);",
+        "}",
+        "",
+        "main().catch(console.error);",
+      },
+      afterLastLine = "nothing",
+    },
+    {
+      type = "saveFile",
+    },
+  }
+
   -- TODO:
   --
   --   disable auto close quotes
   --   disable auto close brackets
   --   disable auto indent
+  --   disable breadcrumbs
+  --   hide minimap
+  --   hide activity bar
+  --   window.title == "blah-node demo"
   --
   -- Our "movie script"
-  local dummyScript = {
-    {
-      type = 'type',
-      lines = {
-        "import EdgeImpulse from './index';",
-        "",
-        "const client = new EdgeImpulse({ apiKey: 'ei_yourkey' });",
-        "",
-        "const main = async () => {",
-      }
-    },
-    {
-      type = 'type',
-      lines = {
-        "  const { projects } = await client.projects.",
-      },
-      afterLastLine = "waitForAutocomplete",
-    },
-    {
-      type = 'selectFromAutocomplete',
-      movesBeforeSelect = { 'down' },
-    },
-    {
-      type = 'type',
-      lines = {
-        "();",
-        "",
-        "  projects.forEach((project) => {",
-        "    console.log(`- Found project ${project.",
-      },
-      afterLastLine = "waitForAutocomplete",
-    },
-    {
-      type = 'selectFromAutocomplete',
-      narrowResults = "id",
-    },
-    {
-      type = 'type',
-      lines = { '}, description: ${project.' },
-      afterLastLine = "waitForAutocomplete",
-    },
-    {
-      type = 'selectFromAutocomplete',
-      narrowResults = "desc",
-    },
-    {
-      type = 'type',
-      lines = {
-        "}`);",
-        "  });",
-        "};",
-        "",
-        "main();",
-      },
-      afterLastLine = "nothing",
-    },
-  }
+  -- local dummyScript = {
+  --   {
+  --     type = 'type',
+  --     lines = {
+  --       "import EdgeImpulse from './index';",
+  --       "",
+  --       "const client = new EdgeImpulse({ apiKey: 'ei_yourkey' });",
+  --       "",
+  --       "const main = async () => {",
+  --     }
+  --   },
+  --   {
+  --     type = 'type',
+  --     lines = {
+  --       "  const { projects } = await client.projects.",
+  --     },
+  --     afterLastLine = "waitForAutocomplete",
+  --   },
+  --   {
+  --     type = 'selectFromAutocomplete',
+  --     movesBeforeSelect = { 'down' },
+  --   },
+  --   {
+  --     type = 'type',
+  --     lines = {
+  --       "();",
+  --       "",
+  --       "  projects.forEach((project) => {",
+  --       "    console.log(`- Found project ${project.",
+  --     },
+  --     afterLastLine = "waitForAutocomplete",
+  --   },
+  --   {
+  --     type = 'selectFromAutocomplete',
+  --     narrowResults = "id",
+  --   },
+  --   {
+  --     type = 'type',
+  --     lines = { '}, description: ${project.' },
+  --     afterLastLine = "waitForAutocomplete",
+  --   },
+  --   {
+  --     type = 'selectFromAutocomplete',
+  --     narrowResults = "desc",
+  --   },
+  --   {
+  --     type = 'type',
+  --     lines = {
+  --       "}`);",
+  --       "  });",
+  --       "};",
+  --       "",
+  --       "main();",
+  --     },
+  --     afterLastLine = "nothing",
+  --   },
+  -- }
 
   runMovieScript(dummyScript)
 end)
