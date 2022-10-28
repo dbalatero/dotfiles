@@ -20,9 +20,14 @@
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
     "editor.autoIndent": "none",
-    "workbench.colorTheme": "Github Light Theme",
+    "workbench.colorTheme": "One Dark Pro Mix",
     "breadcrumbs.enabled": false,
     "window.title": "mux-node example",
     "editor.minimap.enabled": false,
-    "workbench.activityBar.visible": false
+    "workbench.activityBar.visible": false,
+    "typescript.validate.enable": false,
+    "javascript.validate.enable": false,
+    "editor.quickSuggestions": {
+        "other": "off"
+    }
 }

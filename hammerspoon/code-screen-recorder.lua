@@ -42,8 +42,6 @@ local characterOverrides = {
 }
 
 local function printKeys(characters, options)
-  print("Printing: " .. inspect(characters))
-
   local doneFn = options.doneFn
 
   -- Default to 20ms between keypresses
@@ -80,24 +78,42 @@ local function printKeys(characters, options)
 end
 
 local function printLine(line, options)
+  print("printing: " .. line)
+
   local newLineAtEnd = options.newLineAtEnd == nil and true or options.newLineAtEnd
 
   -- Pull out the passed in doneFn so we can wrap it:
   local doneFn = options.doneFn
 
   options.doneFn = function()
-    if newLineAtEnd then
-      hs.eventtap.keyStroke({}, 'return', 0)
-    end
+    hs.timer.doAfter(150 / 1000, function()
+      if newLineAtEnd then
+        hs.eventtap.keyStroke({}, 'return', 0)
+      end
 
-    hs.timer.doAfter(20 / 1000, doneFn)
+      doneFn()
+    end)
   end
 
   local characters = stringToChars(line)
   printKeys(characters, options)
 end
 
+local function triggerCompletions()
+  hs.eventtap.keyStroke({'ctrl'}, 'space', 0)
+end
+
 local actionHandlers = {
+  closeHoverBox = function(_, nextAction)
+    hs.eventtap.keyStroke({}, 'escape', 0)
+    hs.timer.doAfter(50 / 1000, nextAction)
+  end,
+  hoverDocumentation = function(_, nextAction)
+    -- cmd+k cmd+i is hover docs by default in VSCode
+    hs.eventtap.keyStroke({'cmd'}, 'k', 50)
+    hs.eventtap.keyStroke({'cmd'}, 'i', 50)
+    hs.timer.doAfter(50 / 1000, nextAction)
+  end,
   keyPress = function(action, nextAction)
     local modifiers = action.modifiers or {}
     hs.eventtap.keyStroke(modifiers, action.keyName, 0)
@@ -117,16 +133,19 @@ local actionHandlers = {
     nextAction()
   end,
   selectFromAutocomplete = function(action, nextAction)
+    if action.triggerCompletions or action.triggerCompletions == nil then
+      triggerCompletions()
+    end
+
     local movesBeforeSelect = action.movesBeforeSelect or {}
 
     local doSelection = function()
       printKeys(movesBeforeSelect, {
-        pauseMilliseconds = 270,
+        pauseMilliseconds = 150,
         newLineAtEnd = false,
         doneFn = function()
           -- Select autocomplete result
           hs.eventtap.keyStroke({}, "return", 0)
-
           nextAction()
         end
       })
@@ -134,18 +153,24 @@ local actionHandlers = {
 
     if action.narrowResults then
       printKeys(stringToChars(action.narrowResults), {
-        pauseMilliseconds = 125, -- type a little slower to show refinements
+        pauseMilliseconds = 50, -- type a little slower to show refinements
         newLineAtEnd = false,
         doneFn = function()
           -- Wait before selecting to let them see the refined results.
-          hs.timer.doAfter(600 / 1000, doSelection)
+          hs.timer.doAfter(300 / 1000, doSelection)
         end
       })
     else
       doSelection()
     end
   end,
+  triggerCompletions = function(_, nextAction)
+    triggerCompletions()
+    nextAction()
+  end,
   type = function(action, nextAction)
+    -- If we want instant typing, set { typingSpeed = 'instant' } in the action,
+    -- otherwise default to normal typing speed.
     local lines = action.lines
 
     local afterLastLine = action.afterLastLine or "printNewLine"
@@ -158,10 +183,20 @@ local actionHandlers = {
       if line then
         local newLineAtEnd = newLineAfterLastLine or #lines > 0
 
-        printLine(line, {
-          doneFn = handleLine,
-          newLineAtEnd = newLineAtEnd,
-        })
+        if action.typingSpeed == 'instant' then
+          hs.eventtap.keyStrokes(line)
+          hs.timer.doAfter(100 / 1000, function()
+            if newLineAtEnd then
+              hs.eventtap.keyStroke({}, 'return', 0)
+            end
+            handleLine()
+          end)
+        else
+          printLine(line, {
+            doneFn = handleLine,
+            newLineAtEnd = newLineAtEnd,
+          })
+        end
       else
         -- Either wait for autocomplete to popup, or immediately fire nextAction.
         local waitTimeout = action.afterLastLine == "waitForAutocomplete" and 750 or 0
@@ -211,14 +246,25 @@ hs.hotkey.bind(super, '0', function()
         "});",
         "",
         "async function main() {",
+      },
+      typingSpeed = 'instant',
+    },
+    {
+      type = 'type',
+      lines = {
         "  const asset = await mux.video.",
       },
       afterLastLine = "waitForAutocomplete",
     },
     {
-      type = 'selectFromAutocomplete',
-      narrowResults = "as",
+      type = 'type',
+      lines = {
+        "as",
+      },
+      afterLastLine = "nothing",
     },
+    { type = 'wait', waitMs = 200 },
+    { type = 'selectFromAutocomplete' },
     {
       type = 'type',
       lines = {
@@ -228,29 +274,72 @@ hs.hotkey.bind(super, '0', function()
     },
     {
       type = 'selectFromAutocomplete',
+      narrowResults = 'cre',
     },
+    { type = 'wait', waitMs = 200 },
+    { type = 'hoverDocumentation' },
+    { type = 'wait', waitMs = 1800 },
+    { type = 'closeHoverBox' },
     {
       type = 'type',
       lines = {
         "({",
-        "    input: [{ url: 'https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4' }],",
-        "    playback_policy: ['public'],",
+        "    ",
+      },
+      afterLastLine = "nothing",
+    },
+    { type = 'triggerCompletions' },
+    {
+      type = 'type',
+      lines = { "input" },
+      afterLastLine = "nothing",
+    },
+    { type = 'wait', waitMs = 200 },
+    { type = 'selectFromAutocomplete' },
+    { type = 'wait', waitMs = 200 },
+    { type = 'closeHoverBox' },
+    { type = 'hoverDocumentation' },
+    { type = 'wait', waitMs = 3000 },
+    {
+      type = 'type',
+      lines = {
+        ": [{ url: 'https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4' }],",
+        "    play",
+      },
+      afterLastLine = "nothing",
+    },
+    { type = 'triggerCompletions' },
+    { type = 'wait', waitMs = 200 },
+    { type = 'selectFromAutocomplete', triggerCompletions = false },
+    { type = 'wait', waitMs = 200 },
+    { type = 'closeHoverBox' },
+    { type = 'hoverDocumentation' },
+    { type = 'wait', waitMs = 3000 },
+    {
+      type = 'type',
+      lines = {
+        ": ['",
+      },
+      afterLastLine = 'nothing',
+    },
+    { type = 'wait', waitMs = 1200 },
+    { type = 'selectFromAutocomplete' },
+    { type = 'wait', waitMs = 200 },
+    { type = 'type', lines = { "']," } },
+    {
+      type = 'type',
+      lines = {
         "  });",
         "  console.log(asset);",
         "",
         "  const assets = [];",
-        "  for await (const asset of mux.video.assets.",
       },
-      afterLastLine = "waitForAutocomplete",
-    },
-    {
-      type = 'selectFromAutocomplete',
-      narrowResults = "li",
+      typingSpeed = 'instant',
     },
     {
       type = 'type',
       lines = {
-        "()) {",
+        "  for await (const asset of mux.video.assets.list()) {",
         "    console.log(asset.id);",
         "    assets.push(asset);",
         "  }",
@@ -260,6 +349,7 @@ hs.hotkey.bind(super, '0', function()
         "main().catch(console.error);",
       },
       afterLastLine = "nothing",
+      typingSpeed = 'instant',
     },
     {
       type = "saveFile",
@@ -272,6 +362,8 @@ hs.hotkey.bind(super, '0', function()
   --   disable auto close brackets
   --   disable auto indent
   --   disable breadcrumbs
+  --   disable TS validation (red errors)
+  --   disable TS validation (red errors)
   --   hide minimap
   --   hide activity bar
   --   window.title == "blah-node demo"
