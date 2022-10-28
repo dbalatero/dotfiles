@@ -358,6 +358,12 @@ hs.hotkey.bind(super, '0', function()
 
   -- TODO:
   --
+  --   macos settings
+  --   ----
+  --   disable preference macOS Keyboard > Insert period after double space
+  --
+  --   vscode settings:
+  --   ---
   --   disable auto close quotes
   --   disable auto close brackets
   --   disable auto indent

@@ -10,7 +10,7 @@
     "window.nativeFullScreen": false,
     "window.newWindowDimensions": "fullscreen",
     "window.restoreFullscreen": true,
-    "window.zoomLevel": 3,
+    "window.zoomLevel": 4,
     "workbench.panel.defaultLocation": "right",
     "editor.accessibilitySupport": "off",
     "update.channel": "none",
