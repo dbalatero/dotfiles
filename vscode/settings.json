@@ -25,7 +25,6 @@
     "window.title": "mux-node example",
     "editor.minimap.enabled": false,
     "workbench.activityBar.visible": false,
-    "typescript.validate.enable": false,
     "javascript.validate.enable": false,
     "editor.quickSuggestions": {
         "other": "off"
