@@ -248,7 +248,6 @@ Plug 'ecomba/vim-ruby-refactoring'        " extract vars, methods, etc
 Plug 'rafamadriz/friendly-snippets'
 
 " Syntax checking
-Plug 'dense-analysis/ale'
 Plug 'folke/trouble.nvim'                 " pretty list for diagnostics, errors, etc
 
 " Tests
@@ -512,49 +511,8 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " =================== ALE =======================
 
-" ALE config
-let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_javascript_eslint_options = ''
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_send_to_neovim_diagnostics = 1
-
-let g:ale_ruby_rubocop_executable = 'rubocop'
-
-let g:ale_ruby_rubocop_options = '--display-cop-names'
-let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
-
-" only run the linters we specify
-let g:ale_linters_explicit = 1
-
-let g:ale_linters = {
-\ 'javascript': ['eslint'],
-\ 'javascript.jsx': ['eslint'],
-\ 'typescript': ['eslint', 'prettier'],
-\ 'typescriptreact': ['eslint', 'prettier'],
-\ 'ruby': ['rubocop'],
-\}
-
-let g:ale_fixers = {
-\ 'javascript': ['eslint'],
-\ 'javascript.jsx': ['eslint'],
-\ 'typescript': ['eslint', 'prettier'],
-\ 'typescriptreact': ['eslint', 'prettier'],
-\ 'ruby': ['rubocop'],
-\}
-
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '.'
-let g:ale_disable_lsp = 1
-" let g:ale_virtualtext_cursor = 1
-" let g:ale_virtualtext_prefix = "      "
-
-let g:ale_hover_to_floating_preview = 1
-let g:ale_floating_preview = 1
-let g:ale_hover_to_preview = 0
-
-nnoremap <silent> gj :ALENext<cr>
-nnoremap <silent> gk :ALEPrevious<cr>
+" nnoremap <silent> gj :ALENext<cr>
+" nnoremap <silent> gk :ALEPrevious<cr>
 
 " =================== Ruby =====================
 
