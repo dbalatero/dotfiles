@@ -302,20 +302,6 @@ lsp_status.config({
   spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
 })
 
--- Attempt to add status if we're on work machine
-pcall(function()
-  local payServer = require('nvim-lsp-pay-server')
-
-  addPart(gls.right, {
-    PayStatus = {
-      provider = payServer.statusLine({ nerdFonts = true }),
-      highlight = {colors.offsetGray, colors.background},
-      icon = ' ',
-      event = 'PayStatusUpdated',
-    }
-  })
-end)
-
 addPart(gls.right, {
   LspStatus = {
     provider = lspStatus,

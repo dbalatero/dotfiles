@@ -248,6 +248,7 @@ Plug 'ecomba/vim-ruby-refactoring'        " extract vars, methods, etc
 Plug 'rafamadriz/friendly-snippets'
 
 " Syntax checking
+Plug 'lukas-reineke/lsp-format.nvim'      " LSP format on save, with multiple sequential LSPs + async
 Plug 'jose-elias-alvarez/null-ls.nvim'    " LSP for formatting/diagnostics
 Plug 'folke/trouble.nvim'                 " pretty list for diagnostics, errors, etc
 

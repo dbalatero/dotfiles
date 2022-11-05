@@ -1,5 +1,6 @@
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig/configs')
+local lsp_format = require("lsp-format")
 local lsp_status = require('lsp-status')
 local lspkind = require('lspkind')
 local trouble = require('trouble')
@@ -7,6 +8,7 @@ local cmp = require('cmp')
 local cmp_buffer = require('cmp_buffer')
 local compare = require('cmp.config.compare')
 local luasnip = require("luasnip")
+local null_ls = require("null-ls")
 
 -- Load the friendly-snippets
 require("luasnip.loaders.from_vscode").lazy_load()
@@ -21,11 +23,14 @@ trouble.setup({
   use_diagnostic_signs = true,
 })
 
+lsp_format.setup()
+
 -- Shared on_attach + capabilities
 --
 -- We set these on the `default_config` so we don't have to set up `on_attach`
 -- and `capabilities` for every last LSP.
 local on_attach = function(client, bufnr)
+  lsp_format.on_attach(client, bufnr)
   lsp_status.on_attach(client, bufnr)
 
   -- Floating window signature
@@ -38,6 +43,63 @@ local on_attach = function(client, bufnr)
 
   -- print(vim.inspect(client.resolved_capabilities))
 end
+
+-- null ls
+local ignorePrettierRules = function(diagnostic)
+  return diagnostic.code ~= "prettier/prettier"
+end
+
+local hasEslintConfig = function(utils)
+	return utils.root_has_file({
+    ".eslintrc",
+    ".eslintrc.json",
+    ".eslintrc.js"
+  })
+end
+
+local hasPrettierConfig = function(utils)
+  return utils.root_has_file({
+    ".prettierrc",
+    ".prettierrc.json",
+    ".prettierrc.js",
+    ".prettierrc.toml",
+    ".prettierrc.yml",
+    ".prettierrc.yaml",
+  })
+end
+
+local eslintConfig = {
+  condition = hasEslintConfig,
+  filter = ignorePrettierRules,
+}
+
+null_ls.setup({
+  -- For :NullLsLog support
+  -- debug = true,
+  on_attach = on_attach,
+  root_dir = require("null-ls.utils").root_pattern(
+    ".git",
+    "Gemfile.lock",
+    "package.json"
+  ),
+  sources = {
+    -- prettier
+    null_ls.builtins.formatting.prettierd.with({
+      condition = hasPrettierConfig,
+      env = {
+        PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
+      },
+      -- Always use the local prettier, especially when prettier is pointing
+      -- at a feature branch.
+      prefer_local = "node_modules/.bin",
+    }),
+
+    -- eslint
+    null_ls.builtins.code_actions.eslint_d.with(eslintConfig),
+    null_ls.builtins.diagnostics.eslint_d.with(eslintConfig),
+    -- null_ls.builtins.formatting.eslint_d.with(eslintConfig),
+  }
+})
 
 lspconfig.util.default_config = vim.tbl_extend(
   "force",
