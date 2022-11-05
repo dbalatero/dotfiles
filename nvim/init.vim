@@ -115,7 +115,7 @@ let g:latest_node_path = $HOME . '/.nodenv/versions/15.7.0/bin/node'
 augroup highlight_yank
   if has("nvim-0.5")
     autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+    autocmd TextYankPost * silent! lua require('vim.highlight').on_yank()
   endif
 augroup END
 
@@ -248,6 +248,7 @@ Plug 'ecomba/vim-ruby-refactoring'        " extract vars, methods, etc
 Plug 'rafamadriz/friendly-snippets'
 
 " Syntax checking
+Plug 'jose-elias-alvarez/null-ls.nvim'    " LSP for formatting/diagnostics
 Plug 'folke/trouble.nvim'                 " pretty list for diagnostics, errors, etc
 
 " Tests
@@ -576,12 +577,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 LUA
-
-" ================== status line ================
-lua require("statusline")
-
-" ================= which key ==================
-lua require("which-key")
 
 " ================ writing mode ================
 
