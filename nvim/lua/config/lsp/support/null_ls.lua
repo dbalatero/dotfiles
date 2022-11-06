@@ -41,17 +41,16 @@ null_ls.setup({
     -- todo get prettierd configured and setup
     null_ls.builtins.formatting.prettier.with({
       condition = hasPrettierConfig,
-      env = {
-        -- PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
-      },
+      -- env = {
+      --   -- PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
+      -- },
       -- Always use the local prettier, especially when prettier is pointing
-      -- at a feature branch.
-      prefer_local = "node_modules/.bin",
+      -- at a feature branch or something weird.
+      only_local = "node_modules/.bin",
     }),
 
     -- eslint
-    null_ls.builtins.code_actions.eslint_d.with(eslintConfig),
-    null_ls.builtins.diagnostics.eslint_d.with(eslintConfig),
-    -- null_ls.builtins.formatting.eslint_d.with(eslintConfig),
+    -- null_ls.builtins.code_actions.eslint_d.with(eslintConfig),
+    -- null_ls.builtins.diagnostics.eslint_d.with(eslintConfig),
   }
 })

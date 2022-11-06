@@ -205,6 +205,7 @@ return require('packer').startup(function(use)
     'jose-elias-alvarez/null-ls.nvim',
     requires = {
       'lukas-reineke/lsp-format.nvim',
+      'nvim-lua/plenary.nvim',
     },
   }
 
