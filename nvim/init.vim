@@ -221,23 +221,10 @@ Plug 'lukas-reineke/lsp-format.nvim'      " LSP format on save, with multiple se
 Plug 'jose-elias-alvarez/null-ls.nvim'    " LSP for formatting/diagnostics
 Plug 'folke/trouble.nvim'                 " pretty list for diagnostics, errors, etc
 
-" Tmux
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'melonmanchan/vim-tmux-resizer'
-Plug 'benmills/vimux'
-
 call plug#end()
 
 " Load packer
 lua require('plugins')
-
-" =============== Tmux =========================
-
-" set our shell to be bash for fast tmux switching times
-" see: https://github.com/christoomey/vim-tmux-navigator/issues/72
-set shell=/bin/bash\ --norc\ -i
-
-let g:tmux_resizer_no_mappings = 0
 
 " ================== Trouble ====================
 
@@ -295,28 +282,8 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " =================== Diagnostics =======================
 
-
 nnoremap <silent> gj :lua vim.diagnostic.goto_next()<cr>
 nnoremap <silent> gk :lua vim.diagnostic.goto_prev()<cr>
-
-" =================== Ruby =====================
-
-function! FlipBindingPry()
-  if getline('.') =~? "^\s*require 'pry'; binding\.pry\s*$"
-    normal dd
-  else
-    normal orequire 'pry'; binding.pry
-  endif
-
-  write
-endfunction
-
-nnoremap <leader>d :call FlipBindingPry()<CR>
-
-" ================= Stripe ======================
-
-" Load Stripe-specific private config
-call SourceIfExists('~/.config/nvim/layers/private/config.vim')
 
 " Load lua/init.lua
 lua require("init")

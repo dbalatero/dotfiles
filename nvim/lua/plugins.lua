@@ -173,6 +173,21 @@ return require('packer').startup(function(use)
   }
 
   --  ╭──────────────────────────────────────────────────────────╮
+  --  │   tmux                                                   │
+  --  ╰──────────────────────────────────────────────────────────╯
+  use {
+    'christoomey/vim-tmux-navigator',
+    config = function() require('config.tmux-navigator') end,
+  }
+
+  use {
+    'melonmanchan/vim-tmux-resizer',
+    config = function() require('config.tmux-resizer') end,
+  }
+
+  use 'benmills/vimux'
+
+  --  ╭──────────────────────────────────────────────────────────╮
   --  │   Version control                                        │
   --  ╰──────────────────────────────────────────────────────────╯
   -- show commit popup with <leader>gm
