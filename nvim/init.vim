@@ -165,8 +165,4 @@ set completeopt=menu,menuone,noselect
 " │ It's Lua config time                                     │
 " ╰──────────────────────────────────────────────────────────╯
 
-" Load packer
-lua require('plugins')
-
-" Load lua/init.lua
 lua require("init")
