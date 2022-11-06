@@ -20,7 +20,14 @@ return require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function() require('config.treesitter') end,
-    requires = { 'andymass/vim-matchup' },
+    requires = {
+      -- Extended matchers for %
+      'andymass/vim-matchup',
+      -- Highlight parenthesis pairs w/ different colors
+      'p00f/nvim-ts-rainbow',
+      -- Auto close <html> tags
+      'windwp/nvim-ts-autotag',
+    },
   }
 
   use {
@@ -144,6 +151,12 @@ return require('packer').startup(function(use)
 
   -- lets you surround comments in a box.
   use 'LudoPinelli/comment-box.nvim'
+
+  -- Show guides for indentation
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function() require('config.indent-blankline') end,
+  }
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   File management                                        │

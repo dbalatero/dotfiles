@@ -44,7 +44,15 @@ require('nvim-treesitter.configs').setup {
   },
   incremental_selection = { enable = true },
   textobjects = { enable = true },
+
+  -- Plugins
   matchup = {
     enable = true,
   },
+  rainbow = {
+    enable = true,
+  },
+  autotag = {
+    enable = true,
+  }
 }
