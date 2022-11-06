@@ -167,21 +167,11 @@ call plug#begin('~/.local/nvim/plugins')
 " LSP
 Plug 'neovim/nvim-lspconfig'             " out of the box LSP configs for common langs
 Plug 'nvim-lua/lsp-status.nvim'          " provides statusline information for LSP
-Plug 'onsails/lspkind-nvim'              " add vscode-style icons to completion menu
 Plug 'ray-x/lsp_signature.nvim'          " floating signature 'as you type'
 Plug 'folke/trouble.nvim'                " diagnostic collector
 Plug 'folke/lsp-colors.nvim'             " replace missing colors
 Plug 'kosayoda/nvim-lightbulb'           " show possible code actions as lightbulb icons in the gutter
 Plug 'weilbith/nvim-code-action-menu'    " add popup menu for running code actions
-
-" Completion
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'lukas-reineke/cmp-under-comparator'
 
 " Syntax checking
 Plug 'lukas-reineke/lsp-format.nvim'      " LSP format on save, with multiple sequential LSPs + async

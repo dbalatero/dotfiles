@@ -55,6 +55,28 @@ return require('packer').startup(function(use)
   use 'dbalatero/galaxyline.nvim'
 
   --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Completion                                             │
+  --  ╰──────────────────────────────────────────────────────────╯
+  use {
+    'saadparwaiz1/cmp_luasnip',
+    requires = { 'L3MON4D3/LuaSnip' },
+  }
+
+  use {
+    'hrsh7th/nvim-cmp',
+    config = function() require('config.nvim-cmp') end,
+    requires = {
+      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'lukas-reineke/cmp-under-comparator',
+      'onsails/lspkind-nvim', -- add vscode-style icons to completion menu
+    },
+  }
+
+  --  ╭──────────────────────────────────────────────────────────╮
   --  │   Editing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
   -- Show function context as you scroll
