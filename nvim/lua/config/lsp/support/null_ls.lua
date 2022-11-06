@@ -53,7 +53,7 @@ null_ls.setup({
     }),
 
     -- eslint
-    -- null_ls.builtins.code_actions.eslint_d.with(eslintConfig),
-    -- null_ls.builtins.diagnostics.eslint_d.with(eslintConfig),
+    null_ls.builtins.code_actions.eslint_d.with(eslintConfig),
+    null_ls.builtins.diagnostics.eslint_d.with(eslintConfig),
   }
 })
