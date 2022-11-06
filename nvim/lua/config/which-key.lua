@@ -1,10 +1,10 @@
--- https://www.reddit.com/r/neovim/comments/khtan0/configure_vimwhichkey_in_lua/
+local wk = require("which-key")
 
 -- 500ms timeout
 vim.o.timeoutlen = 500
 
 -- Leader maps
-vim.g.which_key_leader = {
+wk.register({
   ['name'] = 'Leader',
   ['a']    = 'ack-search',
   ['A']    = 'ack-search-under-cursor',
@@ -28,18 +28,10 @@ vim.g.which_key_leader = {
     ['w']    = 'workspace-diagnostics',
     ['x']    = 'toggle-between',
   }
-}
-
-vim.g.which_key_leader[','] = {
-  ['name'] = '+easymotion',
-}
-
-vim.api.nvim_set_keymap("n", "<leader>", [[:<c-u>WhichKey ','<CR>]], { silent = true })
-vim.call('which_key#register', ',', "g:which_key_leader")
+}, { prefix = '<leader>' })
 
 -- Spacebar maps
-
-vim.g.which_key_space = {
+wk.register({
   ['name'] = 'Spacebar',
   ['f']    = {
     ['name'] = '+find',
@@ -64,7 +56,4 @@ vim.g.which_key_space = {
     ['w'] = 'list-workspace-document-symbols',
   },
   ['t']    = 'file-tree',
-}
-
-vim.api.nvim_set_keymap("n", "<space>", [[:<c-u>WhichKey '<space>'<CR>]], { silent = true })
-vim.call('which_key#register', '<space>', "g:which_key_space")
+}, { prefix = '<space>' })

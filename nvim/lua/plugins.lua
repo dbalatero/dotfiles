@@ -30,7 +30,7 @@ return require('packer').startup(function(use)
 
   -- context menu when hitting leader key(s)
   use {
-    'liuchengxu/vim-which-key',
+    'folke/which-key.nvim',
     config = function() require('config.which-key') end,
   }
 
