@@ -221,12 +221,6 @@ Plug 'lukas-reineke/lsp-format.nvim'      " LSP format on save, with multiple se
 Plug 'jose-elias-alvarez/null-ls.nvim'    " LSP for formatting/diagnostics
 Plug 'folke/trouble.nvim'                 " pretty list for diagnostics, errors, etc
 
-" Theming
-Plug 'dbalatero/galaxyline.nvim'     " fast Lua statusline
-Plug 'kyazdani42/nvim-web-devicons'  " fancy icons
-Plug 'RRethy/vim-illuminate'         " highlight duplicate words
-Plug 'drzel/vim-line-no-indicator'   " nice scroll indicator
-
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'melonmanchan/vim-tmux-resizer'

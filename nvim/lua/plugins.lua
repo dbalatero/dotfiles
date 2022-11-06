@@ -33,6 +33,15 @@ return require('packer').startup(function(use)
     config = function() require('config.colorizer') end,
   }
 
+  -- fancy icons
+  use 'kyazdani42/nvim-web-devicons'
+
+  -- nice scroll indicator
+  use 'drzel/vim-line-no-indicator'
+
+  -- fast Lua statusline
+  use 'dbalatero/galaxyline.nvim'
+
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Editing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
