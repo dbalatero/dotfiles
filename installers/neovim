@@ -8,6 +8,15 @@ require_installer ruby
 require_installer python
 require_installer node
 
+function install_packer_nvim() {
+  local location="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
+
+  if [ ! -d "$location" ]; then
+    dotsay "@b@blue[[+ Installing packer.nvim]]"
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim "$location"
+  fi
+}
+
 function install_neovim_linux() {
   if ! apt_is_installed "neovim"; then
     sudo add-apt-repository -y ppa:neovim-ppa/stable
@@ -110,6 +119,7 @@ function install_emmet_lsp() {
 
 dotheader "Setting up Neovim..."
 
+install_packer_nvim
 install_emmet_lsp
 install_lua_language_server
 install_bash_language_server
