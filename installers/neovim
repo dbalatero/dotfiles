@@ -94,25 +94,7 @@ function install_bat() {
 }
 
 function install_lua_language_server() {
-  brew_install ninja
-
-  local lspdir="$HOME/.local/nvim/lsp"
-  local location="$lspdir/lua-language-server"
-
-  if [ ! -d "$location" ]; then
-    dotsay "@b@blue[[+ Installing sumneko Lua LSP]]"
-
-    mkdir -p "$lspdir"
-    git clone https://github.com/sumneko/lua-language-server "$location"
-
-    cd "$location" || exit 1
-    git submodule update --init --recursive
-
-    cd 3rd/luamake || exit 1
-    ./compile/install.sh
-    cd ../.. || exit 1
-    ./3rd/luamake/luamake rebuild
-  fi
+  brew_install lua-language-server
 }
 
 function install_typescript_language_server() {

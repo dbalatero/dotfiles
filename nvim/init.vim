@@ -511,10 +511,11 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
-" =================== ALE =======================
+" =================== Diagnostics =======================
 
-" nnoremap <silent> gj :ALENext<cr>
-" nnoremap <silent> gk :ALEPrevious<cr>
+
+nnoremap <silent> gj :lua vim.diagnostic.goto_next()<cr>
+nnoremap <silent> gk :lua vim.diagnostic.goto_prev()<cr>
 
 " =================== Ruby =====================
 
