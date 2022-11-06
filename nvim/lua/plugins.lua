@@ -132,10 +132,7 @@ return require('packer').startup(function(use)
   use 'hashivim/vim-terraform'
 
   -- markdown preview with :Glow
-  use {
-    'npxbr/glow.nvim',
-    run = ':GlowInstall',
-  }
+  use 'npxbr/glow.nvim',
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Version control                                        │
