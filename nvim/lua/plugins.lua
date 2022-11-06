@@ -55,7 +55,13 @@ return require('packer').startup(function(use)
   use {
     'dbalatero/galaxyline.nvim',
     config = function() require('config.statusline') end,
+    requires = {
+      'nvim-lua/lsp-status.nvim',
+    }
   }
+
+  -- replace missing colors for LSP
+  use 'folke/lsp-colors.nvim'
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Completion                                             │
@@ -179,6 +185,55 @@ return require('packer').startup(function(use)
 
   -- markdown preview with :Glow
   use 'npxbr/glow.nvim'
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   LSP madness                                            │
+  --  ╰──────────────────────────────────────────────────────────╯
+
+  -- Show possible code actions as lightbulb icons in the gutter
+  use {
+    'kosayoda/nvim-lightbulb',
+    requires = { 'antoinemadec/FixCursorHold.nvim' },
+    config = function() require('config.lightbulb') end,
+  }
+
+  -- provides statusline information for LSP
+  use 'nvim-lua/lsp-status.nvim'
+
+  -- LSP for formatting/diagnostics
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = {
+      'lukas-reineke/lsp-format.nvim',
+    },
+  }
+
+  -- diagnostic collector
+  use {
+    'folke/trouble.nvim',
+    requires = { "kyazdani42/nvim-web-devicons" },
+    config = function() require('config.trouble') end,
+  }
+
+  use {
+    'weilbith/nvim-code-action-menu',
+    cmd = 'CodeActionMenu', -- lazy load when this command is ran
+  }
+
+  -- out of the box LSP configs for common langs
+  use {
+    'neovim/nvim-lspconfig',
+    config = function() require('config.lsp') end,
+    requires = {
+      'nvim-lua/lsp-status.nvim',
+
+      -- floating signature 'as you type'
+      'ray-x/lsp_signature.nvim',
+
+      -- formatting/diagnostic server
+      'jose-elias-alvarez/null-ls.nvim',
+    }
+  }
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Ruby                                                   │

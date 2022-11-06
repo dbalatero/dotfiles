@@ -158,89 +158,19 @@ vnoremap / /\v
 " wildignore
 set wildignore+=node_modules/*,bower_components/*,vendor/bundle/*,tmp/*
 
+" ===================== Completion =========================
+set completeopt=menu,menuone,noselect
+
 " ╭────────────────────────────────────────────────────────────────────╮
 " │                               Plugins                              │
 " ╰────────────────────────────────────────────────────────────────────╯
 
-call plug#begin('~/.local/nvim/plugins')
-
-" LSP
-Plug 'neovim/nvim-lspconfig'             " out of the box LSP configs for common langs
-Plug 'nvim-lua/lsp-status.nvim'          " provides statusline information for LSP
-Plug 'ray-x/lsp_signature.nvim'          " floating signature 'as you type'
-Plug 'folke/trouble.nvim'                " diagnostic collector
-Plug 'folke/lsp-colors.nvim'             " replace missing colors
-Plug 'kosayoda/nvim-lightbulb'           " show possible code actions as lightbulb icons in the gutter
-Plug 'weilbith/nvim-code-action-menu'    " add popup menu for running code actions
-
-" Syntax checking
-Plug 'lukas-reineke/lsp-format.nvim'      " LSP format on save, with multiple sequential LSPs + async
-Plug 'jose-elias-alvarez/null-ls.nvim'    " LSP for formatting/diagnostics
-Plug 'folke/trouble.nvim'                 " pretty list for diagnostics, errors, etc
-
-call plug#end()
-
 " Load packer
 lua require('plugins')
 
-" ================== Trouble ====================
-
-nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
-nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
-nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
-nnoremap <leader>xx <cmd>TroubleToggle<cr>
-" nnoremap gR <cmd>TroubleToggle lsp_references<cr>
-
 " ==================== LSP ======================
 
-set completeopt=menu,menuone,noselect
-
-" 300ms before CursorHold events fire (like hover text on errors)
-set updatetime=300
-
 call luaeval('require("lspservers")')
-
-" Update code action lightbulbs on cursor rest
-autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
-
-nnoremap <silent><space>la :CodeActionMenu<CR>
-nnoremap <silent> <space>l0  <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> <space>ld  <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <space>li  :LspInfo<CR>
-nnoremap <silent> <space>lh  <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <space>lk  <cmd>lua vim.diagnostic.open_float({scope="line"})<CR>
-nnoremap <silent> <space>lD  <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <space>ln  <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <space>lr  <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <space>lt  <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> <space>lw  <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-
-" gutter space for lsp info on left
-set signcolumn=yes
-
-" =================== Trouble ===================
-
-lua << EOF
-  require("trouble").setup({
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  })
-EOF
-
-" Vim Script
-nnoremap <leader>xx <cmd>TroubleToggle<cr>
-nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
-nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
-nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
-nnoremap gR <cmd>TroubleToggle lsp_references<cr>
-
-" =================== Diagnostics =======================
-
-nnoremap <silent> gj :lua vim.diagnostic.goto_next()<cr>
-nnoremap <silent> gk :lua vim.diagnostic.goto_prev()<cr>
 
 " Load lua/init.lua
 lua require("init")

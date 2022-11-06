@@ -2,15 +2,10 @@ local lspconfig = require('lspconfig')
 local configs = require('lspconfig/configs')
 local lsp_format = require("lsp-format")
 local lsp_status = require('lsp-status')
-local trouble = require('trouble')
 local null_ls = require("null-ls")
 
 -- Load the friendly-snippets
 require("luasnip.loaders.from_vscode").lazy_load()
-
-trouble.setup({
-  use_diagnostic_signs = true,
-})
 
 lsp_format.setup()
 
