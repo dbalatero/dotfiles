@@ -49,7 +49,6 @@ vim.g.which_key_space = {
   ['g']    = {
     ['name'] = '+git',
     ['b']    = 'blame',
-    ['g']    = 'neogit',
     ['m']    = 'show-commit-message',
     ['s']    = 'status',
   },
@@ -64,7 +63,7 @@ vim.g.which_key_space = {
     ['t'] = 'jump-to-type-definition',
     ['w'] = 'list-workspace-document-symbols',
   },
-  ['t'] = 'file-tree',
+  ['t']    = 'file-tree',
 }
 
 vim.api.nvim_set_keymap("n", "<space>", [[:<c-u>WhichKey '<space>'<CR>]], { silent = true })

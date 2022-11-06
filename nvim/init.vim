@@ -98,6 +98,11 @@ let g:mapleader=","
 " =============== mouse =====================
 set mouse=n
 
+" ================= perl ====================
+
+" Go away perl
+let g:loaded_perl_provider = 0
+
 " =============== python ====================
 
 let g:python_host_prog = $HOME . '/.pyenv/versions/py2neovim/bin/python'
@@ -185,33 +190,8 @@ let &t_SR = "\<esc>[3 q" " underline cursor for replace mode
 call plug#begin('~/.local/nvim/plugins')
 
 " Core
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'Konfekt/vim-alias'
-Plug 'nanotee/nvim-lua-guide'         " additional help under :h nvim-lua-guide
 Plug 'liuchengxu/vim-which-key'       " context menu when hitting leader key(s)
-Plug 'nvim-lua/plenary.nvim'          " useful Lua functions, e.g. like boost
-
-" Editing
-Plug 'romgrk/nvim-treesitter-context' " show function context as you scroll
-Plug 'AndrewRadev/splitjoin.vim'      " split/join single line/multiline
-Plug 'AndrewRadev/switch.vim'         " switch syntaxes around with `gs`
-Plug 'tpope/vim-commentary'           " comment with `gcc`
-Plug 'romainl/vim-cool'               " disable highlights automatically on cursor move
-Plug 'tpope/vim-projectionist'        " alternate files with :AV/:AS
-Plug 'kshenoy/vim-signature'          " show marks in the gutter
-Plug 'itspriddle/vim-stripper'        " strip whitespace on save
-Plug 'tpope/vim-surround'             " cs`' to change `` to '', etc
-Plug 'milkypostman/vim-togglelist'    " <leader>q to toggle quickfix
-Plug 'tpope/vim-abolish'              " snake_case -> camelCase, etc
-Plug 'ggandor/lightspeed.nvim'        " successor to vim-sneak
-Plug 'tpope/vim-repeat'               " remaps .
-Plug 'andymass/vim-matchup'           " extended % key matching
-Plug 'LudoPinelli/comment-box.nvim'   " lets you surround comments in a box.
-
-" Files
-Plug 'danro/rename.vim'
-Plug 'Shougo/vimfiler.vim'
-Plug 'Shougo/unite.vim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'             " out of the box LSP configs for common langs
@@ -286,24 +266,10 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'melonmanchan/vim-tmux-resizer'
 Plug 'benmills/vimux'
 
-" Grep + load
-Plug 'mileszs/ack.vim'
-Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
-
-" Version control
-Plug 'rhysd/git-messenger.vim'  " show commit popup with <leader>gm
-Plug 'tpope/vim-fugitive'       " the git plugin
-Plug 'airblade/vim-gitgutter'   " show changed line marks in gutter
-Plug 'tpope/vim-rhubarb'        " enable GHE/Github links with :Gbrowse
-Plug 'TimUntersberger/neogit'
-
-" Vimscript
-Plug 'tpope/vim-scriptease'
-
-" Load private Stripe overlay packages
-call SourceIfExists('~/.config/nvim/layers/private/packages.vim')
-
 call plug#end()
+
+" Load packer
+lua require('plugins')
 
 " ================ Theme ========================
 
@@ -333,73 +299,6 @@ set shell=/bin/bash\ --norc\ -i
 let g:tmux_resizer_no_mappings = 0
 
 
-" ============== File browser =================
-"
-let g:vimfiler_force_overwrite_statusline = 0
-let g:vimfiler_as_default_explorer = 1
-let g:vimshell_force_overwrite_statusline = 0
-
-call vimfiler#custom#profile('default', 'context', {
-  \ 'safe': 0
-  \ })
-
-" bind the minus key to show the file explorer in the dir of the current open
-" buffer's file
-nnoremap - :VimFilerBufferDir<CR>
-
-
-" ============= ripgrep ======================
-
-let g:ackprg = 'rg --vimgrep --no-heading'
-
-cnoreabbrev Ack Ack!
-
-nnoremap <Leader>a :Ack!<Space>
-nnoremap <Leader>A :Ack!<CR>
-
-
-" =============== FZF =======================
-
-lua << LUA
-local actions = require('fzf-lua.actions')
-
-require('fzf-lua').setup({
-  fzf_opts = {
-    ['--layout'] = false,
-  },
-  files = {
-    actions = {
-      ["default"] = actions.file_edit_or_qf,
-      ["ctrl-x"] = actions.file_split,
-      ["ctrl-v"] = actions.file_vsplit,
-      ["ctrl-t"] = actions.file_tabedit,
-      ["alt-q"] = actions.file_sel_to_qf,
-    },
-    -- pay-server can't take the heat
-    file_icons = false,
-    git_icons = false,
-  },
-  git = {
-    file_icons = false,
-    git_icons = false,
-  },
-  grep = {
-    file_icons = false,
-    git_icons = false,
-  },
-  winopts = {
-    preview = {
-      layout = 'vertical',
-    },
-  },
-})
-LUA
-
-noremap <C-b> :lua require('fzf-lua').buffers()<CR>
-noremap <C-p> <cmd>lua require('fzf-local').fzfFiles()<CR>
-noremap <space>fd <cmd>lua require('fzf-lua').grep()<CR>
-noremap <space>fs <cmd>lua require('fzf-lua').grep_cword()<CR>
-
 " ================= vim-test =====================
 
 nmap <silent> <leader>T :TestNearest<CR>
@@ -427,32 +326,6 @@ let test#custom_runners['lua'] = ['busted']
 
 let test#custom_runners['javascript'] = ['jest']
 let test#custom_runners['typescript'] = ['jest']
-
-" ================= Editing plugins ==============
-
-let splitjoin_ruby_curly_braces = 0
-let splitjoin_ruby_hanging_args = 0
-
-" vim-signature
-" highlight marks dynamically based on vim-gitgutter's status
-let g:SignatureMarkTextHLDynamic = 1
-
-" =============== version control ================
-
-" Every time you open a git object using fugitive it creates a new buffer.
-" This means that your buffer listing can quickly become swamped with
-" fugitive buffers. This prevents this from becomming an issue:
-autocmd BufReadPost fugitive://* set bufhidden=delete
-
-vnoremap <leader>g :GBrowse!<CR>
-
-nnoremap <space>gb :Gblame<CR>
-nnoremap <space>gs :Gstatus<CR>
-nnoremap <space>gg :Neogit<CR>
-
-" Map git-messenger
-let g:git_messenger_no_default_mappings = v:true
-nmap <space>gm <Plug>(git-messenger)
 
 " ================== Trouble ====================
 
@@ -531,79 +404,12 @@ endfunction
 
 nnoremap <leader>d :call FlipBindingPry()<CR>
 
-" ================== treesitter =================
-
-lua <<LUA
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
-parser_config.org = {
-  install_info = {
-    url = 'https://github.com/milisims/tree-sitter-org',
-    revision = 'f110024d539e676f25b72b7c80b0fd43c34264ef',
-    files = {'src/parser.c', 'src/scanner.cc'},
-  },
-  filetype = 'org',
-}
-
-require('nvim-treesitter.configs').setup {
-  ensure_installed = {
-    'bash',
-    'css',
-    'go',
-    'graphql',
-    'javascript',
-    'java',
-    'json',
-    'kotlin',
-    'lua',
-    'nix',
-    'php',
-    'python',
-    'ruby',
-    'tsx',
-    'typescript',
-    'yaml',
-  },
-  highlight = {
-    enable = true,
-
-    -- Remove this to use TS highlighter for some of the highlights (Experimental)
-    disable = {'org'},
-    -- Required since TS highlighter doesn't support all syntax features (conceal)
-    additional_vim_regex_highlighting = {'org'},
-  },
-  incremental_selection = { enable = true },
-  textobjects = { enable = true },
-  matchup = {
-    enable = true,
-  },
-}
-LUA
-
 " ================ writing mode ================
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
 let g:limelight_conceal_guifg = '#777777'
-
-" ================ lightspeed =================
-lua <<LUA
-require('lightspeed').setup({
-  match_only_the_start_of_same_char_seqs = true,
-  limit_ft_matches = 5,
-})
-LUA
-
-nmap s <Plug>Lightspeed_s
-
-" ================= Comment box =================
-
-nnoremap <Space>bb <Cmd>lua require('comment-box').lbox()<CR>
-vnoremap <Space>bb <Cmd>lua require('comment-box').lbox()<CR>
-
-nnoremap <Space>bc <Cmd>lua require('comment-box').cbox()<CR>
-vnoremap <Space>bc <Cmd>lua require('comment-box').cbox()<CR>
 
 " ================= Stripe ======================
 
@@ -613,5 +419,3 @@ call SourceIfExists('~/.config/nvim/layers/private/config.vim')
 " Load lua/init.lua
 lua require("init")
 
-" Go away perl
-let g:loaded_perl_provider = 0
