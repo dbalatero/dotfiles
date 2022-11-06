@@ -40,8 +40,6 @@ local on_attach = function(client, bufnr)
       border = "single",
     },
   })
-
-  -- print(vim.inspect(client.resolved_capabilities))
 end
 
 -- null ls
@@ -110,8 +108,6 @@ lspconfig.util.default_config = vim.tbl_extend(
     on_attach = on_attach,
   }
 )
-
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
