@@ -158,7 +158,7 @@ return require('packer').startup(function(use)
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Testing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
-  Plug {
+  use {
     'janko-m/vim-test',
     config = function() require('config.vim-test') end,
   }
