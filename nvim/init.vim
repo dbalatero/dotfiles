@@ -213,9 +213,6 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'lukas-reineke/cmp-under-comparator'
 
-" Markdown
-Plug 'npxbr/glow.nvim', {'do': ':GlowInstall'}  " markdown preview with :Glow
-
 " Ruby
 Plug 'keith/rspec.vim'                    " better RSpec syntax highlighting
 Plug 'jgdavey/vim-blockle'                " toggle block styles with ,b
@@ -241,12 +238,6 @@ Plug 'kyazdani42/nvim-web-devicons'  " fancy icons
 Plug 'RRethy/vim-illuminate'         " highlight duplicate words
 Plug 'drzel/vim-line-no-indicator'   " nice scroll indicator
 
-Plug 'rodjek/vim-puppet'
-Plug 'cappyzawa/starlark.vim'
-
-" color schemes
-Plug 'hashivim/vim-terraform'
-
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'melonmanchan/vim-tmux-resizer'
@@ -256,11 +247,6 @@ call plug#end()
 
 " Load packer
 lua require('plugins')
-
-" ================ Theme ========================
-
-" skylark is ~python
-au BufRead,BufNewFile *.sky set filetype=python
 
 " =============== Tmux =========================
 

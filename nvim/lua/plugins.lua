@@ -121,6 +121,23 @@ return require('packer').startup(function(use)
   }
 
   --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Language support                                       │
+  --  ╰──────────────────────────────────────────────────────────╯
+  use {
+    'cappyzawa/starlark.vim',
+    config = function() require('config.starlark') end,
+  }
+
+  use 'rodjek/vim-puppet'
+  use 'hashivim/vim-terraform'
+
+  -- markdown preview with :Glow
+  use {
+    'npxbr/glow.nvim',
+    run = ':GlowInstall',
+  }
+
+  --  ╭──────────────────────────────────────────────────────────╮
   --  │   Version control                                        │
   --  ╰──────────────────────────────────────────────────────────╯
   -- show commit popup with <leader>gm
