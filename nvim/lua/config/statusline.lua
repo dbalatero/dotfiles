@@ -7,19 +7,23 @@ local gls = gl.section
 local lsp_status = require('lsp-status')
 
 local function file_readonly()
-  if vim.bo.filetype == 'help' then return '' end
-  if vim.bo.readonly == true then return " " end
+  if vim.bo.filetype == 'help' then
+    return ''
+  end
+  if vim.bo.readonly == true then
+    return ' '
+  end
 
   return ''
 end
 
 function string:split(delimiter)
-  local result               = {}
-  local from                 = 1
+  local result = {}
+  local from = 1
   local delim_from, delim_to = string.find(self, delimiter, from)
   while delim_from do
     table.insert(result, string.sub(self, from, delim_from - 1))
-    from                 = delim_to + 1
+    from = delim_to + 1
     delim_from, delim_to = string.find(self, delimiter, from)
   end
   table.insert(result, string.sub(self, from))
@@ -29,65 +33,69 @@ end
 -- Lua patterns are bullshit and there's no plain text gsub, you have to escape
 -- them.
 local function literalize(str)
-  return str:gsub("[%(%)%.%%%+%-%*%?%[%]%^%$]", function(c) return "%" .. c end)
+  return str:gsub('[%(%)%.%%%+%-%*%?%[%]%^%$]', function(c)
+    return '%' .. c
+  end)
 end
 
 local get_current_file_path = function()
   local file = vim.fn.expand('%:t')
   local path = vim.fn.expand('%:p:h')
   local git_dir = vcs.get_git_dir(path)
-  local home = os.getenv("HOME")
+  local home = os.getenv('HOME')
 
   if git_dir == nil and string.match(path, home) then
-    path = "~" .. string.gsub(path, home, "")
+    path = '~' .. string.gsub(path, home, '')
   end
 
   if git_dir ~= nil then
-    local del_table = string.split(git_dir, "/")
+    local del_table = string.split(git_dir, '/')
     local len = table.maxn(del_table)
 
     -- remove the .git directory from the path.
     del_table[len] = nil
 
-    local del_str = table.concat(del_table, "/") .. "/"
-    path = string.gsub(path, literalize(del_str), "")
+    local del_str = table.concat(del_table, '/') .. '/'
+    path = string.gsub(path, literalize(del_str), '')
   end
 
-  if vim.fn.empty(file) == 1 then return '' end
+  if vim.fn.empty(file) == 1 then
+    return ''
+  end
 
   if string.len(file_readonly()) ~= 0 then
-    return path .. "/" .. file .. file_readonly()
+    return path .. '/' .. file .. file_readonly()
   end
 
   if vim.bo.modifiable then
     if vim.bo.modified then
-      return path .. "/" .. file .. '  '
+      return path .. '/' .. file .. '  '
     end
   end
 
-  return path .. "/" .. file .. ' '
+  return path .. '/' .. file .. ' '
 end
 
 local moonflyColors = {
   -- normal colors
-  black = "#373c40",
-  red = "#ff5454",
-  green = "#8cc85f",
-  yellow = "#e3c78a",
-  blue = "#80a0ff",
-  purple = "#d183e8",
-  cyan = "#79dac8",
-  white = "#de935f", -- more orange
+  black = '#373c40',
+  red = '#ff5454',
+  green = '#8cc85f',
+  yellow = '#e3c78a',
+  blue = '#80a0ff',
+  purple = '#d183e8',
+  cyan = '#79dac8',
+  white = '#de935f', -- more orange
 
   bright = {
-    black = "#f09479",
-    red = "#ff5189",
-    green = "#36c692",
-    yellow = "#bfbf97",
-    blue = "#78c2ff",
-    purple = "#ae81ff",
-    cyan = "#85dc85",
-    white = "#e2637f",
+    black = '#f09479',
+    red = '#ff5189',
+    green = '#36c692',
+    yellow = '#bfbf97',
+    blue = '#78c2ff',
+    purple = '#ae81ff',
+    cyan = '#85dc85',
+    white = '#e2637f',
   },
 }
 
@@ -111,26 +119,26 @@ local colors = {
 -- Mappings
 
 local modes = {
-  ["n"] = { colors.purple, "Normal", "" },
-  ["i"] = { colors.green, "Insert", "" },
-  ["v"] = { colors.pink, "Visual", "" },
-  [""] = { colors.pink, "Visual Block", "" },
-  ["V"] = { colors.pink, "Visual Line", "" },
-  ["c"] = { colors.orange, "Command", "" },
-  ["no"] = { colors.purple, "MODE", "" },
-  ["s"] = { colors.orange, "MODE", "" },
-  ["S"] = { colors.orange, "MODE", "" },
-  [""] = { colors.orange, "MODE", "" },
-  ["ic"] = { colors.yellow, "MODE", "" },
-  ["R"] = { colors.purple, "MODE", "" },
-  ["Rv"] = { colors.purple, "MODE", "" },
-  ["cv"] = { colors.red, "MODE", "" },
-  ["ce"] = { colors.red, "MODE", "" },
-  ["r"] = { colors.cyan, "MODE", "" },
-  ["rm"] = { colors.cyan, "MODE", "" },
-  ["r?"] = { colors.cyan, "MODE", "" },
-  ["!"] = { colors.red, "MODE", "" },
-  ["t"] = { colors.red, "MODE", "" },
+  ['n'] = { colors.purple, 'Normal', '' },
+  ['i'] = { colors.green, 'Insert', '' },
+  ['v'] = { colors.pink, 'Visual', '' },
+  [''] = { colors.pink, 'Visual Block', '' },
+  ['V'] = { colors.pink, 'Visual Line', '' },
+  ['c'] = { colors.orange, 'Command', '' },
+  ['no'] = { colors.purple, 'MODE', '' },
+  ['s'] = { colors.orange, 'MODE', '' },
+  ['S'] = { colors.orange, 'MODE', '' },
+  [''] = { colors.orange, 'MODE', '' },
+  ['ic'] = { colors.yellow, 'MODE', '' },
+  ['R'] = { colors.purple, 'MODE', '' },
+  ['Rv'] = { colors.purple, 'MODE', '' },
+  ['cv'] = { colors.red, 'MODE', '' },
+  ['ce'] = { colors.red, 'MODE', '' },
+  ['r'] = { colors.cyan, 'MODE', '' },
+  ['rm'] = { colors.cyan, 'MODE', '' },
+  ['r?'] = { colors.cyan, 'MODE', '' },
+  ['!'] = { colors.red, 'MODE', '' },
+  ['t'] = { colors.red, 'MODE', '' },
 }
 
 -- Helper functions
@@ -139,10 +147,10 @@ local modes = {
 -- @param s String to abbreviate
 -- @param n Number of characters to abbreviate each word to
 local abbrev = function(s, n)
-  local result = ""
+  local result = ''
 
-  for token in string.gmatch(s, "[^%s]+") do
-    result = result .. string.sub(token, 1, n) .. " "
+  for token in string.gmatch(s, '[^%s]+') do
+    result = result .. string.sub(token, 1, n) .. ' '
   end
 
   return result
@@ -220,7 +228,7 @@ addPart(gls.left, {
     highlight = { colors.foreground, colors.background },
     separator = ' ',
     separator_highlight = { 'NONE', colors.background },
-  }
+  },
 })
 
 addPart(gls.left, {
@@ -255,8 +263,8 @@ addPart(gls.left, {
       moonflyColors.bright.blue,
       colors.background,
       'bold',
-    }
-  }
+    },
+  },
 })
 
 addPart(gls.left, {
@@ -266,7 +274,7 @@ addPart(gls.left, {
     highlight = { colors.red, colors.background },
     separator = ' ',
     separator_highlight = { 'NONE', colors.background },
-  }
+  },
 })
 
 addPart(gls.left, {
@@ -276,7 +284,7 @@ addPart(gls.left, {
     highlight = { colors.yellow, colors.background },
     separator = ' ',
     separator_highlight = { 'NONE', colors.background },
-  }
+  },
 })
 
 addPart(gls.left, {
@@ -286,7 +294,7 @@ addPart(gls.left, {
     highlight = { colors.cyan, colors.background },
     separator = ' ',
     separator_highlight = { 'NONE', colors.background },
-  }
+  },
 })
 
 -- Right Section
@@ -307,7 +315,7 @@ addPart(gls.right, {
     provider = lspStatus,
     highlight = { colors.offsetGray, colors.background },
     icon = '  ',
-  }
+  },
 })
 
 addPart(gls.right, {
@@ -315,8 +323,8 @@ addPart(gls.right, {
     provider = downcase(fileinfo.get_file_encode),
     separator = ' ',
     separator_highlight = { 'NONE', colors.background },
-    highlight = { colors.offsetGray, colors.background, 'bold' }
-  }
+    highlight = { colors.offsetGray, colors.background, 'bold' },
+  },
 })
 
 addPart(gls.right, {
@@ -324,18 +332,20 @@ addPart(gls.right, {
     provider = downcase(fileinfo.get_file_format),
     separator = ' ',
     separator_highlight = { 'NONE', colors.background },
-    highlight = { colors.offsetGray, colors.background, 'bold' }
-  }
+    highlight = { colors.offsetGray, colors.background, 'bold' },
+  },
 })
 
 addPart(gls.right, {
   GitIcon = {
-    provider = function() return '  ' end,
+    provider = function()
+      return '  '
+    end,
     condition = vcs.check_git_workspace,
     separator = ' ',
     separator_highlight = { 'NONE', colors.background },
     highlight = { colors.purple, colors.background, 'bold' },
-  }
+  },
 })
 
 -- addPart(gls.right, {
@@ -354,7 +364,7 @@ addPart(gls.right, {
     separator_highlight = { 'NONE', colors.background },
     icon = '  ',
     highlight = { colors.green, colors.background },
-  }
+  },
 })
 
 addPart(gls.right, {
@@ -363,7 +373,7 @@ addPart(gls.right, {
     condition = checkwidth,
     icon = ' 柳',
     highlight = { colors.orange, colors.background },
-  }
+  },
 })
 
 addPart(gls.right, {
@@ -372,16 +382,18 @@ addPart(gls.right, {
     condition = checkwidth,
     icon = '  ',
     highlight = { colors.red, colors.background },
-  }
+  },
 })
 
 -- Short Left Section
 
 addPart(gls.short_line_left, {
   Spacer = {
-    provider = function() return ' ' end,
+    provider = function()
+      return ' '
+    end,
     highlight = { colors.white, colors.background, 'bold' },
-  }
+  },
 })
 
 addPart(gls.short_line_left, {
@@ -406,8 +418,8 @@ addPart(gls.short_line_left, {
       return fname
     end,
     condition = buffer_not_empty,
-    highlight = { colors.white, colors.background, 'bold' }
-  }
+    highlight = { colors.white, colors.background, 'bold' },
+  },
 })
 
 -- Short Right Section
@@ -415,17 +427,16 @@ addPart(gls.short_line_left, {
 addPart(gls.short_line_right, {
   BufferIcon = {
     provider = 'BufferIcon',
-    highlight = { colors.foreground, colors.background }
-  }
+    highlight = { colors.foreground, colors.background },
+  },
 })
-
 
 addPart(gls.left, {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
     icon = '  ',
     highlight = { colors.blue, colors.background },
-  }
+  },
 })
 
 -- Force manual load so that nvim boots with a status line

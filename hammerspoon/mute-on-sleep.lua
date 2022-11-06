@@ -4,7 +4,7 @@ sleepWatcher = hs.caffeinate.watcher.new(function(state)
 
     if device then
       device:setMuted(true)
-      hs.alert.show("Muted " .. device:name())
+      hs.alert.show('Muted ' .. device:name())
     end
   end
 end)

@@ -1,5 +1,5 @@
 -- TODO: fix this
-vim.cmd [[
+vim.cmd([[
   " Load aliases for :vh -> :vertical h
   if exists('s:loaded_vimafter')
     silent doautocmd VimAfter VimEnter *
@@ -10,4 +10,4 @@ vim.cmd [[
       " autocmd VimEnter * source ~/.config/nvim/aliases.vim
     augroup END
   endif
-]]
+]])

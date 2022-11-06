@@ -1,54 +1,47 @@
 local resolvePath = require('utils.resolve-path')
 
 -- Sony WH-1000XM4
-local headphoneDeviceId = "94-db-56-47-6a-86"
+local headphoneDeviceId = '94-db-56-47-6a-86'
 
 local blueUtil = resolvePath({
-  "/opt/homebrew/bin/blueutil",
-  "/usr/local/bin/blueutil",
+  '/opt/homebrew/bin/blueutil',
+  '/usr/local/bin/blueutil',
 })
 
-
 local function disconnectHeadphones()
-  hs.task.new(
-    blueUtil,
-    function()
-      hs.alert("Disconnected headphones")
-    end,
-    {
-      "--disconnect",
+  hs.task
+    .new(blueUtil, function()
+      hs.alert('Disconnected headphones')
+    end, {
+      '--disconnect',
       headphoneDeviceId,
-    }
-  ):start()
+    })
+    :start()
 end
 
 local function connectHeadphones()
-  hs.task.new(
-    blueUtil,
-    function()
-      hs.alert("Connected headphones")
-    end,
-    {
-      "--connect",
+  hs.task
+    .new(blueUtil, function()
+      hs.alert('Connected headphones')
+    end, {
+      '--connect',
       headphoneDeviceId,
-    }
-  ):start()
+    })
+    :start()
 end
 
 local function checkHeadphonesConnected(fn)
-  hs.task.new(
-    blueUtil,
-    function(_, stdout)
-      stdout = string.gsub(stdout, "\n$", "")
-      local isConnected = stdout == "1"
+  hs.task
+    .new(blueUtil, function(_, stdout)
+      stdout = string.gsub(stdout, '\n$', '')
+      local isConnected = stdout == '1'
 
       fn(isConnected)
-    end,
-    {
-      "--is-connected",
+    end, {
+      '--is-connected',
       headphoneDeviceId,
-    }
-  ):start()
+    })
+    :start()
 end
 
 local function toggleHeadphones()
@@ -61,4 +54,4 @@ local function toggleHeadphones()
   end)
 end
 
-hyperKey:bind('b'):toFunction("Toggle 🎧 connection", toggleHeadphones)
+hyperKey:bind('b'):toFunction('Toggle 🎧 connection', toggleHeadphones)

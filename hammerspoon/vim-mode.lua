@@ -1,10 +1,10 @@
-local VimMode = hs.loadSpoon("VimMode")
+local VimMode = hs.loadSpoon('VimMode')
 local vim = VimMode:new()
 
 hs.chooser.globalCallback = function(chooser, eventName)
   hs.chooser._defaultGlobalCallback(chooser, eventName)
 
-  if eventName == "willOpen" then
+  if eventName == 'willOpen' then
     vim:disable()
   else
     vim:enable()
@@ -30,7 +30,7 @@ vim:enableBetaFeature('block_cursor_overlay')
 
 vim:enableBetaFeature('fallback_only_urls')
 vim:setFallbackOnlyUrlPatterns({
-  "docs.google.com",
+  'docs.google.com',
 })
 
 -- If you want the screen to dim (a la Flux) when you enter normal mode
@@ -41,7 +41,7 @@ vim:shouldDimScreenInNormalMode(false)
 -- this to true
 vim:shouldShowAlertInNormalMode(true)
 
-vim:setAlertFont("InconsolataGo Bold Nerd Font Complete")
+vim:setAlertFont('InconsolataGo Bold Nerd Font Complete')
 
 -- Enter normal mode by typing a key sequence
 vim:enterWithSequence('jk', 100)
@@ -58,7 +58,4 @@ vim:enterWithSequence('jk', 100)
 --------------------------------
 --
 
-hyperKey:bind('2'):toFunction(
-  'Test accessibility',
-  VimMode.utils.debug.testAccessibilityField
-)
+hyperKey:bind('2'):toFunction('Test accessibility', VimMode.utils.debug.testAccessibilityField)

@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   " minimum width
   set winwidth=100
 
@@ -11,4 +11,4 @@ vim.cmd [[
   " this to vv and ss
   nnoremap <silent> vv <C-w>v
   nnoremap <silent> ss <C-w>s
-]]
+]])

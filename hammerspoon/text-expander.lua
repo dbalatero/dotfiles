@@ -1,9 +1,9 @@
 local snippets = {
-  ["+date"] = function()
-    return os.date("%B %d, %Y", os.time())
+  ['+date'] = function()
+    return os.date('%B %d, %Y', os.time())
   end,
-  ["+email"] = "d@balatero.com",
-  ["+meet"] = "https://zoom.us/12345678",
+  ['+email'] = 'd@balatero.com',
+  ['+meet'] = 'https://zoom.us/12345678',
 }
 
 local function buildTrie(snippets)
@@ -20,10 +20,11 @@ local function buildTrie(snippets)
     for i = 1, #shortcode do
       local char = shortcode:sub(i, i)
 
-      currentElement.children[char] = currentElement.children[char] or {
-        expandFn = nil,
-        children = {},
-      }
+      currentElement.children[char] = currentElement.children[char]
+        or {
+          expandFn = nil,
+          children = {},
+        }
 
       currentElement = currentElement.children[char]
 
@@ -32,7 +33,7 @@ local function buildTrie(snippets)
       local isLastChar = i == #shortcode
 
       if isLastChar then
-        if type(snippet) == "function" then
+        if type(snippet) == 'function' then
           -- If the snippet is a function, just save it off to be called
           -- later.
           currentElement.expandFn = snippet
@@ -51,51 +52,51 @@ local function buildTrie(snippets)
 end
 
 local shiftedKeymap = {
-  ["1"] = "!",
-  ["2"] = "@",
-  ["3"] = "#",
-  ["4"] = "$",
-  ["5"] = "%",
-  ["6"] = "^",
-  ["7"] = "&",
-  ["8"] = "*",
-  ["9"] = "(",
-  ["0"] = ")",
-  ["`"] = "~",
-  ["-"] = "_",
-  ["="] = "+",
-  ["["] = "{",
-  ["]"] = "}",
-  ["\\"] = "|",
-  ["/"] = "?",
-  [","] = "<",
-  ["."] = ">",
-  ["'"] = "\"",
-  [";"] = ":",
+  ['1'] = '!',
+  ['2'] = '@',
+  ['3'] = '#',
+  ['4'] = '$',
+  ['5'] = '%',
+  ['6'] = '^',
+  ['7'] = '&',
+  ['8'] = '*',
+  ['9'] = '(',
+  ['0'] = ')',
+  ['`'] = '~',
+  ['-'] = '_',
+  ['='] = '+',
+  ['['] = '{',
+  [']'] = '}',
+  ['\\'] = '|',
+  ['/'] = '?',
+  [','] = '<',
+  ['.'] = '>',
+  ["'"] = '"',
+  [';'] = ':',
 }
 
 local unshiftedKeymap = {
-  ["!"] = "1",
-  ["@"] = "2",
-  ["#"] = "3",
-  ["$"] = "4",
-  ["%"] = "5",
-  ["^"] = "6",
-  ["&"] = "7",
-  ["*"] = "8",
-  ["("] = "9",
-  [")"] = "0",
-  ["~"] = "`",
-  ["_"] = "-",
-  ["+"] = "=",
-  ["{"] = "[",
-  ["}"] = "]",
-  ["|"] = "\\",
-  ["?"] = "/",
-  ["<"] = ",",
-  [">"] = ".",
-  ["\""] = "'",
-  [":"] = ";",
+  ['!'] = '1',
+  ['@'] = '2',
+  ['#'] = '3',
+  ['$'] = '4',
+  ['%'] = '5',
+  ['^'] = '6',
+  ['&'] = '7',
+  ['*'] = '8',
+  ['('] = '9',
+  [')'] = '0',
+  ['~'] = '`',
+  ['_'] = '-',
+  ['+'] = '=',
+  ['{'] = '[',
+  ['}'] = ']',
+  ['|'] = '\\',
+  ['?'] = '/',
+  ['<'] = ',',
+  ['>'] = '.',
+  ['"'] = "'",
+  [':'] = ';',
 }
 
 -- Returns a table with a key down and key up event for a given (mods, key)
@@ -114,13 +115,13 @@ local currentTrieNode = snippetTrie
 snippetWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
   local keyPressed = hs.keycodes.map[event:getKeyCode()]
 
-  if event:getFlags():containExactly({'shift'}) then
+  if event:getFlags():containExactly({ 'shift' }) then
     -- Convert the keycode to the shifted version of the key,
     -- e.g. "=" turns into "+", etc.
     keyPressed = shiftedKeymap[keyPressed] or keyPressed
   end
 
-  local shouldFireSnippet = keyPressed == "return" or keyPressed == "space"
+  local shouldFireSnippet = keyPressed == 'return' or keyPressed == 'space'
 
   local reset = function()
     currentTrieNode = snippetTrie
@@ -134,10 +135,7 @@ snippetWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e
       -- Delete backwards however many times a key has been typed, to remove
       -- the snippet "+keyword"
       for i = 1, numPresses do
-        keyEventsToPost = hs.fnutils.concat(
-          keyEventsToPost,
-          keySequence({}, 'delete')
-        )
+        keyEventsToPost = hs.fnutils.concat(keyEventsToPost, keySequence({}, 'delete'))
       end
 
       -- Call the snippet's function to get the snippet expansion.
@@ -154,23 +152,17 @@ snippetWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e
         --   If char == "*"
         --   Send `shift + 8` instead.
         if unshiftedKeymap[char] then
-          flags = {'shift'}
+          flags = { 'shift' }
           char = unshiftedKeymap[char]
         end
 
-        keyEventsToPost = hs.fnutils.concat(
-          keyEventsToPost,
-          keySequence(flags, char)
-        )
+        keyEventsToPost = hs.fnutils.concat(keyEventsToPost, keySequence(flags, char))
       end
 
       -- Send along the keypress that activated the snippet (either space or
       -- return).
       -- hs.eventtap.keyStroke(event:getFlags(), keyPressed, 0)
-      keyEventsToPost = hs.fnutils.concat(
-        keyEventsToPost,
-        keySequence(event:getFlags(), event:getKeyCode())
-      )
+      keyEventsToPost = hs.fnutils.concat(keyEventsToPost, keySequence(event:getFlags(), event:getKeyCode()))
 
       -- Reset our pointers back to the beginning to get ready for the next
       -- snippet.

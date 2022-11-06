@@ -1,5 +1,5 @@
 -- ================ Indentation ======================
-vim.cmd [[
+vim.cmd([[
   set autoindent
   set smartindent
   set smarttab
@@ -16,4 +16,4 @@ vim.cmd [[
 
   set nowrap       " Don't wrap lines
   set linebreak    " Wrap lines at convenient points
-]]
+]])

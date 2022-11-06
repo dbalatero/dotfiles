@@ -4,22 +4,24 @@
 
 return require('packer').startup(function(use)
   -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+  use('wbthomason/packer.nvim')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Core plugins                                           │
   --  ╰──────────────────────────────────────────────────────────╯
   -- Additional help under :h nvim-lua-guide
-  use 'nanotee/nvim-lua-guide'
+  use('nanotee/nvim-lua-guide')
 
   -- useful Lua functions, e.g. like boost
-  use 'nvim-lua/plenary.nvim'
+  use('nvim-lua/plenary.nvim')
 
   -- syntax highlights
-  use {
+  use({
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    config = function() require('config.treesitter') end,
+    config = function()
+      require('config.treesitter')
+    end,
     requires = {
       -- Extended matchers for %
       'andymass/vim-matchup',
@@ -28,59 +30,69 @@ return require('packer').startup(function(use)
       -- Auto close <html> tags
       'windwp/nvim-ts-autotag',
     },
-  }
+  })
 
-  use {
+  use({
     'Konfekt/vim-alias',
-    config = function() require('config.aliases') end,
-  }
+    config = function()
+      require('config.aliases')
+    end,
+  })
 
   -- context menu when hitting leader key(s)
-  use {
+  use({
     'folke/which-key.nvim',
-    config = function() require('config.which-key') end,
-  }
+    config = function()
+      require('config.which-key')
+    end,
+  })
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Color schemes and themes                               │
   --  ╰──────────────────────────────────────────────────────────╯
-  use 'bluz71/vim-nightfly-guicolors'
+  use('bluz71/vim-nightfly-guicolors')
 
   -- show hex colors in CSS/HTML files
-  use {
+  use({
     'chrisbra/Colorizer',
-    config = function() require('config.colorizer') end,
-  }
+    config = function()
+      require('config.colorizer')
+    end,
+  })
 
   -- fancy icons
-  use 'kyazdani42/nvim-web-devicons'
+  use('kyazdani42/nvim-web-devicons')
 
   -- nice scroll indicator
-  use 'drzel/vim-line-no-indicator'
+  use('drzel/vim-line-no-indicator')
 
   -- fast Lua statusline
-  use {
+  use({
     'dbalatero/galaxyline.nvim',
-    config = function() require('config.statusline') end,
+    config = function()
+      require('config.statusline')
+    end,
     requires = {
       'nvim-lua/lsp-status.nvim',
-    }
-  }
+    },
+  })
 
   -- replace missing colors for LSP
-  use 'folke/lsp-colors.nvim'
+  use('folke/lsp-colors.nvim')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Completion                                             │
   --  ╰──────────────────────────────────────────────────────────╯
-  use {
+  use({
     'saadparwaiz1/cmp_luasnip',
     requires = { 'L3MON4D3/LuaSnip' },
-  }
+  })
 
-  use {
+  use({
     'hrsh7th/nvim-cmp',
-    config = function() require('config.nvim-cmp') end,
+    config = function()
+      require('config.nvim-cmp')
+    end,
     requires = {
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lsp',
@@ -90,157 +102,181 @@ return require('packer').startup(function(use)
       'lukas-reineke/cmp-under-comparator',
       'onsails/lspkind-nvim', -- add vscode-style icons to completion menu
     },
-  }
+  })
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Editing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
   -- Show function context as you scroll
-  use {
+  use({
     'romgrk/nvim-treesitter-context',
     requires = { 'nvim-treesitter/nvim-treesitter' },
-  }
+  })
 
   -- split/join single line/multiline
-  use {
+  use({
     'AndrewRadev/splitjoin.vim',
-    config = function() require('config.splitjoin') end,
-  }
+    config = function()
+      require('config.splitjoin')
+    end,
+  })
 
   -- switch syntaxes around with `gs`
-  use 'AndrewRadev/switch.vim'
+  use('AndrewRadev/switch.vim')
 
   -- comment with `gcc`
-  use 'tpope/vim-commentary'
+  use('tpope/vim-commentary')
 
   -- disable highlights automatically on cursor move
-  use 'romainl/vim-cool'
+  use('romainl/vim-cool')
 
   -- alternate files with :AV/:AS
-  use 'tpope/vim-projectionist'
+  use('tpope/vim-projectionist')
 
   -- show marks in the gutter
-  use {
+  use({
     'kshenoy/vim-signature',
-    config = function() require('config.vim-signature') end,
-  }
+    config = function()
+      require('config.vim-signature')
+    end,
+  })
 
   -- strip whitespace on save
-  use 'itspriddle/vim-stripper'
+  use('itspriddle/vim-stripper')
 
   -- cs`' to change `` to '', etc
-  use 'tpope/vim-surround'
+  use('tpope/vim-surround')
 
   -- <leader>q to toggle quickfix
-  use 'milkypostman/vim-togglelist'
+  use('milkypostman/vim-togglelist')
 
   -- snake_case -> camelCase, etc
-  use 'tpope/vim-abolish'
+  use('tpope/vim-abolish')
 
   -- successor to vim-sneak
-  use {
+  use({
     'ggandor/lightspeed.nvim',
-    config = function() require('config.lightspeed') end,
-  }
+    config = function()
+      require('config.lightspeed')
+    end,
+  })
 
   -- remaps .
-  use 'tpope/vim-repeat'
+  use('tpope/vim-repeat')
 
   -- extended % key matching
-  use 'andymass/vim-matchup'
+  use('andymass/vim-matchup')
 
   -- lets you surround comments in a box.
-  use {
+  use({
     'LudoPinelli/comment-box.nvim',
-    config = function() require('config.comment-box') end,
-  }
+    config = function()
+      require('config.comment-box')
+    end,
+  })
 
   -- Show guides for indentation
-  use {
+  use({
     'lukas-reineke/indent-blankline.nvim',
-    config = function() require('config.indent-blankline') end,
-  }
+    config = function()
+      require('config.indent-blankline')
+    end,
+  })
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   File management                                        │
   --  ╰──────────────────────────────────────────────────────────╯
-  use 'danro/rename.vim'
+  use('danro/rename.vim')
 
-  use {
+  use({
     'Shougo/vimfiler.vim',
-    config = function() require('config.vimfiler') end,
+    config = function()
+      require('config.vimfiler')
+    end,
     requires = { 'Shougo/unite.vim' },
-  }
+  })
 
-  use 'Shougo/unite.vim'
+  use('Shougo/unite.vim')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Grepping / searching                                   │
   --  ╰──────────────────────────────────────────────────────────╯
-  use {
+  use({
     'mileszs/ack.vim',
-    config = function() require('config.ack') end,
-  }
+    config = function()
+      require('config.ack')
+    end,
+  })
 
-  use {
+  use({
     'ibhagwan/fzf-lua',
     branch = 'main',
-    config = function() require('config.fzf') end,
-  }
+    config = function()
+      require('config.fzf')
+    end,
+  })
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Language support                                       │
   --  ╰──────────────────────────────────────────────────────────╯
-  use {
+  use({
     'cappyzawa/starlark.vim',
-    config = function() require('config.starlark') end,
-  }
+    config = function()
+      require('config.starlark')
+    end,
+  })
 
-  use 'rodjek/vim-puppet'
-  use 'hashivim/vim-terraform'
+  use('rodjek/vim-puppet')
+  use('hashivim/vim-terraform')
 
   -- markdown preview with :Glow
-  use 'npxbr/glow.nvim'
+  use('npxbr/glow.nvim')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   LSP madness                                            │
   --  ╰──────────────────────────────────────────────────────────╯
 
   -- Show possible code actions as lightbulb icons in the gutter
-  use {
+  use({
     'kosayoda/nvim-lightbulb',
     requires = { 'antoinemadec/FixCursorHold.nvim' },
-    config = function() require('config.lightbulb') end,
-  }
+    config = function()
+      require('config.lightbulb')
+    end,
+  })
 
   -- provides statusline information for LSP
-  use 'nvim-lua/lsp-status.nvim'
+  use('nvim-lua/lsp-status.nvim')
 
   -- LSP for formatting/diagnostics
-  use {
+  use({
     'jose-elias-alvarez/null-ls.nvim',
     requires = {
       'lukas-reineke/lsp-format.nvim',
       'nvim-lua/plenary.nvim',
     },
-  }
+  })
 
   -- diagnostic collector
-  use {
+  use({
     'folke/trouble.nvim',
-    requires = { "kyazdani42/nvim-web-devicons" },
-    config = function() require('config.trouble') end,
-  }
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function()
+      require('config.trouble')
+    end,
+  })
 
-  use {
+  use({
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu', -- lazy load when this command is ran
-  }
+  })
 
   -- out of the box LSP configs for common langs
-  use {
+  use({
     'neovim/nvim-lspconfig',
-    config = function() require('config.lsp') end,
+    config = function()
+      require('config.lsp')
+    end,
     requires = {
       'nvim-lua/lsp-status.nvim',
 
@@ -249,90 +285,102 @@ return require('packer').startup(function(use)
 
       -- formatting/diagnostic server
       'jose-elias-alvarez/null-ls.nvim',
-    }
-  }
+    },
+  })
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Ruby                                                   │
   --  ╰──────────────────────────────────────────────────────────╯
   -- better RSpec syntax highlighting
-  use 'keith/rspec.vim'
+  use('keith/rspec.vim')
 
   -- toggle block styles with ,b
-  use 'jgdavey/vim-blockle'
+  use('jgdavey/vim-blockle')
 
   -- allow for alternate files
-  use 'tpope/vim-rake'
+  use('tpope/vim-rake')
 
   -- indentation, etc
-  use 'vim-ruby/vim-ruby'
+  use('vim-ruby/vim-ruby')
 
   -- fenced syntax colors in heredocs
-  use 'joker1007/vim-ruby-heredoc-syntax'
+  use('joker1007/vim-ruby-heredoc-syntax')
 
   -- extract vars, methods, etc
-  use 'ecomba/vim-ruby-refactoring'
+  use('ecomba/vim-ruby-refactoring')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Snippets                                               │
   --  ╰──────────────────────────────────────────────────────────╯
-  use 'L3MON4D3/LuaSnip'
+  use('L3MON4D3/LuaSnip')
 
-  use {
+  use({
     'rafamadriz/friendly-snippets',
     requires = { 'L3MON4D3/LuaSnip' },
-    config = function() require('config.friendly-snippets') end,
-  }
+    config = function()
+      require('config.friendly-snippets')
+    end,
+  })
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Testing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
-  use {
+  use({
     'janko-m/vim-test',
-    config = function() require('config.vim-test') end,
-  }
+    config = function()
+      require('config.vim-test')
+    end,
+  })
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   tmux                                                   │
   --  ╰──────────────────────────────────────────────────────────╯
-  use {
+  use({
     'christoomey/vim-tmux-navigator',
-    config = function() require('config.tmux-navigator') end,
-  }
+    config = function()
+      require('config.tmux-navigator')
+    end,
+  })
 
-  use {
+  use({
     'melonmanchan/vim-tmux-resizer',
-    config = function() require('config.tmux-resizer') end,
-  }
+    config = function()
+      require('config.tmux-resizer')
+    end,
+  })
 
-  use 'benmills/vimux'
+  use('benmills/vimux')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Version control                                        │
   --  ╰──────────────────────────────────────────────────────────╯
   -- show commit popup with <leader>gm
-  use {
+  use({
     'rhysd/git-messenger.vim',
-    config = function() require('config.git-messenger') end,
-  }
+    config = function()
+      require('config.git-messenger')
+    end,
+  })
 
   -- the git plugin
-  use {
+  use({
     'tpope/vim-fugitive',
-    config = function() require('config.fugitive') end,
-  }
+    config = function()
+      require('config.fugitive')
+    end,
+  })
 
   -- show changed line marks in gutter
-  use 'airblade/vim-gitgutter'
+  use('airblade/vim-gitgutter')
 
   -- enable GHE/Github links with :Gbrowse
-  use 'tpope/vim-rhubarb'
+  use('tpope/vim-rhubarb')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Vimscript                                              │
   --  ╰──────────────────────────────────────────────────────────╯
-  use 'tpope/vim-scriptease'
+  use('tpope/vim-scriptease')
 
   -- REPL for Neovim/Vimscript with :Repl
-  use 'ii14/neorepl.nvim'
+  use('ii14/neorepl.nvim')
 end)

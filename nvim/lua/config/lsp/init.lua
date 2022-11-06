@@ -1,12 +1,12 @@
 local lspconfig = require('lspconfig')
-local lsp_format = require("lsp-format")
-local lsp_status = require("lsp-status")
+local lsp_format = require('lsp-format')
+local lsp_status = require('lsp-status')
 
 -- gutter space for lsp info on left
-vim.cmd [[set signcolumn=yes]]
+vim.cmd([[set signcolumn=yes]])
 
 -- 300ms before CursorHold events fire (like hover text on errors)
-vim.cmd [[set updatetime=300]]
+vim.cmd([[set updatetime=300]])
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ LSP format                                               │
@@ -21,10 +21,10 @@ lsp_format.setup()
 lsp_status.register_progress()
 
 -- gutter space for lsp info on left
-vim.cmd [[set signcolumn=yes]]
+vim.cmd([[set signcolumn=yes]])
 
 -- 300ms before CursorHold events fire (like hover text on errors)
-vim.cmd [[set updatetime=300]]
+vim.cmd([[set updatetime=300]])
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ LSP format                                               │
@@ -43,20 +43,16 @@ lsp_status.register_progress()
 --  ╰──────────────────────────────────────────────────────────╯
 local shared = require('config.lsp.shared')
 
-lspconfig.util.default_config = vim.tbl_extend(
-  "force",
-  lspconfig.util.default_config,
-  {
-    capabilities = shared.default_capabilities,
-    on_attach = shared.on_attach,
-  }
-)
+lspconfig.util.default_config = vim.tbl_extend('force', lspconfig.util.default_config, {
+  capabilities = shared.default_capabilities,
+  on_attach = shared.on_attach,
+})
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ Core keybinds                                            │
 --  ╰──────────────────────────────────────────────────────────╯
 
-vim.cmd [[
+vim.cmd([[
   nnoremap <silent><space>la :CodeActionMenu<CR>
   nnoremap <silent> <space>l0  <cmd>lua vim.lsp.buf.document_symbol()<CR>
   nnoremap <silent> <space>ld  <cmd>lua vim.lsp.buf.definition()<CR>
@@ -68,20 +64,19 @@ vim.cmd [[
   nnoremap <silent> <space>lr  <cmd>lua vim.lsp.buf.references()<CR>
   nnoremap <silent> <space>lt  <cmd>lua vim.lsp.buf.type_definition()<CR>
   nnoremap <silent> <space>lw  <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-]]
+]])
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ Diagnostics                                              │
 --  ╰──────────────────────────────────────────────────────────╯
-vim.cmd [[
+vim.cmd([[
   nnoremap <silent> gj :lua vim.diagnostic.goto_next()<cr>
   nnoremap <silent> gk :lua vim.diagnostic.goto_prev()<cr>
-]]
+]])
 
 -- Only show the first line when showing diagnostics, to avoid spewing too
 -- much out into the editor.
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   underline = false,
   virtual_text = {
     spacing = 4,

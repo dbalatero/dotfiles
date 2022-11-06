@@ -5,22 +5,22 @@ local function rgba(r, g, b, a)
     red = r / 255,
     green = g / 255,
     blue = b / 255,
-    alpha = a
+    alpha = a,
   }
 end
 
 -- see http://colorsafe.co for combos
 local layers = {
   default = {
-    name = "qwerty",
+    name = 'qwerty',
     background = rgba(187, 187, 187),
     foreground = rgba(46, 52, 59),
   },
   raise = {
-    name = "raise",
+    name = 'raise',
     background = rgba(163, 209, 255),
     foreground = rgba(15, 72, 128),
-  }
+  },
 }
 
 -------------------------
@@ -36,41 +36,38 @@ function LayerIndicator:new(defaultLayer)
   local indicator = {
     layer = defaultLayer,
     appWatcher = nil,
-    caffeineWatcher = nil
+    caffeineWatcher = nil,
   }
 
   setmetatable(indicator, self)
   self.__index = self
 
-  indicator.canvas = hs.canvas.new{
+  indicator.canvas = hs.canvas.new({
     w = defaultWidth,
     h = defaultHeight,
     x = 0,
     y = 0,
-  }
+  })
 
-  indicator.canvas:insertElement(
-    {
-      type = 'rectangle',
-      action = 'fill',
-      roundedRectRadii = { xRadius = 4, yRadius = 4 },
-      fillColor = { red = 0, green = 0, blue = 0, alpha = 1.0 },
-      frame = { x = "0%", y = "0%", h = "100%", w = "100%", },
-    },
-    elementIndexBox
-  )
+  indicator.canvas:insertElement({
+    type = 'rectangle',
+    action = 'fill',
+    roundedRectRadii = { xRadius = 4, yRadius = 4 },
+    fillColor = { red = 0, green = 0, blue = 0, alpha = 1.0 },
+    frame = { x = '0%', y = '0%', h = '100%', w = '100%' },
+  }, elementIndexBox)
 
-  indicator.canvas:insertElement(
-    {
-      type = 'text',
-      action = 'fill',
-      frame = {
-        x = "10%", y = "0%", h = "100%", w = "95%"
-      },
-      text = ""
+  indicator.canvas:insertElement({
+    type = 'text',
+    action = 'fill',
+    frame = {
+      x = '10%',
+      y = '0%',
+      h = '100%',
+      w = '95%',
     },
-    elementIndexText
-  )
+    text = '',
+  }, elementIndexText)
 
   indicator:render()
   indicator:show()
@@ -117,14 +114,11 @@ function LayerIndicator:render()
   canvas:elementAttribute(
     elementIndexText,
     'text',
-    hs.styledtext.new(
-      self.layer.name,
-      {
-        font = { name = "Helvetica Bold", size = 11 },
-        color = self.layer.foreground,
-        kerning = 0.5
-      }
-    )
+    hs.styledtext.new(self.layer.name, {
+      font = { name = 'Helvetica Bold', size = 11 },
+      color = self.layer.foreground,
+      kerning = 0.5,
+    })
   )
 
   -- box color
@@ -140,7 +134,7 @@ function LayerIndicator:render()
 
   canvas:topLeft({
     x = x,
-    y = 3
+    y = 3,
   })
 end
 
@@ -148,7 +142,7 @@ function LayerIndicator:show()
   self.canvas:show()
 
   -- show it above the Menu Bar
-  self.canvas:level("overlay")
+  self.canvas:level('overlay')
 end
 
 function LayerIndicator:getFrame()
@@ -162,8 +156,8 @@ end
 
 --------------- bindings
 
-local lowTom = hs.sound.getByFile(os.getenv('HOME') .. "/.dotfiles/sounds/808-tom-low.wav")
-local highTom = hs.sound.getByFile(os.getenv('HOME') .. "/.dotfiles/sounds/808-tom-high.wav")
+local lowTom = hs.sound.getByFile(os.getenv('HOME') .. '/.dotfiles/sounds/808-tom-low.wav')
+local highTom = hs.sound.getByFile(os.getenv('HOME') .. '/.dotfiles/sounds/808-tom-high.wav')
 
 lowTom:volume(0.3)
 highTom:volume(0.3)

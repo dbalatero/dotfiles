@@ -91,6 +91,12 @@ function install_proximity_sort() {
   fi
 }
 
+function install_stylua() {
+  if ! command_exists "stylua" ; then
+    cargo install --force stylua
+  fi
+}
+
 function install_bash_language_server() {
   npm install -g bash-language-server
 }
@@ -133,4 +139,5 @@ ensure_plugin_directory
 install_neovim_plugins
 install_rust
 install_proximity_sort
+install_stylua
 install_bat

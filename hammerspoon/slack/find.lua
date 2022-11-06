@@ -9,7 +9,9 @@ module.traverseChildren = function(element, matchFn)
     if children and #children > 0 then
       for _, child in ipairs(children) do
         local result = module.traverseChildren(child, matchFn)
-        if result then return result end
+        if result then
+          return result
+        end
       end
     end
 
@@ -24,8 +26,12 @@ module.searchByChain = function(startElement, fns, debugPrint)
   for _, predicate in ipairs(fns) do
     current = module.traverseChildren(current, predicate)
 
-    if debugPrint then p("Got: " .. hs.inspect.inspect(current)) end
-    if not current then return nil end
+    if debugPrint then
+      p('Got: ' .. hs.inspect.inspect(current))
+    end
+    if not current then
+      return nil
+    end
   end
 
   return current

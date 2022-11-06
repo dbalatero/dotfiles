@@ -1,6 +1,6 @@
 -- Turn off swap
-vim.cmd [[
+vim.cmd([[
   set noswapfile
   set nobackup
   set nowb
-]]
+]])

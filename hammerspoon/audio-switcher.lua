@@ -3,22 +3,22 @@ local function getDeviceChoices()
   local choices = {}
 
   for i, device in ipairs(devices) do
-    icon = "🔊"
+    icon = '🔊'
 
     if device:outputMuted() then
-      icon = "🔇"
+      icon = '🔇'
     end
 
     local subText = icon
 
     if device:outputVolume() then
-      subText = subText .. " Volume " .. math.floor(device:outputVolume()) .. "%"
+      subText = subText .. ' Volume ' .. math.floor(device:outputVolume()) .. '%'
     end
 
     choices[i] = {
       text = device:name(),
       subText = subText,
-      uuid = device:uid()
+      uuid = device:uid(),
     }
   end
 
@@ -34,7 +34,7 @@ local function handleAudioChoice(choice)
   device:setDefaultOutputDevice()
   device:setOutputMuted(false)
 
-  hs.alert("Switched to " .. choice["text"])
+  hs.alert('Switched to ' .. choice['text'])
 end
 
 ----------

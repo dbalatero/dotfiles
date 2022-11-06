@@ -1,7 +1,7 @@
 local module = {}
 
 local function file_exists(name)
-  local f = io.open(name,"r")
+  local f = io.open(name, 'r')
 
   if f ~= nil then
     io.close(f)
@@ -23,7 +23,7 @@ module.fzfFiles = function()
     command = rg_command
   else
     local file = vim.api.nvim_eval("expand('%')")
-    command = rg_command .. " | " .. proximity_sort_path .. " " .. file
+    command = rg_command .. ' | ' .. proximity_sort_path .. ' ' .. file
   end
 
   require('fzf-lua').files({

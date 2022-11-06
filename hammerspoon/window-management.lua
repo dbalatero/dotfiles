@@ -50,32 +50,32 @@ end
 local module = {}
 
 -- Maximizes a window to fit the entire grid.
-module.maximizeWindow = function ()
+module.maximizeWindow = function()
   local meta = windowMeta()
   hs.grid.maximizeWindow(meta.window)
 end
 
 -- Centers a window in the middle of the screen.
-module.centerOnScreen = function ()
+module.centerOnScreen = function()
   local meta = windowMeta()
   meta.window:centerOnScreen(meta.screen)
 end
 
 -- Throws a window 1 screen to the left
-module.throwLeft = function ()
+module.throwLeft = function()
   local meta = windowMeta()
   meta.window:moveOneScreenWest()
 end
 
 -- Throws a window 1 screen to the right
-module.throwRight = function ()
+module.throwRight = function()
   local meta = windowMeta()
   meta.window:moveOneScreenEast()
 end
 
 -- 1. Moves a window all the way left
 -- 2. Resizes it to take up the left half of the screen (grid)
-module.leftHalf = function ()
+module.leftHalf = function()
   local meta = windowMeta()
   local cell = hs.geometry(0, 0, 0.5 * meta.screenGrid.w, meta.screenGrid.h)
 
@@ -84,7 +84,7 @@ end
 
 -- 1. Moves a window all the way right
 -- 2. Resizes it to take up the right half of the screen (grid)
-module.rightHalf = function ()
+module.rightHalf = function()
   local meta = windowMeta()
   local cell = hs.geometry(0.5 * meta.screenGrid.w, 0, 0.5 * meta.screenGrid.w, meta.screenGrid.h)
 
@@ -93,7 +93,7 @@ end
 
 -- 1. Moves a window all the way to the top
 -- 2. Resizes it to take up the top half of the screen (grid)
-module.topHalf = function ()
+module.topHalf = function()
   local meta = windowMeta()
   local cell = hs.geometry(0, 0, meta.screenGrid.w, 0.5 * meta.screenGrid.h)
 
@@ -102,7 +102,7 @@ end
 
 -- 1. Moves a window all the way to the bottom
 -- 2. Resizes it to take up the bottom half of the screen (grid)
-module.bottomHalf = function ()
+module.bottomHalf = function()
   local meta = windowMeta()
   local cell = hs.geometry(0, 0.5 * meta.screenGrid.h, meta.screenGrid.w, 0.5 * meta.screenGrid.h)
 

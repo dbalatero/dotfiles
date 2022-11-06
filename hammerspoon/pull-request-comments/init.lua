@@ -7,11 +7,11 @@ local labels = {
   },
   {
     name = 'nitpick',
-    description = 'Nitpicks are small, trivial, but necessary changes. Distinguishing nitpick comments significantly helps direct the reader\'s attention to comments requiring more involvement.',
+    description = "Nitpicks are small, trivial, but necessary changes. Distinguishing nitpick comments significantly helps direct the reader's attention to comments requiring more involvement.",
   },
   {
     name = 'suggestion',
-    description = 'Suggestions propose improvements to the current subject. It\'s important to be explicit and clear on what is being suggested and why it is an improvement. Consider using patches and the blocking or non-blocking decorations to further communicate your intent.',
+    description = "Suggestions propose improvements to the current subject. It's important to be explicit and clear on what is being suggested and why it is an improvement. Consider using patches and the blocking or non-blocking decorations to further communicate your intent.",
   },
   {
     name = 'issue',
@@ -19,7 +19,7 @@ local labels = {
   },
   {
     name = 'question',
-    description = 'Questions are appropriate if you have a potential concern but are not quite sure if it\'s relevant or not. Asking the author for clarification or investigation can lead to a quick resolution.',
+    description = "Questions are appropriate if you have a potential concern but are not quite sure if it's relevant or not. Asking the author for clarification or investigation can lead to a quick resolution.",
   },
   {
     name = 'thought',

@@ -26,12 +26,7 @@ function WhichKey:new(modifiers)
     instance.overlay:hide()
   end
 
-  instance.holdTap = onModifierHold(
-    modifiers,
-    overlayTimeoutMs,
-    onHold,
-    onRelease
-  )
+  instance.holdTap = onModifierHold(modifiers, overlayTimeoutMs, onHold, onRelease)
 
   return instance
 end
@@ -49,19 +44,11 @@ function WhichKey:bind(displayedKey, bindKey)
   --   hyperKey:bind('t'):toApplication('/Applications/Utilities/Terminal.app')
   return {
     toApplication = function(_, applicationName)
-      return self:_bind(
-        displayedKey,
-        bindKey,
-        bindings.ApplicationBinding:new(applicationName)
-      )
+      return self:_bind(displayedKey, bindKey, bindings.ApplicationBinding:new(applicationName))
     end,
     toFunction = function(_, name, fn)
-      return self:_bind(
-        displayedKey,
-        bindKey,
-        bindings.FunctionBinding:new(name, fn)
-      )
-    end
+      return self:_bind(displayedKey, bindKey, bindings.FunctionBinding:new(name, fn))
+    end,
   }
 end
 
@@ -71,7 +58,7 @@ function WhichKey:_bind(key, bindKey, binding)
   table.insert(self.keyBindings, {
     key = key,
     bindKey = bindKey,
-    binding = binding
+    binding = binding,
   })
 
   -- Bind the actual hotkey to the binding's `launch()` function, as defined

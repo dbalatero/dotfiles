@@ -1,8 +1,8 @@
 local lspconfig = require('lspconfig')
 
 local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
 
 lspconfig.sumneko_lua.setup({
   settings = {
@@ -22,7 +22,7 @@ lspconfig.sumneko_lua.setup({
         library = {
           vim.fn.expand('$VIMRUNTIME/lua'),
           vim.fn.expand('$VIMRUNTIME/lua/vim/lsp'),
-          vim.fn.stdpath('config') .. '/lua'
+          vim.fn.stdpath('config') .. '/lua',
         },
       },
       -- Do not send telemetry data containing a randomized but unique identifier

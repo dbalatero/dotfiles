@@ -12,7 +12,7 @@ local function startSlackReminder()
   focus.mainMessageBox()
 
   hs.timer.doAfter(0.3, function()
-    hs.eventtap.keyStrokes("/remind me at ")
+    hs.eventtap.keyStrokes('/remind me at ')
   end)
 end
 
@@ -28,16 +28,18 @@ end
 
 slackModal = hs.hotkey.modal.new()
 
-slackModal:bind({'ctrl'}, 'h', nil, focus.mainMessageBox, nil, focus.mainMessageBox)
-slackModal:bind({'ctrl'}, 'j', nil, slackDown, nil, slackDown)
-slackModal:bind({'ctrl'}, 'k', nil, slackUp, nil, slackUp)
-slackModal:bind({'ctrl'}, 'l', nil, focus.threadMessageBox, nil, focus.threadMessageBox)
-slackModal:bind({'ctrl'}, 'r', nil, startSlackReminder, nil, startSlackReminder)
-slackModal:bind({'ctrl'}, 't', nil, openSlackThread, nil, openSlackThread)
-slackModal:bind({'shift','cmd'}, 'delete', nil, focus.leaveChannel, nil, nil)
+slackModal:bind({ 'ctrl' }, 'h', nil, focus.mainMessageBox, nil, focus.mainMessageBox)
+slackModal:bind({ 'ctrl' }, 'j', nil, slackDown, nil, slackDown)
+slackModal:bind({ 'ctrl' }, 'k', nil, slackUp, nil, slackUp)
+slackModal:bind({ 'ctrl' }, 'l', nil, focus.threadMessageBox, nil, focus.threadMessageBox)
+slackModal:bind({ 'ctrl' }, 'r', nil, startSlackReminder, nil, startSlackReminder)
+slackModal:bind({ 'ctrl' }, 't', nil, openSlackThread, nil, openSlackThread)
+slackModal:bind({ 'shift', 'cmd' }, 'delete', nil, focus.leaveChannel, nil, nil)
 
 slackWatcher = hs.application.watcher.new(function(applicationName, eventType)
-  if applicationName ~= "Slack" then return end
+  if applicationName ~= 'Slack' then
+    return
+  end
 
   if eventType == hs.application.watcher.activated then
     slackModal:enter()

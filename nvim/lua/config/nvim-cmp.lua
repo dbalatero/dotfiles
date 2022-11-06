@@ -12,12 +12,12 @@ lspkind.init()
 local cmp = require('cmp')
 local cmp_buffer = require('cmp_buffer')
 local compare = require('cmp.config.compare')
-local luasnip = require("luasnip")
+local luasnip = require('luasnip')
 
 -- I didn't write this shit https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 
 cmp.setup({
@@ -40,7 +40,7 @@ cmp.setup({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    ["<Tab>"] = cmp.mapping({
+    ['<Tab>'] = cmp.mapping({
       c = function()
         if cmp.visible() then
           cmp.select_next_item()
@@ -69,9 +69,9 @@ cmp.setup({
         else
           fallback()
         end
-      end
+      end,
     }),
-    ["<S-Tab>"] = cmp.mapping({
+    ['<S-Tab>'] = cmp.mapping({
       c = function()
         if cmp.visible() then
           cmp.select_prev_item()
@@ -96,7 +96,7 @@ cmp.setup({
         else
           fallback()
         end
-      end
+      end,
     }),
     -- Accept currently selected item. Set `select` to `false` to only confirm
     -- explicitly selected items.
@@ -129,7 +129,7 @@ cmp.setup({
         else
           fallback()
         end
-      end
+      end,
     }),
   },
   sources = cmp.config.sources({
@@ -142,7 +142,7 @@ cmp.setup({
         -- Complete from all visible buffers.
         get_bufnrs = function()
           return vim.api.nvim_list_bufs()
-        end
+        end,
       },
     },
   }),
@@ -156,7 +156,7 @@ cmp.setup({
       compare.offset,
       compare.exact,
       compare.score,
-      require("cmp-under-comparator").under,
+      require('cmp-under-comparator').under,
       compare.recently_used,
       compare.locality,
       compare.kind,
@@ -171,8 +171,8 @@ cmp.setup({
 -- anymore).
 cmp.setup.cmdline('/', {
   sources = {
-    { name = 'buffer' }
-  }
+    { name = 'buffer' },
+  },
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't
@@ -180,8 +180,8 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
   completion = { autocomplete = false },
   sources = cmp.config.sources({
-    { name = 'path' }
+    { name = 'path' },
   }, {
-    { name = 'cmdline' }
-  })
+    { name = 'cmdline' },
+  }),
 })

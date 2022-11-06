@@ -4,8 +4,10 @@ local debug = require('slack.debug')
 ----------
 
 local function getAxSlackWindow()
-  local app = hs.application.find("Slack")
-  if not app then return end
+  local app = hs.application.find('Slack')
+  if not app then
+    return
+  end
 
   -- Electron apps require this attribute to be set or else you cannot
   -- read the accessibility tree
@@ -20,7 +22,9 @@ end
 
 local function hasClass(element, class)
   local classList = element:attributeValue('AXDOMClassList')
-  if not classList then return false end
+  if not classList then
+    return false
+  end
 
   return hs.fnutils.contains(classList, class)
 end
@@ -31,14 +35,26 @@ local module = {}
 
 module.mainMessageBox = function()
   local window = getAxSlackWindow()
-  if not window then return end
+  if not window then
+    return
+  end
 
   local textarea = find.searchByChain(window, {
-    function(elem) return hasClass(elem, 'p-workspace-layout') end,
-    function(elem) return elem:attributeValue('AXSubrole') == 'AXLandmarkMain' end,
-    function(elem) return hasClass(elem, 'p-workspace__primary_view_contents') end,
-    function(elem) return hasClass(elem, 'c-wysiwyg_container') end,
-    function(elem) return elem:attributeValue('AXRole') == 'AXTextArea' end,
+    function(elem)
+      return hasClass(elem, 'p-workspace-layout')
+    end,
+    function(elem)
+      return elem:attributeValue('AXSubrole') == 'AXLandmarkMain'
+    end,
+    function(elem)
+      return hasClass(elem, 'p-workspace__primary_view_contents')
+    end,
+    function(elem)
+      return hasClass(elem, 'c-wysiwyg_container')
+    end,
+    function(elem)
+      return elem:attributeValue('AXRole') == 'AXTextArea'
+    end,
   })
 
   if textarea then
@@ -50,15 +66,27 @@ module.threadMessageBox = function(withRetry)
   withRetry = withRetry or false
 
   local window = getAxSlackWindow()
-  if not window then return end
+  if not window then
+    return
+  end
 
   local findTextarea = function()
     return find.searchByChain(window, {
-      function(elem) return hasClass(elem, 'p-workspace-layout') end,
-      function(elem) return hasClass(elem, 'p-flexpane') end,
-      function(elem) return hasClass(elem, 'p-threads_flexpane') end,
-      function(elem) return hasClass(elem, 'c-wysiwyg_container') end,
-      function(elem) return elem:attributeValue('AXRole') == 'AXTextArea' end,
+      function(elem)
+        return hasClass(elem, 'p-workspace-layout')
+      end,
+      function(elem)
+        return hasClass(elem, 'p-flexpane')
+      end,
+      function(elem)
+        return hasClass(elem, 'p-threads_flexpane')
+      end,
+      function(elem)
+        return hasClass(elem, 'c-wysiwyg_container')
+      end,
+      function(elem)
+        return elem:attributeValue('AXRole') == 'AXTextArea'
+      end,
     })
   end
 
@@ -89,17 +117,22 @@ end
 
 module.leaveChannel = function()
   local window = getAxSlackWindow()
-  if not window then return end
+  if not window then
+    return
+  end
 
   local button = find.searchByChain(window, {
-    function(elem) return hasClass(elem, 'p-workspace-layout') end,
     function(elem)
-      return elem:attributeValue('AXRole') == 'AXPopUpButton' and
-        hasClass(elem, 'p-view_header__big_button--channel')
+      return hasClass(elem, 'p-workspace-layout')
+    end,
+    function(elem)
+      return elem:attributeValue('AXRole') == 'AXPopUpButton' and hasClass(elem, 'p-view_header__big_button--channel')
     end,
   })
 
-  if not button then return end
+  if not button then
+    return
+  end
 
   button:performAction('AXPress')
 
@@ -108,12 +141,10 @@ module.leaveChannel = function()
   local findLeaveButton = function()
     return find.searchByChain(window, {
       function(elem)
-        return elem:attributeValue('AXSubrole') == 'AXApplicationDialog' and
-          hasClass(elem, 'p-about_modal')
+        return elem:attributeValue('AXSubrole') == 'AXApplicationDialog' and hasClass(elem, 'p-about_modal')
       end,
       function(elem)
-        return elem:attributeValue('AXRole') == 'AXButton' and
-          elem:attributeValue('AXTitle') == 'Leave channel'
+        return elem:attributeValue('AXRole') == 'AXButton' and elem:attributeValue('AXTitle') == 'Leave channel'
       end,
     })
   end

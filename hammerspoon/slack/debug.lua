@@ -2,31 +2,31 @@ local module = {}
 
 module.printElement = function(element)
   if not element then
-    p("Element is nil")
+    p('Element is nil')
     return
   end
 
   p(element:attributeValue('AXRole'))
-  p("  AXSubrole:         " .. tostring(element:attributeValue('AXSubrole')))
-  p("  AXDescription:     " .. tostring(element:attributeValue('AXDescription')))
-  p("  AXRoleDescription: " .. tostring(element:attributeValue('AXRoleDescription')))
-  p("  AXAccessKey:       " .. tostring(element:attributeValue('AXAccessKey')))
-  p("  AXDOMIdentifier:   " .. tostring(element:attributeValue('AXDOMIdentifier')))
-  p("  AXDOMClassList:    " .. hs.inspect.inspect(element:attributeValue('AXDOMClassList')))
-  p("  Attribute keys:    " .. hs.inspect.inspect(element:attributeNames()))
-  p("  Actions:           " .. hs.inspect.inspect(element:actionNames()))
+  p('  AXSubrole:         ' .. tostring(element:attributeValue('AXSubrole')))
+  p('  AXDescription:     ' .. tostring(element:attributeValue('AXDescription')))
+  p('  AXRoleDescription: ' .. tostring(element:attributeValue('AXRoleDescription')))
+  p('  AXAccessKey:       ' .. tostring(element:attributeValue('AXAccessKey')))
+  p('  AXDOMIdentifier:   ' .. tostring(element:attributeValue('AXDOMIdentifier')))
+  p('  AXDOMClassList:    ' .. hs.inspect.inspect(element:attributeValue('AXDOMClassList')))
+  p('  Attribute keys:    ' .. hs.inspect.inspect(element:attributeNames()))
+  p('  Actions:           ' .. hs.inspect.inspect(element:actionNames()))
 end
 
 module.printPath = function(path)
-  p("Got path")
-  p("---------------")
-  p("")
+  p('Got path')
+  p('---------------')
+  p('')
 
   for i, element in ipairs(path) do
     module.printElement(element)
-    p("")
-    p("---------------")
-    p("")
+    p('')
+    p('---------------')
+    p('')
   end
 end
 
@@ -50,8 +50,10 @@ module.findAxTextArea = function(element, path)
 end
 
 module.findTextAreaPaths = function()
-  local app = hs.application.find("Slack")
-  if not app then return end
+  local app = hs.application.find('Slack')
+  if not app then
+    return
+  end
 
   local ax = hs.axuielement.applicationElement(app)
   module.searchChildren(ax)

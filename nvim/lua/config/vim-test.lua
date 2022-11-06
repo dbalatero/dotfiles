@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   nmap <silent> <leader>T :TestNearest<CR>
   nmap <silent> <leader>t :TestFile<CR>
 
@@ -24,4 +24,4 @@ vim.cmd [[
 
   let test#custom_runners['javascript'] = ['jest']
   let test#custom_runners['typescript'] = ['jest']
-]]
+]])

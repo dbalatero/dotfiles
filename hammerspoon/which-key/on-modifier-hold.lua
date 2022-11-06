@@ -8,7 +8,9 @@ local function onModifierHold(modifiers, timeoutMs, onHold, onRelease)
   }
 
   local cancelTimer = function()
-    if not state.holdTimer then return end
+    if not state.holdTimer then
+      return
+    end
 
     state.holdTimer:stop()
     state.holdTimer = nil

@@ -1,4 +1,4 @@
 -- highlight hex colors in these file types
-vim.cmd [[
+vim.cmd([[
   au BufNewFile,BufRead *.css,*.html,*.htm,*.sass,*.scss :ColorHighlight!
-]]
+]])

@@ -27,7 +27,9 @@ muteWatcher = hs.timer.new(2, function()
 end)
 
 zoomAppWatcher = hs.application.watcher.new(function(applicationName, eventType)
-  if applicationName ~= "zoom.us" then return end
+  if applicationName ~= 'zoom.us' then
+    return
+  end
 
   if eventType == hs.application.watcher.launched then
     muteStatus:show()

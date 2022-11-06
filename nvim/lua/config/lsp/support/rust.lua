@@ -2,17 +2,17 @@ local lspconfig = require('lspconfig')
 
 lspconfig.rust_analyzer.setup({
   settings = {
-    ["rust-analyzer"] = {
+    ['rust-analyzer'] = {
       assist = {
-        importGranularity = "module",
-        importPrefix = "by_self",
+        importGranularity = 'module',
+        importPrefix = 'by_self',
       },
       cargo = {
-        loadOutDirsFromCheck = true
+        loadOutDirsFromCheck = true,
       },
       procMacro = {
-        enable = true
+        enable = true,
       },
-    }
-  }
+    },
+  },
 })

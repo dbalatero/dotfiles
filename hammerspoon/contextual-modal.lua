@@ -3,19 +3,16 @@ local ContextualModal = {}
 function ContextualModal:new()
   local modal = {
     context = nil,
-    eventBuffer = {}
+    eventBuffer = {},
   }
 
   setmetatable(modal, self)
   self.__index = self
 
-  modal.tap = hs.eventtap.new(
-    { hs.eventtap.event.types.keyDown },
-    function(event)
-      handler:queueEvent(event)
-      return false
-    end
-  )
+  modal.tap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
+    handler:queueEvent(event)
+    return false
+  end)
 
   return modal
 end

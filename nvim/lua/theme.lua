@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   set termguicolors
   colorscheme nightfly
 
@@ -7,4 +7,4 @@ vim.cmd [[
   hi LineNr guibg=NONE ctermbg=NONE
   hi SignColumn guibg=NONE ctermbg=NONE
   hi EndOfBuffer guibg=NONE ctermbg=NONE
-]]
+]])
