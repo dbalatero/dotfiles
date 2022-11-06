@@ -1,17 +1,11 @@
 local M = {}
 
 M.requireConfigDirectory = function(directory)
-  local files = vim.fn.readdir(
-    vim.fn.stdpath('config') .. '/lua/' .. directory,
-    [[v:val =~ '\.lua$']]
-  )
+  local pattern = vim.fn.stdpath('config') .. '/lua/config/' .. directory .. '/*.lua'
+  local paths = vim.split(vim.fn.glob(pattern), '\n')
 
-  for _, file in ipairs(files) do
-    local path = file
-        :gsub('%.lua$', '')
-        :gsub('/', '.')
-
-    require('config.' .. path)
+  for _, path in ipairs(paths) do
+    dofile(path)
   end
 end
 

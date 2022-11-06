@@ -168,7 +168,5 @@ set completeopt=menu,menuone,noselect
 " Load packer
 lua require('plugins')
 
-call luaeval('require("lspservers")')
-
 " Load lua/init.lua
 lua require("init")

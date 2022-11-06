@@ -264,6 +264,7 @@ return require('packer').startup(function(use)
   use {
     'rafamadriz/friendly-snippets',
     requires = { 'L3MON4D3/LuaSnip' },
+    config = function() require('config.friendly-snippets') end,
   }
 
   --  ╭──────────────────────────────────────────────────────────╮
@@ -314,4 +315,7 @@ return require('packer').startup(function(use)
   --  │   Vimscript                                              │
   --  ╰──────────────────────────────────────────────────────────╯
   use 'tpope/vim-scriptease'
+
+  -- REPL for Neovim/Vimscript with :Repl
+  use 'ii14/neorepl.nvim'
 end)
