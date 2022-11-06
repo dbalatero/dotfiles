@@ -155,33 +155,8 @@ inoremap <C-Z> <Esc><C-Z>
 nnoremap / /\v
 vnoremap / /\v
 
-" Load aliases for :vh -> :vertical h
-if exists('s:loaded_vimafter')
-  silent doautocmd VimAfter VimEnter *
-else
-  let s:loaded_vimafter = 1
-  augroup VimAfter
-    autocmd!
-    autocmd VimEnter * source ~/.config/nvim/aliases.vim
-  augroup END
-endif
-
 " wildignore
 set wildignore+=node_modules/*,bower_components/*,vendor/bundle/*,tmp/*
-
-" function to source a file if it exists
-function! SourceIfExists(file)
-  if filereadable(expand(a:file))
-    exe 'source' a:file
-  endif
-endfunction
-
-" =============== Cursor shapes =====================
-
-" TODO this doesn't work in neovim
-let &t_SI = "\<esc>[5 q" " I beam cursor for insert mode
-let &t_EI = "\<esc>[2 q" " block cursor for normal mode
-let &t_SR = "\<esc>[3 q" " underline cursor for replace mode
 
 " ╭────────────────────────────────────────────────────────────────────╮
 " │                               Plugins                              │
@@ -190,7 +165,6 @@ let &t_SR = "\<esc>[3 q" " underline cursor for replace mode
 call plug#begin('~/.local/nvim/plugins')
 
 " Core
-Plug 'Konfekt/vim-alias'
 Plug 'liuchengxu/vim-which-key'       " context menu when hitting leader key(s)
 
 " LSP

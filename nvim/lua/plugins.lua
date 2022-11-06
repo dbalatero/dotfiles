@@ -22,6 +22,11 @@ return require('packer').startup(function(use)
     config = function() require('config.treesitter') end,
   }
 
+  use {
+    'Konfekt/vim-alias',
+    config = function() require('config.aliases') end,
+  }
+
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Color schemes and themes                               │
   --  ╰──────────────────────────────────────────────────────────╯
