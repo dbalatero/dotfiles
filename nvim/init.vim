@@ -164,9 +164,6 @@ set wildignore+=node_modules/*,bower_components/*,vendor/bundle/*,tmp/*
 
 call plug#begin('~/.local/nvim/plugins')
 
-" Core
-Plug 'liuchengxu/vim-which-key'       " context menu when hitting leader key(s)
-
 " LSP
 Plug 'neovim/nvim-lspconfig'             " out of the box LSP configs for common langs
 Plug 'nvim-lua/lsp-status.nvim'          " provides statusline information for LSP

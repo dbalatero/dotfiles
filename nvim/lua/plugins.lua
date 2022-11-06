@@ -20,11 +20,18 @@ return require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function() require('config.treesitter') end,
+    requires = { 'andymass/vim-matchup' },
   }
 
   use {
     'Konfekt/vim-alias',
     config = function() require('config.aliases') end,
+  }
+
+  -- context menu when hitting leader key(s)
+  use {
+    'liuchengxu/vim-which-key',
+    config = function() require('config.which-key') end,
   }
 
   --  ╭──────────────────────────────────────────────────────────╮
