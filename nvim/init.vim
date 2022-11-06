@@ -115,7 +115,7 @@ let g:latest_node_path = $HOME . '/.nodenv/versions/15.7.0/bin/node'
 augroup highlight_yank
   if has("nvim-0.5")
     autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+    autocmd TextYankPost * silent! lua require('vim.highlight').on_yank()
   endif
 augroup END
 
@@ -248,7 +248,8 @@ Plug 'ecomba/vim-ruby-refactoring'        " extract vars, methods, etc
 Plug 'rafamadriz/friendly-snippets'
 
 " Syntax checking
-Plug 'dense-analysis/ale'
+Plug 'lukas-reineke/lsp-format.nvim'      " LSP format on save, with multiple sequential LSPs + async
+Plug 'jose-elias-alvarez/null-ls.nvim'    " LSP for formatting/diagnostics
 Plug 'folke/trouble.nvim'                 " pretty list for diagnostics, errors, etc
 
 " Tests
@@ -510,51 +511,11 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
-" =================== ALE =======================
+" =================== Diagnostics =======================
 
-" ALE config
-let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_javascript_eslint_options = ''
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_send_to_neovim_diagnostics = 1
 
-let g:ale_ruby_rubocop_executable = 'rubocop'
-
-let g:ale_ruby_rubocop_options = '--display-cop-names'
-let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
-
-" only run the linters we specify
-let g:ale_linters_explicit = 1
-
-let g:ale_linters = {
-\ 'javascript': ['eslint'],
-\ 'javascript.jsx': ['eslint'],
-\ 'typescript': ['eslint', 'prettier'],
-\ 'typescriptreact': ['eslint', 'prettier'],
-\ 'ruby': ['rubocop'],
-\}
-
-let g:ale_fixers = {
-\ 'javascript': ['eslint'],
-\ 'javascript.jsx': ['eslint'],
-\ 'typescript': ['eslint', 'prettier'],
-\ 'typescriptreact': ['eslint', 'prettier'],
-\ 'ruby': ['rubocop'],
-\}
-
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '.'
-let g:ale_disable_lsp = 1
-" let g:ale_virtualtext_cursor = 1
-" let g:ale_virtualtext_prefix = "      "
-
-let g:ale_hover_to_floating_preview = 1
-let g:ale_floating_preview = 1
-let g:ale_hover_to_preview = 0
-
-nnoremap <silent> gj :ALENext<cr>
-nnoremap <silent> gk :ALEPrevious<cr>
+nnoremap <silent> gj :lua vim.diagnostic.goto_next()<cr>
+nnoremap <silent> gk :lua vim.diagnostic.goto_prev()<cr>
 
 " =================== Ruby =====================
 
@@ -618,12 +579,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 LUA
-
-" ================== status line ================
-lua require("statusline")
-
-" ================= which key ==================
-lua require("which-key")
 
 " ================ writing mode ================
 

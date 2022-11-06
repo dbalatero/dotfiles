@@ -1,5 +1,6 @@
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig/configs')
+local lsp_format = require("lsp-format")
 local lsp_status = require('lsp-status')
 local lspkind = require('lspkind')
 local trouble = require('trouble')
@@ -7,6 +8,7 @@ local cmp = require('cmp')
 local cmp_buffer = require('cmp_buffer')
 local compare = require('cmp.config.compare')
 local luasnip = require("luasnip")
+local null_ls = require("null-ls")
 
 -- Load the friendly-snippets
 require("luasnip.loaders.from_vscode").lazy_load()
@@ -21,11 +23,14 @@ trouble.setup({
   use_diagnostic_signs = true,
 })
 
+lsp_format.setup()
+
 -- Shared on_attach + capabilities
 --
 -- We set these on the `default_config` so we don't have to set up `on_attach`
 -- and `capabilities` for every last LSP.
 local on_attach = function(client, bufnr)
+  lsp_format.on_attach(client, bufnr)
   lsp_status.on_attach(client, bufnr)
 
   -- Floating window signature
@@ -38,6 +43,64 @@ local on_attach = function(client, bufnr)
 
   -- print(vim.inspect(client.resolved_capabilities))
 end
+
+-- null ls
+local ignorePrettierRules = function(diagnostic)
+  return diagnostic.code ~= "prettier/prettier"
+end
+
+local hasEslintConfig = function(utils)
+  return utils.root_has_file({
+    ".eslintrc",
+    ".eslintrc.json",
+    ".eslintrc.js"
+  })
+end
+
+local hasPrettierConfig = function(utils)
+  return utils.root_has_file({
+    ".prettierrc",
+    ".prettierrc.json",
+    ".prettierrc.js",
+    ".prettierrc.toml",
+    ".prettierrc.yml",
+    ".prettierrc.yaml",
+  })
+end
+
+local eslintConfig = {
+  condition = hasEslintConfig,
+  filter = ignorePrettierRules,
+}
+
+null_ls.setup({
+  -- For :NullLsLog support
+  -- debug = true,
+  on_attach = on_attach,
+  root_dir = require("null-ls.utils").root_pattern(
+    ".git",
+    "Gemfile.lock",
+    "package.json"
+  ),
+  sources = {
+    -- prettier
+    -- todo get prettierd configured and setup
+    null_ls.builtins.formatting.prettier.with({
+      condition = hasPrettierConfig,
+      env = {
+        -- PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
+      },
+      -- Always use the local prettier, especially when prettier is pointing
+      -- at a feature branch.
+      prefer_local = "node_modules/.bin",
+    }),
+
+    -- eslint
+    null_ls.builtins.code_actions.eslint_d.with(eslintConfig),
+    null_ls.builtins.diagnostics.eslint_d.with(eslintConfig),
+    -- null_ls.builtins.formatting.eslint_d.with(eslintConfig),
+  }
+})
 
 lspconfig.util.default_config = vim.tbl_extend(
   "force",
@@ -52,17 +115,17 @@ lspconfig.util.default_config = vim.tbl_extend(
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = false,
-    virtual_text = {
-      spacing = 4,
-      format = function(diagnostic)
-        -- Only show the first line with virtualtext.
-        return string.gsub(diagnostic.message, '\n.*', '')
-      end,
-    },
-    signs = true,
-    update_in_insert = false,
-  }
+  underline = false,
+  virtual_text = {
+    spacing = 4,
+    format = function(diagnostic)
+      -- Only show the first line with virtualtext.
+      return string.gsub(diagnostic.message, '\n.*', '')
+    end,
+  },
+  signs = true,
+  update_in_insert = false,
+}
 )
 
 -- Completion
@@ -255,34 +318,13 @@ lspconfig.flow.setup({
 })
 
 -- Lua
-local sumneko_cmd
-
-if vim.fn.executable("lua-language-server") == 1 then
-  sumneko_cmd = {"lua-language-server"}
-else
-  local sumneko_root_path = vim.fn.getenv("HOME") .. "/.local/nvim/lsp/lua-language-server"
-  local bin_path = ""
-
-  if vim.fn.executable(sumneko_root_path .. "/bin/macOS/lua-language-server") == 1 then
-    bin_path = sumneko_root_path .. "/bin/macOS/lua-language-server"
-  else
-    bin_path = sumneko_root_path .. "/bin/lua-language-server"
-  end
-
-  sumneko_cmd = {
-    bin_path,
-    "-E",
-    sumneko_root_path .. "/main.lua",
-  }
-end
-
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 lspconfig.sumneko_lua.setup({
   capabilities = lspCapabilities,
-  cmd = sumneko_cmd,
+  -- cmd = sumneko_cmd,
   settings = {
     Lua = {
       runtime = {
@@ -293,7 +335,7 @@ lspconfig.sumneko_lua.setup({
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = { 'vim' },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
@@ -337,8 +379,8 @@ lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
 if not lspconfig.emmet_ls then
   configs.emmet_ls = {
     default_config = {
-      cmd = {'emmet-ls', '--stdio'};
-      filetypes = {'html', 'css', 'blade', 'javascriptreact', 'javascript.jsx'};
+      cmd = { 'emmet-ls', '--stdio' };
+      filetypes = { 'html', 'css', 'blade', 'javascriptreact', 'javascript.jsx' };
       root_dir = function()
         return vim.loop.cwd()
       end;
@@ -381,27 +423,7 @@ lspconfig.tsserver.setup({
   end
 })
 
--- Sorbet lsp for Stripe, if it exists
-function setupVanillaLspClients()
-  lspconfig.sorbet.setup({
-    capabilities = lspCapabilities,
-    root_dir = lspconfig.util.root_pattern("sorbet", ".git"),
-  })
-end
-
-local _, stripeLsp = pcall(function()
-  return require('stripe.lsp')
-end)
-
-local inStripe = stripeLsp and stripeLsp.setupClients
-
-if inStripe then
-  stripeLsp.setupClients(
-    {
-      capabilities = lspCapabilities,
-    },
-    setupVanillaLspClients
-  )
-else
-  setupVanillaLspClients()
-end
+lspconfig.sorbet.setup({
+  capabilities = lspCapabilities,
+  root_dir = lspconfig.util.root_pattern("sorbet"),
+})
