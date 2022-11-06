@@ -165,6 +165,16 @@ return require('packer').startup(function(use)
   use 'ecomba/vim-ruby-refactoring'
 
   --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Snippets                                               │
+  --  ╰──────────────────────────────────────────────────────────╯
+  use 'L3MON4D3/LuaSnip'
+
+  use {
+    'rafamadriz/friendly-snippets',
+    requires = { 'L3MON4D3/LuaSnip' },
+  }
+
+  --  ╭──────────────────────────────────────────────────────────╮
   --  │   Testing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
   use {

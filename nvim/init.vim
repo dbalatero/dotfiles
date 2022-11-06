@@ -204,7 +204,6 @@ Plug 'kosayoda/nvim-lightbulb'           " show possible code actions as lightbu
 Plug 'weilbith/nvim-code-action-menu'    " add popup menu for running code actions
 
 " Completion
-Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -212,9 +211,6 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'lukas-reineke/cmp-under-comparator'
-
-" Snippets
-Plug 'rafamadriz/friendly-snippets'
 
 " Syntax checking
 Plug 'lukas-reineke/lsp-format.nvim'      " LSP format on save, with multiple sequential LSPs + async
