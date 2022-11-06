@@ -213,14 +213,6 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'lukas-reineke/cmp-under-comparator'
 
-" Ruby
-Plug 'keith/rspec.vim'                    " better RSpec syntax highlighting
-Plug 'jgdavey/vim-blockle'                " toggle block styles with ,b
-Plug 'tpope/vim-rake'                     " allow for alternate files
-Plug 'vim-ruby/vim-ruby'                  " indentation, etc
-Plug 'joker1007/vim-ruby-heredoc-syntax'  " fenced syntax colors in heredocs
-Plug 'ecomba/vim-ruby-refactoring'        " extract vars, methods, etc
-
 " Snippets
 Plug 'rafamadriz/friendly-snippets'
 
@@ -369,4 +361,3 @@ call SourceIfExists('~/.config/nvim/layers/private/config.vim')
 
 " Load lua/init.lua
 lua require("init")
-

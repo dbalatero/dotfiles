@@ -132,7 +132,28 @@ return require('packer').startup(function(use)
   use 'hashivim/vim-terraform'
 
   -- markdown preview with :Glow
-  use 'npxbr/glow.nvim',
+  use 'npxbr/glow.nvim'
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Ruby                                                   │
+  --  ╰──────────────────────────────────────────────────────────╯
+  -- better RSpec syntax highlighting
+  use 'keith/rspec.vim'
+
+  -- toggle block styles with ,b
+  use 'jgdavey/vim-blockle'
+
+  -- allow for alternate files
+  use 'tpope/vim-rake'
+
+  -- indentation, etc
+  use 'vim-ruby/vim-ruby'
+
+  -- fenced syntax colors in heredocs
+  use 'joker1007/vim-ruby-heredoc-syntax'
+
+  -- extract vars, methods, etc
+  use 'ecomba/vim-ruby-refactoring'
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Version control                                        │

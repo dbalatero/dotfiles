@@ -145,6 +145,11 @@ _G.packer_plugins = {
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/rename.vim",
     url = "https://github.com/danro/rename.vim"
   },
+  ["rspec.vim"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/rspec.vim",
+    url = "https://github.com/keith/rspec.vim"
+  },
   ["splitjoin.vim"] = {
     config = { "\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21config.splitjoin\frequire\0" },
     loaded = true,
@@ -171,6 +176,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-abolish",
     url = "https://github.com/tpope/vim-abolish"
+  },
+  ["vim-blockle"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-blockle",
+    url = "https://github.com/jgdavey/vim-blockle"
   },
   ["vim-commentary"] = {
     loaded = true,
@@ -213,6 +223,11 @@ _G.packer_plugins = {
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-puppet",
     url = "https://github.com/rodjek/vim-puppet"
   },
+  ["vim-rake"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-rake",
+    url = "https://github.com/tpope/vim-rake"
+  },
   ["vim-repeat"] = {
     loaded = true,
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-repeat",
@@ -222,6 +237,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
     url = "https://github.com/tpope/vim-rhubarb"
+  },
+  ["vim-ruby"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-ruby",
+    url = "https://github.com/vim-ruby/vim-ruby"
+  },
+  ["vim-ruby-heredoc-syntax"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-ruby-heredoc-syntax",
+    url = "https://github.com/joker1007/vim-ruby-heredoc-syntax"
+  },
+  ["vim-ruby-refactoring"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-ruby-refactoring",
+    url = "https://github.com/ecomba/vim-ruby-refactoring"
   },
   ["vim-scriptease"] = {
     loaded = true,
@@ -263,50 +293,50 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: vim-fugitive
-time([[Config for vim-fugitive]], true)
-try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.fugitive\frequire\0", "config", "vim-fugitive")
-time([[Config for vim-fugitive]], false)
--- Config for: ack.vim
-time([[Config for ack.vim]], true)
-try_loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15config.ack\frequire\0", "config", "ack.vim")
-time([[Config for ack.vim]], false)
--- Config for: lightspeed.nvim
-time([[Config for lightspeed.nvim]], true)
-try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22config.lightspeed\frequire\0", "config", "lightspeed.nvim")
-time([[Config for lightspeed.nvim]], false)
 -- Config for: git-messenger.vim
 time([[Config for git-messenger.vim]], true)
 try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25config.git-messenger\frequire\0", "config", "git-messenger.vim")
 time([[Config for git-messenger.vim]], false)
--- Config for: splitjoin.vim
-time([[Config for splitjoin.vim]], true)
-try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21config.splitjoin\frequire\0", "config", "splitjoin.vim")
-time([[Config for splitjoin.vim]], false)
--- Config for: fzf-lua
-time([[Config for fzf-lua]], true)
-try_loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15config.fzf\frequire\0", "config", "fzf-lua")
-time([[Config for fzf-lua]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22config.treesitter\frequire\0", "config", "nvim-treesitter")
-time([[Config for nvim-treesitter]], false)
--- Config for: vim-signature
-time([[Config for vim-signature]], true)
-try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25config.vim-signature\frequire\0", "config", "vim-signature")
-time([[Config for vim-signature]], false)
 -- Config for: starlark.vim
 time([[Config for starlark.vim]], true)
 try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.starlark\frequire\0", "config", "starlark.vim")
 time([[Config for starlark.vim]], false)
--- Config for: Colorizer
-time([[Config for Colorizer]], true)
-try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21config.colorizer\frequire\0", "config", "Colorizer")
-time([[Config for Colorizer]], false)
+-- Config for: vim-signature
+time([[Config for vim-signature]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25config.vim-signature\frequire\0", "config", "vim-signature")
+time([[Config for vim-signature]], false)
+-- Config for: vim-fugitive
+time([[Config for vim-fugitive]], true)
+try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.fugitive\frequire\0", "config", "vim-fugitive")
+time([[Config for vim-fugitive]], false)
+-- Config for: lightspeed.nvim
+time([[Config for lightspeed.nvim]], true)
+try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22config.lightspeed\frequire\0", "config", "lightspeed.nvim")
+time([[Config for lightspeed.nvim]], false)
+-- Config for: ack.vim
+time([[Config for ack.vim]], true)
+try_loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15config.ack\frequire\0", "config", "ack.vim")
+time([[Config for ack.vim]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22config.treesitter\frequire\0", "config", "nvim-treesitter")
+time([[Config for nvim-treesitter]], false)
 -- Config for: vimfiler.vim
 time([[Config for vimfiler.vim]], true)
 try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.vimfiler\frequire\0", "config", "vimfiler.vim")
 time([[Config for vimfiler.vim]], false)
+-- Config for: Colorizer
+time([[Config for Colorizer]], true)
+try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21config.colorizer\frequire\0", "config", "Colorizer")
+time([[Config for Colorizer]], false)
+-- Config for: fzf-lua
+time([[Config for fzf-lua]], true)
+try_loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15config.fzf\frequire\0", "config", "fzf-lua")
+time([[Config for fzf-lua]], false)
+-- Config for: splitjoin.vim
+time([[Config for splitjoin.vim]], true)
+try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21config.splitjoin\frequire\0", "config", "splitjoin.vim")
+time([[Config for splitjoin.vim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
