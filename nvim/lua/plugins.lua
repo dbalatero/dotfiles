@@ -150,7 +150,10 @@ return require('packer').startup(function(use)
   use 'andymass/vim-matchup'
 
   -- lets you surround comments in a box.
-  use 'LudoPinelli/comment-box.nvim'
+  use {
+    'LudoPinelli/comment-box.nvim',
+    config = function() require('config.comment-box') end,
+  }
 
   -- Show guides for indentation
   use {

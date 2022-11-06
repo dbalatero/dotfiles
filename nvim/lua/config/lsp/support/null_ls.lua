@@ -40,8 +40,9 @@ null_ls.setup({
     "package.json"
   ),
   sources = {
-    -- prettier
-    -- todo get prettierd configured and setup
+    --  ╭──────────────────────────────────────────────────────────╮
+    --  │     TypeScript                                           │
+    --  ╰──────────────────────────────────────────────────────────╯
     null_ls.builtins.formatting.prettierd.with({
       condition = hasPrettierConfig,
       env = {
@@ -51,7 +52,6 @@ null_ls.setup({
       },
     }),
 
-    -- eslint
     null_ls.builtins.code_actions.eslint_d.with(eslintConfig),
     null_ls.builtins.diagnostics.eslint_d.with(eslintConfig),
   }
