@@ -12,7 +12,11 @@ parser_config.org = {
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
     'bash',
+    'c',
     'css',
+    'dockerfile',
+    'elixir',
+    'erlang',
     'go',
     'graphql',
     'javascript',
@@ -23,10 +27,12 @@ require('nvim-treesitter.configs').setup {
     'nix',
     'php',
     'python',
+    'regex',
     'ruby',
     'tsx',
     'typescript',
     'yaml',
+    'vim',
   },
   highlight = {
     enable = true,
