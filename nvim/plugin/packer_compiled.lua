@@ -74,11 +74,22 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  Colorizer = {
+    config = { "\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21config.colorizer\frequire\0" },
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/Colorizer",
+    url = "https://github.com/chrisbra/Colorizer"
+  },
   ["ack.vim"] = {
     config = { "\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15config.ack\frequire\0" },
     loaded = true,
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/ack.vim",
     url = "https://github.com/mileszs/ack.vim"
+  },
+  ["comment-box.nvim"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/comment-box.nvim",
+    url = "https://github.com/LudoPinelli/comment-box.nvim"
   },
   ["fzf-lua"] = {
     config = { "\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15config.fzf\frequire\0" },
@@ -91,6 +102,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/git-messenger.vim",
     url = "https://github.com/rhysd/git-messenger.vim"
+  },
+  ["lightspeed.nvim"] = {
+    config = { "\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22config.lightspeed\frequire\0" },
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/lightspeed.nvim",
+    url = "https://github.com/ggandor/lightspeed.nvim"
   },
   ["nvim-lua-guide"] = {
     loaded = true,
@@ -129,10 +146,30 @@ _G.packer_plugins = {
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/splitjoin.vim",
     url = "https://github.com/AndrewRadev/splitjoin.vim"
   },
+  ["switch.vim"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/switch.vim",
+    url = "https://github.com/AndrewRadev/switch.vim"
+  },
   ["unite.vim"] = {
     loaded = true,
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/unite.vim",
     url = "https://github.com/Shougo/unite.vim"
+  },
+  ["vim-abolish"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-abolish",
+    url = "https://github.com/tpope/vim-abolish"
+  },
+  ["vim-commentary"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-commentary",
+    url = "https://github.com/tpope/vim-commentary"
+  },
+  ["vim-cool"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-cool",
+    url = "https://github.com/romainl/vim-cool"
   },
   ["vim-fugitive"] = {
     config = { "\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.fugitive\frequire\0" },
@@ -145,6 +182,26 @@ _G.packer_plugins = {
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-gitgutter",
     url = "https://github.com/airblade/vim-gitgutter"
   },
+  ["vim-matchup"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-matchup",
+    url = "https://github.com/andymass/vim-matchup"
+  },
+  ["vim-nightfly-guicolors"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-nightfly-guicolors",
+    url = "https://github.com/bluz71/vim-nightfly-guicolors"
+  },
+  ["vim-projectionist"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-projectionist",
+    url = "https://github.com/tpope/vim-projectionist"
+  },
+  ["vim-repeat"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-repeat",
+    url = "https://github.com/tpope/vim-repeat"
+  },
   ["vim-rhubarb"] = {
     loaded = true,
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
@@ -155,6 +212,27 @@ _G.packer_plugins = {
     path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-scriptease",
     url = "https://github.com/tpope/vim-scriptease"
   },
+  ["vim-signature"] = {
+    config = { "\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25config.vim-signature\frequire\0" },
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-signature",
+    url = "https://github.com/kshenoy/vim-signature"
+  },
+  ["vim-stripper"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-stripper",
+    url = "https://github.com/itspriddle/vim-stripper"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
+  },
+  ["vim-togglelist"] = {
+    loaded = true,
+    path = "/Users/david/.local/share/nvim/site/pack/packer/start/vim-togglelist",
+    url = "https://github.com/milkypostman/vim-togglelist"
+  },
   ["vimfiler.vim"] = {
     config = { "\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.vimfiler\frequire\0" },
     loaded = true,
@@ -164,14 +242,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: ack.vim
-time([[Config for ack.vim]], true)
-try_loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15config.ack\frequire\0", "config", "ack.vim")
-time([[Config for ack.vim]], false)
--- Config for: vimfiler.vim
-time([[Config for vimfiler.vim]], true)
-try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.vimfiler\frequire\0", "config", "vimfiler.vim")
-time([[Config for vimfiler.vim]], false)
 -- Config for: fzf-lua
 time([[Config for fzf-lua]], true)
 try_loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15config.fzf\frequire\0", "config", "fzf-lua")
@@ -180,18 +250,38 @@ time([[Config for fzf-lua]], false)
 time([[Config for git-messenger.vim]], true)
 try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25config.git-messenger\frequire\0", "config", "git-messenger.vim")
 time([[Config for git-messenger.vim]], false)
--- Config for: vim-fugitive
-time([[Config for vim-fugitive]], true)
-try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.fugitive\frequire\0", "config", "vim-fugitive")
-time([[Config for vim-fugitive]], false)
--- Config for: splitjoin.vim
-time([[Config for splitjoin.vim]], true)
-try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21config.splitjoin\frequire\0", "config", "splitjoin.vim")
-time([[Config for splitjoin.vim]], false)
+-- Config for: vim-signature
+time([[Config for vim-signature]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25config.vim-signature\frequire\0", "config", "vim-signature")
+time([[Config for vim-signature]], false)
+-- Config for: lightspeed.nvim
+time([[Config for lightspeed.nvim]], true)
+try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22config.lightspeed\frequire\0", "config", "lightspeed.nvim")
+time([[Config for lightspeed.nvim]], false)
+-- Config for: ack.vim
+time([[Config for ack.vim]], true)
+try_loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15config.ack\frequire\0", "config", "ack.vim")
+time([[Config for ack.vim]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
 try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22config.treesitter\frequire\0", "config", "nvim-treesitter")
 time([[Config for nvim-treesitter]], false)
+-- Config for: vimfiler.vim
+time([[Config for vimfiler.vim]], true)
+try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.vimfiler\frequire\0", "config", "vimfiler.vim")
+time([[Config for vimfiler.vim]], false)
+-- Config for: splitjoin.vim
+time([[Config for splitjoin.vim]], true)
+try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21config.splitjoin\frequire\0", "config", "splitjoin.vim")
+time([[Config for splitjoin.vim]], false)
+-- Config for: vim-fugitive
+time([[Config for vim-fugitive]], true)
+try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.fugitive\frequire\0", "config", "vim-fugitive")
+time([[Config for vim-fugitive]], false)
+-- Config for: Colorizer
+time([[Config for Colorizer]], true)
+try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21config.colorizer\frequire\0", "config", "Colorizer")
+time([[Config for Colorizer]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

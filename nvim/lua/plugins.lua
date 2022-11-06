@@ -23,6 +23,17 @@ return require('packer').startup(function(use)
   }
 
   --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Color schemes and themes                               │
+  --  ╰──────────────────────────────────────────────────────────╯
+  use 'bluz71/vim-nightfly-guicolors'
+
+  -- show hex colors in CSS/HTML files
+  use {
+    'chrisbra/Colorizer',
+    config = function() require('config.colorizer') end,
+  }
+
+  --  ╭──────────────────────────────────────────────────────────╮
   --  │   Editing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
   -- Show function context as you scroll

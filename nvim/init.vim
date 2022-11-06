@@ -235,12 +235,7 @@ Plug 'folke/trouble.nvim'                 " pretty list for diagnostics, errors,
 " Tests
 Plug 'janko-m/vim-test'
 
-" Writing
-Plug 'junegunn/goyo.vim'       " distraction-free writing with :Goyo
-Plug 'junegunn/limelight.vim'  " dim other paragraphs while writing
-
 " Theming
-Plug 'chrisbra/Colorizer'            " show hex colors in CSS/HTML files
 Plug 'dbalatero/galaxyline.nvim'     " fast Lua statusline
 Plug 'kyazdani42/nvim-web-devicons'  " fancy icons
 Plug 'RRethy/vim-illuminate'         " highlight duplicate words
@@ -250,15 +245,6 @@ Plug 'rodjek/vim-puppet'
 Plug 'cappyzawa/starlark.vim'
 
 " color schemes
-Plug 'tjdevries/colorbuddy.vim'
-Plug 'bkegley/gloombuddy'
-
-Plug 'NieTiger/halcyon-neovim'
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
-Plug 'mhartington/oceanic-next'
-Plug 'joshdick/onedark.vim'
-Plug 'haishanh/night-owl.vim'
-Plug 'bluz71/vim-nightfly-guicolors'
 Plug 'hashivim/vim-terraform'
 
 " Tmux
@@ -272,20 +258,6 @@ call plug#end()
 lua require('plugins')
 
 " ================ Theme ========================
-
-set termguicolors
-" let g:oceanic_next_terminal_bold = 1
-" let g:oceanic_next_terminal_italic = 1
-colorscheme nightfly
-
-" enable transparent terminal bg
-hi Normal guibg=NONE ctermbg=NONE
-hi LineNr guibg=NONE ctermbg=NONE
-hi SignColumn guibg=NONE ctermbg=NONE
-hi EndOfBuffer guibg=NONE ctermbg=NONE
-
-" highlight hex colors in these file types
-au BufNewFile,BufRead *.css,*.html,*.htm,*.sass,*.scss :ColorHighlight!
 
 " skylark is ~python
 au BufRead,BufNewFile *.sky set filetype=python
@@ -403,13 +375,6 @@ function! FlipBindingPry()
 endfunction
 
 nnoremap <leader>d :call FlipBindingPry()<CR>
-
-" ================ writing mode ================
-
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
-let g:limelight_conceal_guifg = '#777777'
 
 " ================= Stripe ======================
 
