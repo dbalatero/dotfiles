@@ -14,15 +14,15 @@ local function file_readonly()
 end
 
 function string:split(delimiter)
-  local result = { }
-  local from  = 1
-  local delim_from, delim_to = string.find( self, delimiter, from  )
+  local result               = {}
+  local from                 = 1
+  local delim_from, delim_to = string.find(self, delimiter, from)
   while delim_from do
-    table.insert( result, string.sub( self, from , delim_from-1 ) )
-    from  = delim_to + 1
-    delim_from, delim_to = string.find( self, delimiter, from  )
+    table.insert(result, string.sub(self, from, delim_from - 1))
+    from                 = delim_to + 1
+    delim_from, delim_to = string.find(self, delimiter, from)
   end
-  table.insert( result, string.sub( self, from  ) )
+  table.insert(result, string.sub(self, from))
   return result
 end
 
@@ -77,7 +77,7 @@ local moonflyColors = {
   blue = "#80a0ff",
   purple = "#d183e8",
   cyan = "#79dac8",
-  white = "#de935f",  -- more orange
+  white = "#de935f", -- more orange
 
   bright = {
     black = "#f09479",
@@ -111,26 +111,26 @@ local colors = {
 -- Mappings
 
 local modes = {
-  [ "n" ] = {colors.purple, "Normal", ""},
-  [ "i" ] = {colors.green, "Insert", ""},
-  [ "v" ] = {colors.pink, "Visual", ""},
-  [ "" ] = {colors.pink, "Visual Block", ""},
-  [ "V" ] = {colors.pink, "Visual Line", ""},
-  [ "c" ] = {colors.orange, "Command", ""},
-  [ "no" ] = {colors.purple, "MODE", ""},
-  [ "s" ] = {colors.orange, "MODE", ""},
-  [ "S" ] = {colors.orange, "MODE", ""},
-  [ "" ] = {colors.orange, "MODE", ""},
-  [ "ic" ] = {colors.yellow, "MODE", ""},
-  [ "R" ] = {colors.purple, "MODE", ""},
-  [ "Rv" ] = {colors.purple, "MODE", ""},
-  [ "cv" ] = {colors.red, "MODE", ""},
-  [ "ce" ] = {colors.red, "MODE", ""},
-  [ "r" ] = {colors.cyan, "MODE", ""},
-  [ "rm" ] = {colors.cyan, "MODE", ""},
-  [ "r?" ] = {colors.cyan, "MODE", ""},
-  [ "!" ] = {colors.red, "MODE", ""},
-  [ "t" ] = {colors.red, "MODE", ""},
+  ["n"] = { colors.purple, "Normal", "" },
+  ["i"] = { colors.green, "Insert", "" },
+  ["v"] = { colors.pink, "Visual", "" },
+  [""] = { colors.pink, "Visual Block", "" },
+  ["V"] = { colors.pink, "Visual Line", "" },
+  ["c"] = { colors.orange, "Command", "" },
+  ["no"] = { colors.purple, "MODE", "" },
+  ["s"] = { colors.orange, "MODE", "" },
+  ["S"] = { colors.orange, "MODE", "" },
+  [""] = { colors.orange, "MODE", "" },
+  ["ic"] = { colors.yellow, "MODE", "" },
+  ["R"] = { colors.purple, "MODE", "" },
+  ["Rv"] = { colors.purple, "MODE", "" },
+  ["cv"] = { colors.red, "MODE", "" },
+  ["ce"] = { colors.red, "MODE", "" },
+  ["r"] = { colors.cyan, "MODE", "" },
+  ["rm"] = { colors.cyan, "MODE", "" },
+  ["r?"] = { colors.cyan, "MODE", "" },
+  ["!"] = { colors.red, "MODE", "" },
+  ["t"] = { colors.red, "MODE", "" },
 }
 
 -- Helper functions
@@ -159,7 +159,7 @@ end
 
 --- Test if the window is wide enough to display git added/removed/changed stats
 local checkwidth = function()
-  local squeeze_width  = vim.fn.winwidth(0) / 2
+  local squeeze_width = vim.fn.winwidth(0) / 2
 
   if squeeze_width > 40 then
     return true
@@ -217,9 +217,9 @@ addPart(gls.left, {
   FileSize = {
     provider = 'FileSize',
     condition = buffer_not_empty,
-    highlight = {colors.foreground, colors.background},
+    highlight = { colors.foreground, colors.background },
     separator = ' ',
-    separator_highlight = {'NONE', colors.background},
+    separator_highlight = { 'NONE', colors.background },
   }
 })
 
@@ -228,13 +228,13 @@ addPart(gls.left, {
     provider = function()
       return vim.api.nvim_eval('LineNoIndicator()')
     end,
-    highlight = {colors.foreground,colors.background},
+    highlight = { colors.foreground, colors.background },
     separator = ' ',
-    separator_highlight = {'NONE', colors.background},
+    separator_highlight = { 'NONE', colors.background },
   },
 })
 
-addPart(gls.left,{
+addPart(gls.left, {
   FileIcon = {
     provider = 'FileIcon',
     condition = buffer_not_empty,
@@ -248,7 +248,7 @@ addPart(gls.left,{
 
 addPart(gls.left, {
   FileName = {
-    provider = get_current_file_path ,
+    provider = get_current_file_path,
     condition = buffer_not_empty,
     highlight = {
       -- require('galaxyline.provider_fileinfo').get_file_icon_color,
@@ -263,9 +263,9 @@ addPart(gls.left, {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
-    highlight = {colors.red, colors.background},
+    highlight = { colors.red, colors.background },
     separator = ' ',
-    separator_highlight = {'NONE', colors.background},
+    separator_highlight = { 'NONE', colors.background },
   }
 })
 
@@ -273,9 +273,9 @@ addPart(gls.left, {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
-    highlight = {colors.yellow,colors.background},
+    highlight = { colors.yellow, colors.background },
     separator = ' ',
-    separator_highlight = {'NONE', colors.background},
+    separator_highlight = { 'NONE', colors.background },
   }
 })
 
@@ -283,9 +283,9 @@ addPart(gls.left, {
   DiagnosticHint = {
     provider = 'DiagnosticHint',
     icon = '  ',
-    highlight = {colors.cyan,colors.background},
+    highlight = { colors.cyan, colors.background },
     separator = ' ',
-    separator_highlight = {'NONE', colors.background},
+    separator_highlight = { 'NONE', colors.background },
   }
 })
 
@@ -305,7 +305,7 @@ lsp_status.config({
 addPart(gls.right, {
   LspStatus = {
     provider = lspStatus,
-    highlight = {colors.offsetGray, colors.background},
+    highlight = { colors.offsetGray, colors.background },
     icon = '  ',
   }
 })
@@ -314,8 +314,8 @@ addPart(gls.right, {
   FileEncode = {
     provider = downcase(fileinfo.get_file_encode),
     separator = ' ',
-    separator_highlight = {'NONE',colors.background},
-    highlight = {colors.offsetGray, colors.background, 'bold'}
+    separator_highlight = { 'NONE', colors.background },
+    highlight = { colors.offsetGray, colors.background, 'bold' }
   }
 })
 
@@ -323,8 +323,8 @@ addPart(gls.right, {
   FileFormat = {
     provider = downcase(fileinfo.get_file_format),
     separator = ' ',
-    separator_highlight = {'NONE',colors.background},
-    highlight = {colors.offsetGray, colors.background, 'bold'}
+    separator_highlight = { 'NONE', colors.background },
+    highlight = { colors.offsetGray, colors.background, 'bold' }
   }
 })
 
@@ -333,8 +333,8 @@ addPart(gls.right, {
     provider = function() return '  ' end,
     condition = vcs.check_git_workspace,
     separator = ' ',
-    separator_highlight = {'NONE',colors.background},
-    highlight = {colors.purple,colors.background,'bold'},
+    separator_highlight = { 'NONE', colors.background },
+    highlight = { colors.purple, colors.background, 'bold' },
   }
 })
 
@@ -351,9 +351,9 @@ addPart(gls.right, {
     provider = 'DiffAdd',
     condition = checkwidth,
     separator = ' ',
-    separator_highlight = {'NONE',colors.background},
+    separator_highlight = { 'NONE', colors.background },
     icon = '  ',
-    highlight = {colors.green,colors.background},
+    highlight = { colors.green, colors.background },
   }
 })
 
@@ -362,7 +362,7 @@ addPart(gls.right, {
     provider = 'DiffModified',
     condition = checkwidth,
     icon = ' 柳',
-    highlight = {colors.orange,colors.background},
+    highlight = { colors.orange, colors.background },
   }
 })
 
@@ -371,7 +371,7 @@ addPart(gls.right, {
     provider = 'DiffRemove',
     condition = checkwidth,
     icon = '  ',
-    highlight = {colors.red,colors.background},
+    highlight = { colors.red, colors.background },
   }
 })
 
@@ -380,7 +380,7 @@ addPart(gls.right, {
 addPart(gls.short_line_left, {
   Spacer = {
     provider = function() return ' ' end,
-    highlight = {colors.white, colors.background, 'bold'},
+    highlight = { colors.white, colors.background, 'bold' },
   }
 })
 
@@ -388,16 +388,16 @@ addPart(gls.short_line_left, {
   FileIconShort = {
     provider = 'FileIcon',
     condition = buffer_not_empty,
-    highlight = {colors.white, colors.background},
+    highlight = { colors.white, colors.background },
   },
 })
 
 addPart(gls.short_line_left, {
   SFileName = {
-    provider = function ()
+    provider = function()
       local fname = fileinfo.get_current_file_name()
 
-      for _,v in ipairs(gl.short_line_list) do
+      for _, v in ipairs(gl.short_line_list) do
         if v == vim.bo.filetype then
           return ''
         end
@@ -406,7 +406,7 @@ addPart(gls.short_line_left, {
       return fname
     end,
     condition = buffer_not_empty,
-    highlight = {colors.white,colors.background,'bold'}
+    highlight = { colors.white, colors.background, 'bold' }
   }
 })
 
@@ -414,8 +414,8 @@ addPart(gls.short_line_left, {
 
 addPart(gls.short_line_right, {
   BufferIcon = {
-    provider= 'BufferIcon',
-    highlight = {colors.foreground,colors.background}
+    provider = 'BufferIcon',
+    highlight = { colors.foreground, colors.background }
   }
 })
 
@@ -424,7 +424,7 @@ addPart(gls.left, {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
     icon = '  ',
-    highlight = {colors.blue,colors.background},
+    highlight = { colors.blue, colors.background },
   }
 })
 
