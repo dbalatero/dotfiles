@@ -52,7 +52,10 @@ return require('packer').startup(function(use)
   use 'drzel/vim-line-no-indicator'
 
   -- fast Lua statusline
-  use 'dbalatero/galaxyline.nvim'
+  use {
+    'dbalatero/galaxyline.nvim',
+    config = function() require('config.statusline') end,
+  }
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Completion                                             │
