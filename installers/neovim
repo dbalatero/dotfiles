@@ -116,6 +116,10 @@ function install_typescript_language_server() {
   yarn global add typescript-language-server
 }
 
+function install_write_good() {
+  yarn global add write-good
+}
+
 function install_emmet_lsp() {
   if ! command_exists "emmet-ls"; then
     dotsay "@b@blue[[+ Installing Emmet LSP]]"
@@ -131,6 +135,7 @@ install_lua_language_server
 install_bash_language_server
 install_ruby_neovim
 install_typescript_language_server
+install_write_good
 install_neovim
 setup_neovim_config
 install_tern

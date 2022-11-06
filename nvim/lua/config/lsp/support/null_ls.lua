@@ -37,6 +37,11 @@ null_ls.setup({
   root_dir = require('null-ls.utils').root_pattern('.git', 'Gemfile.lock', 'package.json'),
   sources = {
     --  ╭──────────────────────────────────────────────────────────╮
+    --  │     Markdown                                             │
+    --  ╰──────────────────────────────────────────────────────────╯
+    null_ls.builtins.diagnostics.write_good,
+
+    --  ╭──────────────────────────────────────────────────────────╮
     --  │     TypeScript                                           │
     --  ╰──────────────────────────────────────────────────────────╯
     null_ls.builtins.formatting.prettierd.with({
