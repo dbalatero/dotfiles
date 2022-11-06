@@ -1,5 +1,4 @@
 local null_ls = require("null-ls")
-local on_attach = require('config.lsp.shared').on_attach
 
 local ignorePrettierRules = function(diagnostic)
   return diagnostic.code ~= "prettier/prettier"
@@ -32,7 +31,6 @@ local eslintConfig = {
 null_ls.setup({
   -- For :NullLsLog support
   -- debug = true,
-  on_attach = on_attach,
   root_dir = require("null-ls.utils").root_pattern(
     ".git",
     "Gemfile.lock",
