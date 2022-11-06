@@ -221,9 +221,6 @@ Plug 'lukas-reineke/lsp-format.nvim'      " LSP format on save, with multiple se
 Plug 'jose-elias-alvarez/null-ls.nvim'    " LSP for formatting/diagnostics
 Plug 'folke/trouble.nvim'                 " pretty list for diagnostics, errors, etc
 
-" Tests
-Plug 'janko-m/vim-test'
-
 " Theming
 Plug 'dbalatero/galaxyline.nvim'     " fast Lua statusline
 Plug 'kyazdani42/nvim-web-devicons'  " fancy icons
@@ -248,35 +245,6 @@ set shell=/bin/bash\ --norc\ -i
 
 let g:tmux_resizer_no_mappings = 0
 
-
-" ================= vim-test =====================
-
-nmap <silent> <leader>T :TestNearest<CR>
-nmap <silent> <leader>t :TestFile<CR>
-
-let g:test#preserve_screen = 1
-let test#neovim#term_position = "vert"
-let test#vim#term_position = "vert"
-
-let g:test#javascript#mocha#file_pattern = '\v.*_test\.(js|jsx|ts|tsx)$'
-
-if exists('$TMUX')
-  " Use tmux to kick off tests if we are in tmux currently
-  let test#strategy = 'vimux'
-else
-  " Fallback to using terminal split
-  let test#strategy = "neovim"
-endif
-
-let test#enabled_runners = ["lua#busted", "ruby#rspec", "javascript#jest"]
-
-let test#custom_runners = {}
-let test#custom_runners['ruby'] = ['rspec']
-let test#custom_runners['lua'] = ['busted']
-
-let test#custom_runners['javascript'] = ['jest']
-let test#custom_runners['typescript'] = ['jest']
-
 " ================== Trouble ====================
 
 nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
@@ -292,9 +260,6 @@ set completeopt=menu,menuone,noselect
 
 " 300ms before CursorHold events fire (like hover text on errors)
 set updatetime=300
-
-" autocmd CursorHold * lua vim.diagnostic.open_float(nil, {scope = "line", close_events = {"CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinLeave"}})
-" autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
 
 call luaeval('require("lspservers")')
 

@@ -156,6 +156,14 @@ return require('packer').startup(function(use)
   use 'ecomba/vim-ruby-refactoring'
 
   --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Testing                                                │
+  --  ╰──────────────────────────────────────────────────────────╯
+  Plug {
+    'janko-m/vim-test',
+    config = function() require('config.vim-test') end,
+  }
+
+  --  ╭──────────────────────────────────────────────────────────╮
   --  │   Version control                                        │
   --  ╰──────────────────────────────────────────────────────────╯
   -- show commit popup with <leader>gm
