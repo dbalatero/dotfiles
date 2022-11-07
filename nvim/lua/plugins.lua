@@ -101,6 +101,18 @@ return require('packer').startup(function(use)
     },
   })
 
+  use({
+    'danymat/neogen',
+    config = function()
+      require('config.neogen-setup')
+    end,
+    requires = {
+      'nvim-treesitter/nvim-treesitter',
+      'hrsh7th/nvim-cmp',
+      'L3MON4D3/LuaSnip',
+    },
+  })
+
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Editing                                                │
   --  ╰──────────────────────────────────────────────────────────╯

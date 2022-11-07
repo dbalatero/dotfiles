@@ -116,6 +116,15 @@ function install_typescript_language_server() {
   yarn global add typescript-language-server
 }
 
+function install_vscode_language_servers() {
+  # vscode-json-language-server
+  yarn global add vscode-langservers-extracted
+}
+
+function install_yaml_language_server() {
+  yarn global add yaml-language-server
+}
+
 function install_write_good() {
   yarn global add write-good
 }
@@ -146,3 +155,5 @@ install_rust
 install_proximity_sort
 install_stylua
 install_bat
+install_vscode_language_servers
+install_yaml_language_server
