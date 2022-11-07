@@ -72,9 +72,6 @@ return require('packer').startup(function(use)
     config = function()
       require('config.statusline')
     end,
-    requires = {
-      'nvim-lua/lsp-status.nvim',
-    },
   })
 
   -- replace missing colors for LSP
@@ -236,17 +233,8 @@ return require('packer').startup(function(use)
   --  │   LSP madness                                            │
   --  ╰──────────────────────────────────────────────────────────╯
 
-  -- Show possible code actions as lightbulb icons in the gutter
-  use({
-    'kosayoda/nvim-lightbulb',
-    requires = { 'antoinemadec/FixCursorHold.nvim' },
-    config = function()
-      require('config.lightbulb')
-    end,
-  })
-
-  -- provides statusline information for LSP
-  use('nvim-lua/lsp-status.nvim')
+  -- Standalone UI for nvim-lsp progress
+  use('j-hui/fidget.nvim')
 
   -- LSP for formatting/diagnostics
   use({
@@ -278,13 +266,14 @@ return require('packer').startup(function(use)
       require('config.lsp')
     end,
     requires = {
-      'nvim-lua/lsp-status.nvim',
-
       -- floating signature 'as you type'
       'ray-x/lsp_signature.nvim',
 
       -- formatting/diagnostic server
       'jose-elias-alvarez/null-ls.nvim',
+
+      -- LSP progress
+      'j-hui/fidget.nvim',
     },
   })
 

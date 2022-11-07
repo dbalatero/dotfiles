@@ -98,7 +98,7 @@ function install_stylua() {
 }
 
 function install_bash_language_server() {
-  npm install -g bash-language-server
+  yarn global add bash-language-server
 }
 
 function install_bat() {

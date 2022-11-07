@@ -1,7 +1,6 @@
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local lsp_format = require('lsp-format')
 local lsp_signature = require('lsp_signature')
-local lsp_status = require('lsp-status')
 
 local M = {}
 
@@ -9,9 +8,6 @@ local M = {}
 --  │ shared capabilities                                      │
 --  ╰──────────────────────────────────────────────────────────╯
 M.default_capabilities = {}
-
--- Mix in lsp_status capabilties:
-M.default_capabilities = vim.tbl_extend('keep', M.default_capabilities, lsp_status.capabilities)
 
 -- Mix in the nvim-cmp capabilities:
 M.default_capabilities = vim.tbl_extend('keep', M.default_capabilities, cmp_nvim_lsp.default_capabilities())
@@ -22,7 +18,6 @@ M.default_capabilities = vim.tbl_extend('keep', M.default_capabilities, cmp_nvim
 
 M.on_attach = function(client, bufnr)
   lsp_format.on_attach(client, bufnr)
-  lsp_status.on_attach(client, bufnr)
 
   -- Floating window signature
   lsp_signature.on_attach({

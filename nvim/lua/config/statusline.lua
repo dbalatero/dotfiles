@@ -4,7 +4,6 @@ local gl = require('galaxyline')
 local fileinfo = require('galaxyline.provider_fileinfo')
 local vcs = require('galaxyline.provider_vcs')
 local gls = gl.section
-local lsp_status = require('lsp-status')
 
 local function file_readonly()
   if vim.bo.filetype == 'help' then
@@ -186,14 +185,6 @@ local function addPart(section, entry)
   table.insert(section, entry)
 end
 
-local function lspStatus()
-  if #vim.lsp.buf_get_clients() > 0 then
-    return lsp_status.status()
-  else
-    return ''
-  end
-end
-
 -- local function getShortGitBranch()
 --   local branch = vcs.get_git_branch()
 --   local parts = branch:split("/")
@@ -222,16 +213,6 @@ addPart(gls.left, {
 })
 
 addPart(gls.left, {
-  FileSize = {
-    provider = 'FileSize',
-    condition = buffer_not_empty,
-    highlight = { colors.foreground, colors.background },
-    separator = ' ',
-    separator_highlight = { 'NONE', colors.background },
-  },
-})
-
-addPart(gls.left, {
   ScrollBar = {
     provider = function()
       return vim.api.nvim_eval('LineNoIndicator()')
@@ -247,7 +228,6 @@ addPart(gls.left, {
     provider = 'FileIcon',
     condition = buffer_not_empty,
     highlight = {
-      -- require('galaxyline.provider_fileinfo').get_file_icon_color,
       colors.foreground,
       colors.background,
     },
@@ -259,11 +239,12 @@ addPart(gls.left, {
     provider = get_current_file_path,
     condition = buffer_not_empty,
     highlight = {
-      -- require('galaxyline.provider_fileinfo').get_file_icon_color,
       moonflyColors.bright.blue,
       colors.background,
       'bold',
     },
+    separator = ' ',
+    separator_highlight = { 'NONE', colors.background },
   },
 })
 
@@ -272,7 +253,7 @@ addPart(gls.left, {
     provider = 'DiagnosticError',
     icon = '  ',
     highlight = { colors.red, colors.background },
-    separator = ' ',
+    separator = '',
     separator_highlight = { 'NONE', colors.background },
   },
 })
@@ -282,7 +263,7 @@ addPart(gls.left, {
     provider = 'DiagnosticWarn',
     icon = '  ',
     highlight = { colors.yellow, colors.background },
-    separator = ' ',
+    separator = '',
     separator_highlight = { 'NONE', colors.background },
   },
 })
@@ -292,31 +273,12 @@ addPart(gls.left, {
     provider = 'DiagnosticHint',
     icon = '  ',
     highlight = { colors.cyan, colors.background },
-    separator = ' ',
+    separator = '',
     separator_highlight = { 'NONE', colors.background },
   },
 })
 
 -- Right Section
-
--- LSP status
-lsp_status.config({
-  status_symbol = '',
-  indicator_errors = '',
-  indicator_warnings = '',
-  indicator_info = '',
-  indicator_hint = 'כֿ',
-  indicator_ok = '✔️',
-  spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
-})
-
-addPart(gls.right, {
-  LspStatus = {
-    provider = lspStatus,
-    highlight = { colors.offsetGray, colors.background },
-    icon = '  ',
-  },
-})
 
 addPart(gls.right, {
   FileEncode = {
@@ -347,14 +309,6 @@ addPart(gls.right, {
     highlight = { colors.purple, colors.background, 'bold' },
   },
 })
-
--- addPart(gls.right, {
---   GitBranch = {
---     provider = getShortGitBranch,
---     condition = vcs.check_git_workspace,
---     highlight = {colors.purple,colors.background,'bold'},
---   }
--- })
 
 addPart(gls.right, {
   DiffAdd = {

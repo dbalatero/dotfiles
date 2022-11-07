@@ -1,6 +1,5 @@
 local lspconfig = require('lspconfig')
 local lsp_format = require('lsp-format')
-local lsp_status = require('lsp-status')
 
 -- gutter space for lsp info on left
 vim.cmd([[set signcolumn=yes]])
@@ -17,9 +16,6 @@ lsp_format.setup()
 --  │ LSP status                                               │
 --  ╰──────────────────────────────────────────────────────────╯
 
--- Setup LSP statusline
-lsp_status.register_progress()
-
 -- gutter space for lsp info on left
 vim.cmd([[set signcolumn=yes]])
 
@@ -34,9 +30,6 @@ lsp_format.setup()
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ LSP status                                               │
 --  ╰──────────────────────────────────────────────────────────╯
-
--- Setup LSP statusline
-lsp_status.register_progress()
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ Default config for new LSPs                              │
@@ -93,3 +86,24 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 --  │ Load all the LSP-specific configs (null_ls, etc)         │
 --  ╰──────────────────────────────────────────────────────────╯
 require('config.utils').requireConfigDirectory('lsp/support')
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │ Fidget                                                   │
+--  ╰──────────────────────────────────────────────────────────╯
+
+vim.cmd([[
+  highlight FidgetTitle ctermfg=110 guifg=#6cb6eb
+]])
+
+-- Standalone UI for nvim-lsp progress
+require('fidget').setup({
+  sources = {
+    ["null-ls"] = {
+      ignore = true,
+    },
+  },
+  timer = {
+    task_decay = 400,
+    fidget_decay = 700,
+  },
+})
