@@ -122,11 +122,12 @@ return require('packer').startup(function(use)
     requires = { 'nvim-treesitter/nvim-treesitter' },
   })
 
-  -- split/join single line/multiline
+  -- Splitjoin like plugin
   use({
-    'AndrewRadev/splitjoin.vim',
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter' },
     config = function()
-      require('config.splitjoin')
+      require('config.treesj-setup')
     end,
   })
 
