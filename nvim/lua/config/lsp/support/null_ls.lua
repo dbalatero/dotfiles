@@ -34,7 +34,7 @@ null_ls.setup({
   -- debug = true,
   capabilities = shared.default_capabilities,
   on_attach = shared.on_attach,
-  root_dir = require('null-ls.utils').root_pattern('.git', 'Gemfile.lock', 'package.json'),
+  root_dir = require('null-ls.utils').root_pattern('Gemfile.lock', 'package.json', '.git'),
   sources = {
     --  ╭──────────────────────────────────────────────────────────╮
     --  │     Lua                                                  │

@@ -225,6 +225,23 @@ return require('packer').startup(function(use)
     end,
   })
 
+  use({
+    'nvim-telescope/telescope-fzf-native.nvim',
+    run = 'make',
+  })
+
+  use({
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.0',
+    config = function()
+      require('config.telescope-setup')
+    end,
+    requires = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope-fzf-native.nvim' },
+    },
+  })
+
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Language support                                       │
   --  ╰──────────────────────────────────────────────────────────╯
