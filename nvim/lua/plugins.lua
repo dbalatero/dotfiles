@@ -15,6 +15,9 @@ return require('packer').startup(function(use)
   -- useful Lua functions, e.g. like boost
   use('nvim-lua/plenary.nvim')
 
+  -- caching startup
+  use('lewis6991/impatient.nvim')
+
   -- syntax highlights
   use({
     'nvim-treesitter/nvim-treesitter',

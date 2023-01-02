@@ -58,4 +58,5 @@ vnoremap / /\v
 " │ It's Lua config time                                     │
 " ╰──────────────────────────────────────────────────────────╯
 
+lua require("impatient")
 lua require("init")
