@@ -21,7 +21,7 @@ local function switchMonitor()
     inputNumber = 27
   end
 
-  if hs.host.localizedName() == 'calavera' then
+  if hs.host.localizedName() == 'pineapple' then
     -- m1 laptop
     binary = os.getenv('HOME') .. '/.local/bin/m1ddc'
     hs.execute(binary .. ' display 1 set input ' .. inputNumber)
