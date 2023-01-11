@@ -6,11 +6,10 @@
     "terminal.integrated.fontSize": 14,
     "update.mode": "none",
     "vscode-neovim.neovimInitPath": "/Users/dbalatero/.config/nvim/vscode.vim",
-    "vscode-neovim.neovimPath": "/usr/local/bin/nvim",
     "window.nativeFullScreen": false,
     "window.newWindowDimensions": "fullscreen",
     "window.restoreFullscreen": true,
-    "window.zoomLevel": 4,
+    "window.zoomLevel": 2,
     "workbench.panel.defaultLocation": "right",
     "editor.accessibilitySupport": "off",
     "update.channel": "none",
@@ -28,5 +27,10 @@
     "javascript.validate.enable": false,
     "editor.quickSuggestions": {
         "other": "off"
-    }
+    },
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "vscode-neovim.neovimExecutablePaths.darwin": "/Users/dbalatero/.nix-profile/bin/nvim",
+    "vscode-neovim.neovimInitVimPaths.darwin": "/Users/dbalatero/.config/nvim/vscode.vim"
 }
