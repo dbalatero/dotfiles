@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+source "${BASH_SOURCE%/*}/shared.sh"
+
+require_installer package-manager
+
+# https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection#how-do-i-disable-system-integrity-protection
+#
+# 1. Reboot cmd + r
+# 2. Utilities > Terminal
+# 3. `csrutil disable --with kext --with dtrace --with basesystem`
+# 4. Reboot
+# 5. `sudo nvram boot-args=-arm64e_preview_abi`
+# 6. Reboot
+
+function install_yabai() {
+  echo "Installed yabai, but there's some manual work you have to do"
+  echo -n "to disable SIP."
+  sleep 1
+  echo -n "."
+  sleep 1
+  echo "."
+    echo
+    echo "Open installers/window-management after this is done and follow the"
+    echo "instructions there."
+    sleep 3
+
+  if ! command_exists "yabai"; then
+    brew_tap koekeishiya/formulae
+    brew_install yabai
+
+    echo "Installed yabai, but there's some manual work you have to do"
+    echo -n "to disable SIP."
+    sleep 1
+    echo -n "."
+    sleep 1
+    echo "."
+    echo
+    echo "Open installers/window-management after this is done and follow the"
+    echo "instructions there."
+    sleep 3
+  fi
+}
+
+function configure_scripting_addition() {
+  local sudoers_file="/private/etc/sudoers.d/yabai"
+
+  if [ ! -f "$sudoers_file" ]; then
+    echo "Adding new $sudoers_file file"
+
+    local yabai_path=$(which yabai)
+    local sha256_hash=$(shasum -a 256 "$yabai_path")
+
+    sudo sh -c "echo '$USER ALL=(root) NOPASSWD: sha256:$sha256_hash $yabai_path --load-sa' > '$sudoers_file'"
+  fi
+}
+
+install_yabai
+symlink_dotfile skhdrc ~/.skhdrc
+symlink_dotfile yabairc ~/.yabairc
+configure_scripting_addition
