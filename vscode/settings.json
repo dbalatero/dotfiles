@@ -8,7 +8,6 @@
   "vscode-neovim.neovimInitPath": "/Users/dbalatero/.config/nvim/vscode.vim",
   "window.nativeFullScreen": false,
   "window.newWindowDimensions": "maximized",
-  "window.zoomLevel": 1,
   "workbench.panel.defaultLocation": "right",
   "update.channel": "none",
   "security.workspace.trust.enabled": true,
@@ -31,5 +30,6 @@
   },
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "editor.detectIndentation": false
+  "editor.detectIndentation": false,
+  "window.zoomLevel": 1
 }
