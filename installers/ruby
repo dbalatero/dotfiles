@@ -100,6 +100,7 @@ dotheader "Setting up Ruby..."
 symlink_dotfile gemrc ~/.gemrc
 symlink_dotfile bin/rubocop-daemon-wrapper ~/.local/bin/rubocop-daemon-wrapper
 setup_pry
+brew_install rubyfmt
 
 bootstrap_rvm
 bootstrap_rbenv
