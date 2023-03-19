@@ -1,5 +1,6 @@
 local null_ls = require('null-ls')
 local shared = require('config.lsp.shared')
+local rubyfmt_formatter = require('config.lsp.support.formatters.rubyfmt')
 
 local ignorePrettierRules = function(diagnostic)
   return diagnostic.code ~= 'prettier/prettier'
@@ -45,6 +46,11 @@ null_ls.setup({
     --  │     Markdown                                             │
     --  ╰──────────────────────────────────────────────────────────╯
     -- null_ls.builtins.diagnostics.write_good,
+
+    --  ╭──────────────────────────────────────────────────────────╮
+    --  │     Ruby                                                 │
+    --  ╰──────────────────────────────────────────────────────────╯
+    rubyfmt_formatter,
 
     --  ╭──────────────────────────────────────────────────────────╮
     --  │     TypeScript                                           │

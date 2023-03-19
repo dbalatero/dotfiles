@@ -7,7 +7,7 @@ local M = {}
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ shared capabilities                                      │
 --  ╰──────────────────────────────────────────────────────────╯
-M.default_capabilities = {}
+M.default_capabilities = vim.lsp.protocol.make_client_capabilities()
 
 -- Mix in the nvim-cmp capabilities:
 M.default_capabilities = vim.tbl_extend('keep', M.default_capabilities, cmp_nvim_lsp.default_capabilities())
