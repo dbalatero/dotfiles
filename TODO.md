@@ -1,9 +1,9 @@
 - [x] Make `jk` go to normal mode
-- [ ] Fix the ctrl + hjkl
+- [x] Fix the ctrl + hjkl
 - [x] Fix undefined global `vim`
 - [x] `vv` and `ss` for quick splitting
 - [x] I'd like to accept autocomplete suggestions with tab, not enter
-- [ ] vim -> tmux window movement doesn't cross the `vim` to `tmux` boundary, so Vim is broken
-- [ ] the timeout on showing completions is a little aggressive
+- [x] vim -> tmux window movement doesn't cross the `vim` to `tmux` boundary, so Vim is broken
+- [x] the timeout on showing completions is a little aggressive
 - [x] I don't need every notification message (or any?)
 - [ ] Mode line could change - don't need a clock
