@@ -79,7 +79,22 @@ require("lazy").setup({
       -- Useful status updates for LSP
       -- Standalone UI for nvim-lsp progress
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { "j-hui/fidget.nvim", opts = {} },
+      {
+        "j-hui/fidget.nvim",
+        config = function()
+          require("fidget").setup({
+            sources = {
+              ["null-ls"] = {
+                ignore = true,
+              },
+            },
+            timer = {
+              task_decay = 400,
+              fidget_decay = 700,
+            },
+          })
+        end,
+      },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       "folke/neodev.nvim",
@@ -664,9 +679,11 @@ require("nvim-treesitter.configs").setup({
   },
 })
 
--- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+--  ╭──────────────────────────────────────────────────────────╮
+--  │ Diagnostics                                              │
+--  ╰──────────────────────────────────────────────────────────╯
+vim.keymap.set("n", "gk", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+vim.keymap.set("n", "gj", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 vim.keymap.set(
   "n",
   "<leader>e",
@@ -697,6 +714,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
   end
 
+  nmap("<leader>li", ":LspInfo<CR>", "[I]nfo")
   nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
   nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
@@ -713,7 +731,7 @@ local on_attach = function(client, bufnr)
 
   -- See `:help K` for why this keymap
   nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-  -- TODO: fix
+  -- TODO: find another key
   -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
