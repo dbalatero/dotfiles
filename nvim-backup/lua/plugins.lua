@@ -104,27 +104,9 @@ return require('packer').startup(function(use)
     },
   })
 
-  use({
-    'danymat/neogen',
-    config = function()
-      require('config.neogen-setup')
-    end,
-    requires = {
-      'nvim-treesitter/nvim-treesitter',
-      'hrsh7th/nvim-cmp',
-      'L3MON4D3/LuaSnip',
-    },
-  })
-
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Editing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
-  -- Show function context as you scroll
-  use({
-    'romgrk/nvim-treesitter-context',
-    requires = { 'nvim-treesitter/nvim-treesitter' },
-  })
-
   -- Splitjoin like plugin
   use({
     'Wansmer/treesj',
@@ -197,21 +179,6 @@ return require('packer').startup(function(use)
   })
 
   --  ╭──────────────────────────────────────────────────────────╮
-  --  │   File management                                        │
-  --  ╰──────────────────────────────────────────────────────────╯
-  use('danro/rename.vim')
-
-  use({
-    'Shougo/vimfiler.vim',
-    config = function()
-      require('config.vimfiler')
-    end,
-    requires = { 'Shougo/unite.vim' },
-  })
-
-  use('Shougo/unite.vim')
-
-  --  ╭──────────────────────────────────────────────────────────╮
   --  │   Grepping / searching                                   │
   --  ╰──────────────────────────────────────────────────────────╯
   use({
@@ -227,23 +194,6 @@ return require('packer').startup(function(use)
     config = function()
       require('config.fzf')
     end,
-  })
-
-  use({
-    'nvim-telescope/telescope-fzf-native.nvim',
-    run = 'make',
-  })
-
-  use({
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.0',
-    config = function()
-      require('config.telescope-setup')
-    end,
-    requires = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim' },
-    },
   })
 
   --  ╭──────────────────────────────────────────────────────────╮
@@ -348,37 +298,4 @@ return require('packer').startup(function(use)
       require('config.vim-test')
     end,
   })
-
-  --  ╭──────────────────────────────────────────────────────────╮
-  --  │   Version control                                        │
-  --  ╰──────────────────────────────────────────────────────────╯
-  -- show commit popup with <leader>gm
-  use({
-    'rhysd/git-messenger.vim',
-    config = function()
-      require('config.git-messenger')
-    end,
-  })
-
-  -- the git plugin
-  use({
-    'tpope/vim-fugitive',
-    config = function()
-      require('config.fugitive')
-    end,
-  })
-
-  -- show changed line marks in gutter
-  use('airblade/vim-gitgutter')
-
-  -- enable GHE/Github links with :Gbrowse
-  use('tpope/vim-rhubarb')
-
-  --  ╭──────────────────────────────────────────────────────────╮
-  --  │   Vimscript                                              │
-  --  ╰──────────────────────────────────────────────────────────╯
-  use('tpope/vim-scriptease')
-
-  -- REPL for Neovim/Vimscript with :Repl
-  use('ii14/neorepl.nvim')
 end)

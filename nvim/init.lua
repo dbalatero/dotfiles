@@ -28,8 +28,27 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
-  -- Git related plugins
-  'tpope/vim-fugitive',
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Git / version control                                  │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
+    'tpope/vim-fugitive',
+    config = function()
+      -- Every time you open a git object using fugitive it creates a new buffer.
+      -- This means that your buffer listing can quickly become swamped with
+      -- fugitive buffers. This prevents this from becomming an issue:
+      vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
+        pattern = { 'fugitive://*' },
+        callback = function()
+          vim.cmd([[set bufhidden=delete]])
+        end,
+      })
+
+      vim.api.nvim_set_keymap('v', '<leader>g', ':GBrowse!<CR>', { noremap = true, desc = "Copy link to source in Github" })
+    end,
+  },
+
+  -- enable GHE/Github links with :Gbrowse
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
@@ -61,6 +80,7 @@ require('lazy').setup({
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
+
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -149,12 +169,49 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
+      -- Show function context as you scroll
+      'romgrk/nvim-treesitter-context',
+
+      -- Add new text object support based on language
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     config = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   },
+
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      vim.keymap.set({ "n" }, "<leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>", { noremap = true, silent = true, desc = "Generate [c]lass annotations" })
+      vim.keymap.set({ "n" }, "<leader>nf", ":lua require('neogen').generate()<CR>", { noremap = true, silent = true, desc = "Generate [f]unction annotations" })
+    end,
+    opts = {
+      snippet_engine = "luasnip",
+    },
+  },
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   File management                                        │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
+    'Shougo/vimfiler.vim',
+    config = function()
+      vim.g.vimfiler_force_overwrite_statusline = 0
+      vim.g.vimfiler_as_default_explorer = 1
+      vim.g.vimshell_force_overwrite_statusline = 0
+
+      vim.fn["vimfiler#custom#profile"]('default', 'context', { safe = 0 })
+
+      -- bind the minus key to show the file explorer in the dir of the current open
+      -- buffer's file
+      vim.keymap.set({ 'n' }, '-', ':VimFilerBufferDir<CR>', { noremap = true, silent = true })
+    end,
+    requires = { 'Shougo/unite.vim' },
+  },
+
+  'danro/rename.vim',
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   tmux                                                   │
@@ -178,8 +235,7 @@ require('lazy').setup({
     end,
   },
 
-  { 'benmills/vimux' },
-
+  'benmills/vimux',
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -206,7 +262,6 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.o.number = true
-vim.wo.number = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -227,7 +282,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.o.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 250
