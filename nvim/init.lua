@@ -754,11 +754,43 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- tsserver = {},
-
+  bashls = {},
+  jsonls = {
+    json = {
+      schemas = {
+        {
+          description = "TypeScript compiler configuration file",
+          fileMatch = { "tsconfig.json", "tsconfig.*.json" },
+          url = "http://json.schemastore.org/tsconfig",
+        },
+        {
+          description = "Babel configuration",
+          fileMatch = { ".babelrc.json", ".babelrc", "babel.config.json" },
+          url = "http://json.schemastore.org/lerna",
+        },
+        {
+          description = "ESLint config",
+          fileMatch = { ".eslintrc.json", ".eslintrc" },
+          url = "http://json.schemastore.org/eslintrc",
+        },
+        {
+          description = "Prettier config",
+          fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json" },
+          url = "http://json.schemastore.org/prettierrc",
+        },
+        {
+          description = "Vercel Now config",
+          fileMatch = { "now.json" },
+          url = "http://json.schemastore.org/now",
+        },
+        {
+          description = "Stylelint config",
+          fileMatch = { ".stylelintrc", ".stylelintrc.json", "stylelint.config.json" },
+          url = "http://json.schemastore.org/stylelintrc",
+        },
+      },
+    },
+  },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -776,6 +808,16 @@ local servers = {
       },
       procMacro = {
         enable = true,
+      },
+    },
+  },
+  tsserver = {},
+  yamlls = {
+    yaml = {
+      schemas = {
+        -- Github actions
+        ["https://json.schemastore.org/github-workflow"] = ".github/workflows/*.{yml,yaml}",
+        ["https://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
       },
     },
   },
@@ -798,12 +840,48 @@ mason_lspconfig.setup({
   ensure_installed = vim.tbl_keys(servers),
 })
 
+local lspconfig = require("lspconfig")
+
 mason_lspconfig.setup_handlers({
+  -- Default setup handler
   function(server_name)
-    require("lspconfig")[server_name].setup({
+    lspconfig[server_name].setup({
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
+    })
+  end,
+  -- Custom handlers
+  sorbet = function()
+    lspconfig.sorbet.setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = {},
+      root_dir = lspconfig.util.root_pattern("sorbet"),
+    })
+  end,
+  tsserver = function()
+    lspconfig.tsserver.setup({
+      cmd_env = { NODE_OPTIONS = "--max-old-space-size=8192" }, -- Give 8gb of RAM to node
+      filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+      init_options = {
+        maxTsServerMemory = "8192",
+        preferences = {
+          -- Ensure we always import from absolute paths
+          importModuleSpecifierPreference = "non-relative",
+        },
+      },
+      root_dir = lspconfig.util.root_pattern("tsconfig.json"),
+      on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+
+        if client.config.flags then
+          client.config.flags.allow_incremental_sync = true
+        end
+
+        on_attach(client, bufnr)
+      end,
     })
   end,
 })
