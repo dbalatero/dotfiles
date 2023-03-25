@@ -6,23 +6,6 @@ return require('packer').startup(function(use)
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Core plugins                                           │
   --  ╰──────────────────────────────────────────────────────────╯
-  -- syntax highlights
-  use({
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    config = function()
-      require('config.treesitter')
-    end,
-    requires = {
-      -- Extended matchers for %
-      'andymass/vim-matchup',
-      -- Highlight parenthesis pairs w/ different colors
-      'p00f/nvim-ts-rainbow',
-      -- Auto close <html> tags
-      'windwp/nvim-ts-autotag',
-    },
-  })
-
   use({
     'Konfekt/vim-alias',
     config = function()
@@ -41,9 +24,6 @@ return require('packer').startup(function(use)
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Color schemes and themes                               │
   --  ╰──────────────────────────────────────────────────────────╯
-
-  -- fancy icons
-  use('kyazdani42/nvim-web-devicons')
 
   -- nice scroll indicator
   use('drzel/vim-line-no-indicator')
@@ -87,14 +67,6 @@ return require('packer').startup(function(use)
   -- alternate files with :AV/:AS
   use('tpope/vim-projectionist')
 
-  -- show marks in the gutter
-  use({
-    'kshenoy/vim-signature',
-    config = function()
-      require('config.vim-signature')
-    end,
-  })
-
   -- successor to vim-sneak
   use({
     'ggandor/lightspeed.nvim',
@@ -136,22 +108,6 @@ return require('packer').startup(function(use)
       require('config.fzf')
     end,
   })
-
-  --  ╭──────────────────────────────────────────────────────────╮
-  --  │   Language support                                       │
-  --  ╰──────────────────────────────────────────────────────────╯
-  use({
-    'cappyzawa/starlark.vim',
-    config = function()
-      require('config.starlark')
-    end,
-  })
-
-  use('rodjek/vim-puppet')
-  use('hashivim/vim-terraform')
-
-  -- markdown preview with :Glow
-  use('npxbr/glow.nvim')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   LSP madness                                            │
@@ -197,27 +153,6 @@ return require('packer').startup(function(use)
       'j-hui/fidget.nvim',
     },
   })
-
-  --  ╭──────────────────────────────────────────────────────────╮
-  --  │   Ruby                                                   │
-  --  ╰──────────────────────────────────────────────────────────╯
-  -- better RSpec syntax highlighting
-  use('keith/rspec.vim')
-
-  -- toggle block styles with ,b
-  use('jgdavey/vim-blockle')
-
-  -- allow for alternate files
-  use('tpope/vim-rake')
-
-  -- indentation, etc
-  use('vim-ruby/vim-ruby')
-
-  -- fenced syntax colors in heredocs
-  use('joker1007/vim-ruby-heredoc-syntax')
-
-  -- extract vars, methods, etc
-  use('ecomba/vim-ruby-refactoring')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Snippets                                               │

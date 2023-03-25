@@ -128,6 +128,8 @@ require('lazy').setup({
     opts = {},
   },
 
+  { 'kyazdani42/nvim-web-devicons', opts = {} },
+
   { -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     dependencies = {
@@ -220,6 +222,8 @@ require('lazy').setup({
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   File management                                        │
   --  ╰──────────────────────────────────────────────────────────╯
+  'Shougo/unite.vim',
+
   {
     'Shougo/vimfiler.vim',
     config = function()
@@ -274,6 +278,7 @@ require('lazy').setup({
       vim.g.splitjoin_join_mapping = ''
     end,
   },
+
   {
     'Wansmer/treesj',
     requires = { 'nvim-treesitter/nvim-treesitter' },
@@ -299,6 +304,9 @@ require('lazy').setup({
       })
     end,
   },
+
+  -- marks in gutter
+  { 'chentoast/marks.nvim', opts = {} },
 
   -- switch syntaxes around with `gs`
   'AndrewRadev/switch.vim',
@@ -453,7 +461,33 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
+  ensure_installed = {
+    'bash',
+    'c',
+    'cpp',
+    'css',
+    'dockerfile',
+    'elixir',
+    'erlang',
+    'go',
+    'graphql',
+    'help',
+    'java',
+    'javascript',
+    'json',
+    'kotlin',
+    'lua',
+    'nix',
+    'php',
+    'python',
+    'regex',
+    'ruby',
+    'rust',
+    'tsx',
+    'typescript',
+    'vim',
+    'yaml',
+  },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -470,6 +504,7 @@ require('nvim-treesitter.configs').setup {
     },
   },
   textobjects = {
+    enable = true,
     select = {
       enable = true,
       lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
@@ -512,6 +547,17 @@ require('nvim-treesitter.configs').setup {
         ['<leader>A'] = '@parameter.inner',
       },
     },
+  },
+
+  -- Plugins
+  matchup = {
+    enable = true,
+  },
+  rainbow = {
+    enable = true,
+  },
+  autotag = {
+    enable = true,
   },
 }
 

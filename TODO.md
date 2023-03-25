@@ -10,8 +10,8 @@
 - [ ] Replace netrw with the thing I like
 - [x] Fix file finder keybindings
 - [ ] Merge LSP keybindings with my old ones
-- [ ] splitjoin.nvim?
-- [ ] 
+- [x] splitjoin.nvim?
+- [ ] other files: https://github.com/rgroli/other.nvim
 - [ ] 
 - [ ] 
 - [ ] 
