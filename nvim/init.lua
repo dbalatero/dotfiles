@@ -112,12 +112,65 @@ require("lazy").setup({
   },
 
   {
+    "folke/trouble.nvim",
+    dependencies = {
+      "kyazdani42/nvim-web-devicons",
+    },
+    config = function()
+      require("trouble").setup({
+        use_diagnostic_signs = true,
+      })
+
+      vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+      vim.keymap.set(
+        "n",
+        "<leader>xw",
+        "<cmd>TroubleToggle workspace_diagnostics<cr>",
+        { silent = true, noremap = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>xd",
+        "<cmd>TroubleToggle document_diagnostics<cr>",
+        { silent = true, noremap = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>xl",
+        "<cmd>TroubleToggle loclist<cr>",
+        { silent = true, noremap = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>xq",
+        "<cmd>TroubleToggle quickfix<cr>",
+        { silent = true, noremap = true }
+      )
+      vim.keymap.set(
+        "n",
+        "gR",
+        "<cmd>TroubleToggle lsp_references<cr>",
+        { silent = true, noremap = true }
+      )
+    end,
+  },
+
+  {
     -- Autocompletion
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
+      "lukas-reineke/cmp-under-comparator",
+      "hrsh7th/cmp-buffer",
+      {
+        -- add vscode-style icons to completion menu
+        "onsails/lspkind-nvim",
+        config = function()
+          require("lspkind").init()
+        end,
+      },
     },
   },
 
@@ -1040,13 +1093,20 @@ require("mason-null-ls").setup({
   automatic_setup = false,
 })
 
--- nvim-cmp setup
+--  ╭──────────────────────────────────────────────────────────╮
+--  │   Completion                                             │
+--  ╰──────────────────────────────────────────────────────────╯
 local cmp = require("cmp")
+local cmp_buffer = require("cmp_buffer")
+local compare = require("cmp.config.compare")
 local luasnip = require("luasnip")
 
 luasnip.config.setup({})
 
 cmp.setup({
+  formatting = {
+    format = require("lspkind").cmp_format(),
+  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -1079,9 +1139,38 @@ cmp.setup({
       end
     end, { "i", "s" }),
   }),
-  sources = {
+  sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "luasnip" },
+  }, {
+    {
+      name = "buffer",
+      option = {
+        -- Complete from all visible buffers.
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end,
+      },
+    },
+  }),
+  sorting = {
+    comparators = {
+      -- Sort by distance of the word from the cursor
+      -- https://github.com/hrsh7th/cmp-buffer#locality-bonus-comparator-distance-based-sorting
+      function(...)
+        return cmp_buffer:compare_locality(...)
+      end,
+      compare.offset,
+      compare.exact,
+      compare.score,
+      require("cmp-under-comparator").under,
+      compare.recently_used,
+      compare.locality,
+      compare.kind,
+      compare.sort_text,
+      compare.length,
+      compare.order,
+    },
   },
 })
 
