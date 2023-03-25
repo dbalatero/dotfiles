@@ -121,6 +121,17 @@ require("lazy").setup({
     },
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Snippets                                               │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
+    "rafamadriz/friendly-snippets",
+    dependencies = { "L3MON4D3/LuaSnip" },
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+  },
+
   -- Useful plugin to show you pending keybinds.
   { "folke/which-key.nvim", opts = {} },
   {

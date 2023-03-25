@@ -134,17 +134,6 @@ return require('packer').startup(function(use)
   })
 
   --  ╭──────────────────────────────────────────────────────────╮
-  --  │   Snippets                                               │
-  --  ╰──────────────────────────────────────────────────────────╯
-  use({
-    'rafamadriz/friendly-snippets',
-    requires = { 'L3MON4D3/LuaSnip' },
-    config = function()
-      require('config.friendly-snippets')
-    end,
-  })
-
-  --  ╭──────────────────────────────────────────────────────────╮
   --  │   Testing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
   use({
