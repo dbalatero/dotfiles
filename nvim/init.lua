@@ -267,12 +267,21 @@ require('lazy').setup({
   --  ╰──────────────────────────────────────────────────────────╯
   -- Splitjoin like plugin
   {
-    'Wansmer/treesj',
-    requires = { 'nvim-treesitter/nvim-treesitter', 'AndrewRadev/splitjoin.vim' },
-    opts = {
-      use_default_keymaps = false,
-    },
+    'AndrewRadev/splitjoin.vim',
     config = function()
+      -- Disable the default keybindings so we can bind it below
+      vim.g.splitjoin_split_mapping = ''
+      vim.g.splitjoin_join_mapping = ''
+    end,
+  },
+  {
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('treesj').setup({
+        use_default_keymaps = false,
+      })
+
       -- Configure a fallback to splitjoin.vim when a language is not supported.
       local langs = require('treesj.langs')['presets']
 
