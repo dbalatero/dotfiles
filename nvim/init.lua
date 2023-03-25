@@ -114,7 +114,11 @@ require("lazy").setup({
   {
     -- Autocompletion
     "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+    },
   },
 
   -- Useful plugin to show you pending keybinds.
@@ -207,7 +211,14 @@ require("lazy").setup({
   { "numToStr/Comment.nvim", opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { "nvim-telescope/telescope.nvim", version = "*", dependencies = { "nvim-lua/plenary.nvim" } },
+  {
+    "nvim-telescope/telescope.nvim",
+    version = "*",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "princejoogie/dir-telescope.nvim",
+    },
+  },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -445,8 +456,6 @@ vim.o.number = true
 vim.o.mouse = "a"
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.o.clipboard = "unnamedplus"
 
 -- Enable break indent
@@ -510,6 +519,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+require("dir-telescope").setup({
+  hidden = false,
+  respect_gitignore = true,
+})
+
+require("telescope").load_extension("dir")
+
 require("telescope").setup({
   defaults = {
     mappings = {
@@ -552,11 +568,26 @@ vim.keymap.set(
   require("telescope.builtin").buffers,
   { desc = "[S]earch existing buffers" }
 )
+
 vim.keymap.set(
   "n",
-  "<leader>sd",
+  "<leader>sdf",
+  require("telescope").extensions.dir.find_files,
+  { desc = "[S]earch [d]irectory for [f]iles" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>sdg",
+  require("telescope").extensions.dir.live_grep,
+  { desc = "[S]earch [d]irectory by [g]rep" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>si",
   require("telescope.builtin").diagnostics,
-  { desc = "[S]earch [D]iagnostics" }
+  { desc = "[S]earch D[i]agnostics" }
 )
 vim.keymap.set(
   "n",

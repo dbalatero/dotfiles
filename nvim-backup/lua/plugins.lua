@@ -22,27 +22,8 @@ return require('packer').startup(function(use)
   })
 
   --  ╭──────────────────────────────────────────────────────────╮
-  --  │   Color schemes and themes                               │
-  --  ╰──────────────────────────────────────────────────────────╯
-
-  -- nice scroll indicator
-  use('drzel/vim-line-no-indicator')
-
-  -- fast Lua statusline
-  use({
-    'dbalatero/galaxyline.nvim',
-    config = function()
-      require('config.statusline')
-    end,
-  })
-
-  --  ╭──────────────────────────────────────────────────────────╮
   --  │   Completion                                             │
   --  ╰──────────────────────────────────────────────────────────╯
-  use({
-    'saadparwaiz1/cmp_luasnip',
-    requires = { 'L3MON4D3/LuaSnip' },
-  })
 
   use({
     'hrsh7th/nvim-cmp',
@@ -50,8 +31,6 @@ return require('packer').startup(function(use)
       require('config.nvim-cmp')
     end,
     requires = {
-      'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
