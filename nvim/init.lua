@@ -446,8 +446,33 @@ require("lazy").setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
+-- Disable this stupid mode
+vim.o.noexrc = true
+vim.o.noex = true
+vim.o.nosecure = true
+
+-- Indentation
+vim.o.expandtab = true
+vim.o.linebreak = true
+vim.o.nowrap = true
+vim.o.shiftwidth = 2
+vim.o.smartindent = true
+vim.o.softtabstop = 2
+vim.o.tabstop = 2
+
+-- No swap or backup file
+vim.o.noswapfile = true
+vim.o.nobackup = true
+vim.o.nowb = true
+
+-- Scrolling
+vim.o.scrolloff = 8 -- Start scrolling when we're 8 lines away from margins
+vim.o.sidescrolloff = 15
+vim.o.sidescroll = 1
+
 -- Set highlight on search
 vim.o.hlsearch = false
+vim.o.listchars = "tab:▸ ,trail:ـ,extends:➧,eol:¬"
 
 -- Make line numbers default
 vim.o.number = true
@@ -463,6 +488,7 @@ vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
+vim.o.undodir = vim.fn.stdpath("data") .. "/backups"
 
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
@@ -478,6 +504,7 @@ vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
+vim.o.wildignore = "node_modules/*,bower_components/*,vendor/bundle/*,tmp/*"
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -488,6 +515,18 @@ vim.o.splitbelow = true
 
 -- Minimum window width
 vim.o.winwidth = 100
+
+-- [[ Set up languages ]]
+
+-- Go away perl
+vim.g.loaded_perl_provider = 0
+
+-- Python
+vim.g.python_host_prog = vim.env.HOME .. "/.pyenv/versions/py2neovim/bin/python"
+vim.g.python3_host_prog = vim.env.HOME .. "/.pyenv/versions/py3neovim/bin/python"
+
+-- Node
+vim.g.latest_node_path = vim.env.HOME .. "/.nodenv/versions/15.7.0/bin/node"
 
 -- [[ Basic Keymaps ]]
 

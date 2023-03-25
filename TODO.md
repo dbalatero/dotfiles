@@ -7,12 +7,10 @@
 - [x] the timeout on showing completions is a little aggressive
 - [x] I don't need every notification message (or any?)
 - [x] Mode line could change - don't need a clock
-- [ ] Replace netrw with the thing I like
+- [x] Replace netrw with the thing I like
 - [x] Fix file finder keybindings
-- [ ] Merge LSP keybindings with my old ones
+- [x] Merge LSP keybindings with my old ones
 - [x] splitjoin.nvim?
 - [ ] other files: https://github.com/rgroli/other.nvim
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ] DAP setup
 - [ ] 
