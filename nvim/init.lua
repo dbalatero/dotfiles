@@ -306,7 +306,14 @@ require('lazy').setup({
   },
 
   -- marks in gutter
-  { 'chentoast/marks.nvim', opts = {} },
+  {
+    'chentoast/marks.nvim',
+    config = function()
+      require('marks').setup({})
+
+      vim.keymap.set('n', '<leader>m<space>', ':delm! | delm A-Z0-9<CR>', { desc = "Delete all marks", silent = true, noremap = true })
+    end,
+  },
 
   -- switch syntaxes around with `gs`
   'AndrewRadev/switch.vim',
