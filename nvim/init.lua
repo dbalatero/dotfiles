@@ -45,6 +45,7 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
+      -- Standalone UI for nvim-lsp progress
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
 
@@ -154,6 +155,10 @@ require('lazy').setup({
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   },
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   tmux                                                   │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     'christoomey/vim-tmux-navigator',
     config = function()
@@ -165,6 +170,16 @@ require('lazy').setup({
       vim.keymap.set({ 'n' }, '<C-k>', ':<C-U>TmuxNavigateUp<CR>', { silent = true, noremap = true })
     end,
   },
+
+  {
+    'melonmanchan/vim-tmux-resizer',
+    config = function()
+      vim.g.tmux_resizer_no_mappings = 0
+    end,
+  },
+
+  { 'benmills/vimux' },
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.

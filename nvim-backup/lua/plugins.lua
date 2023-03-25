@@ -266,9 +266,6 @@ return require('packer').startup(function(use)
   --  │   LSP madness                                            │
   --  ╰──────────────────────────────────────────────────────────╯
 
-  -- Standalone UI for nvim-lsp progress
-  use('j-hui/fidget.nvim')
-
   -- LSP for formatting/diagnostics
   use({
     'jose-elias-alvarez/null-ls.nvim',
@@ -353,25 +350,6 @@ return require('packer').startup(function(use)
       require('config.vim-test')
     end,
   })
-
-  --  ╭──────────────────────────────────────────────────────────╮
-  --  │   tmux                                                   │
-  --  ╰──────────────────────────────────────────────────────────╯
-  use({
-    'christoomey/vim-tmux-navigator',
-    config = function()
-      require('config.tmux-navigator')
-    end,
-  })
-
-  use({
-    'melonmanchan/vim-tmux-resizer',
-    config = function()
-      require('config.tmux-resizer')
-    end,
-  })
-
-  use('benmills/vimux')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Version control                                        │
