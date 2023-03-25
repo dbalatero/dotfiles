@@ -6,4 +6,4 @@
 - [x] vim -> tmux window movement doesn't cross the `vim` to `tmux` boundary, so Vim is broken
 - [x] the timeout on showing completions is a little aggressive
 - [x] I don't need every notification message (or any?)
-- [ ] Mode line could change - don't need a clock
+- [x] Mode line could change - don't need a clock
