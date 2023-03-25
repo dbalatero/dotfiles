@@ -53,15 +53,6 @@ return require('packer').startup(function(use)
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Color schemes and themes                               │
   --  ╰──────────────────────────────────────────────────────────╯
-  use('bluz71/vim-nightfly-guicolors')
-
-  -- show hex colors in CSS/HTML files
-  use({
-    'chrisbra/Colorizer',
-    config = function()
-      require('config.colorizer')
-    end,
-  })
 
   -- fancy icons
   use('kyazdani42/nvim-web-devicons')
@@ -76,9 +67,6 @@ return require('packer').startup(function(use)
       require('config.statusline')
     end,
   })
-
-  -- replace missing colors for LSP
-  use('folke/lsp-colors.nvim')
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Completion                                             │

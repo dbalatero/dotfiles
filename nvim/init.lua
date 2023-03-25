@@ -95,7 +95,10 @@ require('lazy').setup({
     },
   },
 
-  { -- Theme inspired by Atom
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Color schemes and themes                               │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
     'bluz71/vim-nightfly-guicolors',
     priority = 1000,
     config = function()
@@ -110,6 +113,12 @@ require('lazy').setup({
         hi EndOfBuffer guibg=NONE ctermbg=NONE
       ]])
     end,
+  },
+
+  -- show hex colors in CSS/HTML files
+  {
+    'NvChad/nvim-colorizer.lua',
+    opts = {},
   },
 
   { -- Set lualine as statusline
