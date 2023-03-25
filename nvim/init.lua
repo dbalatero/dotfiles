@@ -167,6 +167,7 @@ require("lazy").setup({
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "kyazdani42/nvim-web-devicons",
+      "drzel/vim-line-no-indicator",
     },
     -- See `:help lualine.txt`
     opts = {
@@ -182,7 +183,11 @@ require("lazy").setup({
         lualine_c = { "filename", "diff", "diagnostics" },
         lualine_x = { "filesize", "encoding", "fileformat", "filetype" },
         lualine_y = {},
-        lualine_z = { "location" },
+        lualine_z = {
+          function()
+            return vim.fn.LineNoIndicator()
+          end,
+        },
       },
     },
   },
