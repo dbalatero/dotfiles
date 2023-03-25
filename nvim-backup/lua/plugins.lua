@@ -3,21 +3,9 @@
 -- ╰────────────────────────────────────────────────────────────────────╯
 
 return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use('wbthomason/packer.nvim')
-
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Core plugins                                           │
   --  ╰──────────────────────────────────────────────────────────╯
-  -- Additional help under :h nvim-lua-guide
-  use('nanotee/nvim-lua-guide')
-
-  -- useful Lua functions, e.g. like boost
-  use('nvim-lua/plenary.nvim')
-
-  -- caching startup
-  use('lewis6991/impatient.nvim')
-
   -- syntax highlights
   use({
     'nvim-treesitter/nvim-treesitter',
@@ -95,23 +83,6 @@ return require('packer').startup(function(use)
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Editing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
-  -- Splitjoin like plugin
-  use({
-    'Wansmer/treesj',
-    requires = { 'nvim-treesitter' },
-    config = function()
-      require('config.treesj-setup')
-    end,
-  })
-
-  -- switch syntaxes around with `gs`
-  use('AndrewRadev/switch.vim')
-
-  -- comment with `gcc`
-  use('tpope/vim-commentary')
-
-  -- disable highlights automatically on cursor move
-  use('romainl/vim-cool')
 
   -- alternate files with :AV/:AS
   use('tpope/vim-projectionist')
@@ -124,18 +95,6 @@ return require('packer').startup(function(use)
     end,
   })
 
-  -- strip whitespace on save
-  use('itspriddle/vim-stripper')
-
-  -- cs`' to change `` to '', etc
-  use('tpope/vim-surround')
-
-  -- <leader>q to toggle quickfix
-  use('milkypostman/vim-togglelist')
-
-  -- snake_case -> camelCase, etc
-  use('tpope/vim-abolish')
-
   -- successor to vim-sneak
   use({
     'ggandor/lightspeed.nvim',
@@ -143,12 +102,6 @@ return require('packer').startup(function(use)
       require('config.lightspeed')
     end,
   })
-
-  -- remaps .
-  use('tpope/vim-repeat')
-
-  -- extended % key matching
-  use('andymass/vim-matchup')
 
   -- lets you surround comments in a box.
   use({

@@ -26,7 +26,14 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Core plugins                                           │
+  --  ╰──────────────────────────────────────────────────────────╯
+  -- Additional help under :h nvim-lua-guide
+  'nanotee/nvim-lua-guide',
+
+  -- useful Lua functions, e.g. like boost
+  'nvim-lua/plenary.nvim',
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Git / version control                                  │
@@ -183,6 +190,15 @@ require('lazy').setup({
 
       -- Add new text object support based on language
       'nvim-treesitter/nvim-treesitter-textobjects',
+
+      -- Extended matchers for %
+      'andymass/vim-matchup',
+
+      -- Highlight parenthesis pairs w/ different colors
+      'p00f/nvim-ts-rainbow',
+
+      -- Auto close <html> tags
+      'windwp/nvim-ts-autotag',
     },
     config = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
@@ -245,6 +261,56 @@ require('lazy').setup({
   },
 
   'benmills/vimux',
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Editing                                                │
+  --  ╰──────────────────────────────────────────────────────────╯
+  -- Splitjoin like plugin
+  {
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter/nvim-treesitter', 'AndrewRadev/splitjoin.vim' },
+    opts = {
+      use_default_keymaps = false,
+    },
+    config = function()
+      -- Configure a fallback to splitjoin.vim when a language is not supported.
+      local langs = require('treesj.langs')['presets']
+
+      vim.api.nvim_create_autocmd({ 'FileType' }, {
+        pattern = '*',
+        callback = function()
+          if langs[vim.bo.filetype] then
+            vim.keymap.set('n', 'gS', '<Cmd>TSJSplit<CR>', { buffer = true, desc = "[S]plit under cursor" })
+            vim.keymap.set('n', 'gJ', '<Cmd>TSJJoin<CR>', { buffer = true, desc = "[J]oin under cursor" })
+          else
+            vim.keymap.set('n', 'gS', '<Cmd>SplitjoinSplit<CR>', { buffer = true, desc = "[S]plit under cursor" })
+            vim.keymap.set('n', 'gJ', '<Cmd>SplitjoinJoin<CR>', { buffer = true, desc = "[J]oin under cursor" })
+          end
+        end,
+      })
+    end,
+  },
+
+  -- switch syntaxes around with `gs`
+  'AndrewRadev/switch.vim',
+
+  -- disable highlights automatically on cursor move
+  'romainl/vim-cool',
+
+  -- strip whitespace on save
+  'itspriddle/vim-stripper',
+
+  -- cs`' to change `` to '', etc
+  'tpope/vim-surround',
+
+  -- <leader>q to toggle quickfix
+  'milkypostman/vim-togglelist',
+
+  -- snake_case -> camelCase, etc
+  'tpope/vim-abolish',
+
+  -- remaps .
+  'tpope/vim-repeat',
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
