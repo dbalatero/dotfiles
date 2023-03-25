@@ -6,13 +6,6 @@ return require('packer').startup(function(use)
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Core plugins                                           │
   --  ╰──────────────────────────────────────────────────────────╯
-  use({
-    'Konfekt/vim-alias',
-    config = function()
-      require('config.aliases')
-    end,
-  })
-
   -- context menu when hitting leader key(s)
   use({
     'folke/which-key.nvim',
