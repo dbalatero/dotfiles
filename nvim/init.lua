@@ -650,6 +650,12 @@ vim.g.latest_node_path = vim.env.HOME .. "/.nodenv/versions/15.7.0/bin/node"
 
 -- [[ Basic Keymaps ]]
 
+-- Allow ctrl+z backgrounding in of insert mode
+vim.keymap.set({ "i" }, "<C-Z>", "<Esc><C-Z>", { noremap = true })
+
+-- Use more sane regexes by default
+vim.keymap.set({ "n", "v" }, "/", "/\\v", { noremap = true })
+
 -- Remap : to ;
 vim.keymap.set({ "n" }, ";", ":", { noremap = true })
 
