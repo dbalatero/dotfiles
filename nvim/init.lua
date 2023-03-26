@@ -6,7 +6,6 @@ vim.g.maplocalleader = " "
 
 -- Make line numbers default
 vim.o.number = true
-
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -23,11 +22,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
 require("lazy").setup({
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Core plugins                                           │
@@ -66,13 +60,25 @@ require("lazy").setup({
   -- enable GHE/Github links with :Gbrowse
   "tpope/vim-rhubarb",
 
-  -- Detect tabstop and shiftwidth automatically
-  "tpope/vim-sleuth",
-
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   {
-    -- LSP Configuration & Plugins
+    -- Adds git related signs to the gutter, as well as utilities for managing changes
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      -- See `:help gitsigns.txt`
+      signs = {
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+      },
+    },
+  },
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   LSP Configuration & Plugins                            │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
@@ -161,8 +167,10 @@ require("lazy").setup({
     end,
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   Completion                                             │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
-    -- Autocompletion
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
@@ -193,20 +201,6 @@ require("lazy").setup({
 
   -- Useful plugin to show you pending keybinds.
   { "folke/which-key.nvim", opts = {} },
-  {
-    -- Adds git related signs to the gutter, as well as utilities for managing changes
-    "lewis6991/gitsigns.nvim",
-    opts = {
-      -- See `:help gitsigns.txt`
-      signs = {
-        add = { text = "+" },
-        change = { text = "~" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-      },
-    },
-  },
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Color schemes and themes                               │
@@ -485,6 +479,9 @@ require("lazy").setup({
     end,
   },
 
+  -- Detect tabstop and shiftwidth automatically
+  "tpope/vim-sleuth",
+
   -- lets you surround comments in a box.
   {
     "LudoPinelli/comment-box.nvim",
@@ -578,21 +575,9 @@ require("lazy").setup({
   -- remaps .
   "tpope/vim-repeat",
 
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
-
-  -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  --
-  --    An additional note is that if you only copied in the `init.lua`, you can just comment this line
-  --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
-  -- { import = 'custom.plugins' },
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │   FZF (for large repos)                                  │
+  --  ╰──────────────────────────────────────────────────────────╯
   { import = "custom.plugins.fzf" },
 }, {})
 
