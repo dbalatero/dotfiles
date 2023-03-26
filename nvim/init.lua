@@ -98,6 +98,9 @@ require("lazy").setup({
 
       -- Additional lua configuration, makes nvim stuff amazing!
       "folke/neodev.nvim",
+
+      -- Improve any TypeScript projects
+      "jose-elias-alvarez/typescript.nvim",
     },
   },
 
@@ -257,17 +260,6 @@ require("lazy").setup({
           end,
         },
       },
-    },
-  },
-
-  {
-    -- Add indentation guides even on blank lines
-    "lukas-reineke/indent-blankline.nvim",
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = "┊",
-      show_trailing_blankline_indent = false,
     },
   },
 
@@ -451,6 +443,63 @@ require("lazy").setup({
           end
         end,
       })
+    end,
+  },
+
+  -- lets you surround comments in a box.
+  {
+    "LudoPinelli/comment-box.nvim",
+    config = function()
+      vim.keymap.set(
+        { "n", "v" },
+        "<leader>bb",
+        require("comment-box").llbox,
+        { noremap = true, desc = "Left-aligned comment box" }
+      )
+
+      vim.keymap.set(
+        { "n", "v" },
+        "<leader>bc",
+        require("comment-box").lcbox,
+        { noremap = true, desc = "Centered comment box" }
+      )
+
+      vim.keymap.set(
+        { "n", "v" },
+        "<leader>bc",
+        require("comment-box").lrbox,
+        { noremap = true, desc = "Right-aligned comment box" }
+      )
+    end,
+  },
+
+  -- Indent guides
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      -- char = "▏",
+      char = "│",
+      filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+      show_trailing_blankline_indent = false,
+      show_current_context = false,
+    },
+  },
+
+  {
+    "stevearc/dressing.nvim",
+    lazy = true,
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.input(...)
+      end
     end,
   },
 

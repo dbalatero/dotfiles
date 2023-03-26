@@ -18,9 +18,6 @@ return require('packer').startup(function(use)
   --  │   Editing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
 
-  -- alternate files with :AV/:AS
-  use('tpope/vim-projectionist')
-
   -- successor to vim-sneak
   use({
     'ggandor/lightspeed.nvim',
@@ -29,32 +26,9 @@ return require('packer').startup(function(use)
     end,
   })
 
-  -- lets you surround comments in a box.
-  use({
-    'LudoPinelli/comment-box.nvim',
-    config = function()
-      require('config.comment-box')
-    end,
-  })
-
-  -- Show guides for indentation
-  use({
-    'lukas-reineke/indent-blankline.nvim',
-    config = function()
-      require('config.indent-blankline')
-    end,
-  })
-
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Grepping / searching                                   │
   --  ╰──────────────────────────────────────────────────────────╯
-  use({
-    'mileszs/ack.vim',
-    config = function()
-      require('config.ack')
-    end,
-  })
-
   use({
     'ibhagwan/fzf-lua',
     branch = 'main',
