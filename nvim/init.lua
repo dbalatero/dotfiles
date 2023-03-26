@@ -4,6 +4,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Make line numbers default
+vim.o.number = true
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -574,6 +577,10 @@ vim.o.smartindent = true
 vim.o.softtabstop = 2
 vim.o.tabstop = 2
 
+-- 80 chars
+vim.opt.textwidth = 80
+vim.opt.colorcolumn = "81" -- show column at 81
+
 -- No swap or backup file
 vim.o.noswapfile = true
 vim.o.nobackup = true
@@ -588,9 +595,6 @@ vim.o.sidescroll = 1
 vim.o.hlsearch = false
 vim.o.listchars = "tab:▸ ,trail:ـ,extends:➧,eol:¬"
 
--- Make line numbers default
-vim.o.number = true
-
 -- Enable mouse mode
 vim.o.mouse = "a"
 
@@ -601,8 +605,10 @@ vim.o.clipboard = "unnamedplus"
 vim.o.breakindent = true
 
 -- Save undo history
-vim.o.undofile = true
+vim.o.history = 1000 -- store lots of :cmdline history
 vim.o.undodir = vim.fn.stdpath("data") .. "/backups"
+vim.o.undofile = true
+vim.o.undolevels = 1000
 
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
@@ -618,7 +624,7 @@ vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
-vim.o.wildignore = "node_modules/*,bower_components/*,vendor/bundle/*,tmp/*"
+vim.opt.wildignore = { "node_modules/*", "vendor/bundle/*", "tmp/*" }
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -643,6 +649,9 @@ vim.g.python3_host_prog = vim.env.HOME .. "/.pyenv/versions/py3neovim/bin/python
 vim.g.latest_node_path = vim.env.HOME .. "/.nodenv/versions/15.7.0/bin/node"
 
 -- [[ Basic Keymaps ]]
+
+-- Remap : to ;
+vim.keymap.set({ "n" }, ";", ":", { noremap = true })
 
 -- jk for normal mode
 vim.keymap.set({ "i" }, "jk", "<Esc>")
