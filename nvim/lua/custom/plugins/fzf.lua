@@ -65,12 +65,14 @@ return {
       },
     })
 
-    vim.keymap.set(
-      { "n" },
-      "<C-p>",
-      fzf_proximity_files,
-      { noremap = true, desc = "FZF: Find files" }
-    )
+    -- Trying to wean myself off of Ctrl P...
+    -- vim.keymap.set(
+    --   { "n" },
+    --   "<C-p>",
+    --   fzf_proximity_files,
+    --   { noremap = true, desc = "FZF: Find files" }
+    -- )
+
     vim.keymap.set(
       { "n" },
       "<space>ff",
