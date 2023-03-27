@@ -126,7 +126,7 @@ vim.o.winwidth = 100
 --  │ Set up languages                                         │
 --  ╰──────────────────────────────────────────────────────────╯
 
--- Go away perl
+-- Go away, Perl
 vim.g.loaded_perl_provider = 0
 
 -- Python
@@ -160,8 +160,11 @@ vim.keymap.set({ "n" }, "vv", "<C-w>v", { noremap = true })
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
+--  ╭──────────────────────────────────────────────────────────╮
+--  │ Highlight on yank                                        │
+--  │ See `:help vim.highlight.on_yank()`                      │
+--  ╰──────────────────────────────────────────────────────────╯
+
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
