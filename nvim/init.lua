@@ -143,8 +143,6 @@ require("lazy").setup({
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   File management                                        │
   --  ╰──────────────────────────────────────────────────────────╯
-  "Shougo/unite.vim",
-
   {
     "Shougo/vimfiler.vim",
     config = function()
@@ -158,7 +156,7 @@ require("lazy").setup({
       -- buffer's file
       vim.keymap.set({ "n" }, "-", ":VimFilerBufferDir<CR>", { noremap = true, silent = true })
     end,
-    requires = { "Shougo/unite.vim" },
+    dependencies = { "Shougo/unite.vim" },
   },
 
   "danro/rename.vim",
@@ -269,7 +267,7 @@ require("lazy").setup({
 
   {
     "Wansmer/treesj",
-    requires = { "nvim-treesitter/nvim-treesitter" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       require("treesj").setup({
         use_default_keymaps = false,
