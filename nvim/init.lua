@@ -188,13 +188,14 @@ require("lazy").setup({
     end,
   },
 
-  "benmills/vimux",
-
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Testing                                                │
   --  ╰──────────────────────────────────────────────────────────╯
   {
     "janko-m/vim-test",
+    dependencies = {
+      "benmills/vimux",
+    },
     config = function()
       vim.cmd([[
         nmap <silent> <leader>T :TestNearest<CR>
