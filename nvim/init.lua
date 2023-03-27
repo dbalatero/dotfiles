@@ -1036,6 +1036,7 @@ local servers = {
       },
     },
   },
+  sorbet = {},
   tsserver = {},
   yamlls = {
     yaml = {
