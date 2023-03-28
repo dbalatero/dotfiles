@@ -342,17 +342,6 @@ return {
         })
       end
 
-      local hasPrettierConfig = function(utils)
-        return utils.root_has_file({
-          ".prettierrc",
-          ".prettierrc.json",
-          ".prettierrc.js",
-          ".prettierrc.toml",
-          ".prettierrc.yml",
-          ".prettierrc.yaml",
-        })
-      end
-
       local eslintConfig = {
         condition = hasEslintConfig,
         filter = ignorePrettierRules,
@@ -378,15 +367,7 @@ return {
           --  ╭──────────────────────────────────────────────────────────╮
           --  │     TypeScript                                           │
           --  ╰──────────────────────────────────────────────────────────╯
-          null_ls.builtins.formatting.prettierd.with({
-            condition = hasPrettierConfig,
-            env = {
-              -- Always use the local prettier in node_modules, especially when prettier is pointing
-              -- at a feature branch or something weird.
-              -- PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
-            },
-          }),
-
+          null_ls.builtins.formatting.prettierd,
           null_ls.builtins.code_actions.eslint_d.with(eslintConfig),
           null_ls.builtins.diagnostics.eslint_d.with(eslintConfig),
         },
