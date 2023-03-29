@@ -93,6 +93,7 @@ function install_base16_shell() {
 dotheader "Setting up ZSH..."
 
 symlink_dotfile profile ~/.profile
+symlink_dotfile inputrc ~/.inputrc
 
 brew_install exa
 brew_install neofetch
