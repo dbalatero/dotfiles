@@ -348,7 +348,6 @@ return {
       }
 
       local null_ls = require("null-ls")
-      local rubyfmt_formatter = require("custom.rubyfmt")
 
       null_ls.setup({
         capabilities = capabilities,
@@ -362,7 +361,7 @@ return {
           --  ╭──────────────────────────────────────────────────────────╮
           --  │     Ruby                                                 │
           --  ╰──────────────────────────────────────────────────────────╯
-          rubyfmt_formatter,
+          null_ls.builtins.formatting.rubyfmt,
 
           --  ╭──────────────────────────────────────────────────────────╮
           --  │     TypeScript                                           │
