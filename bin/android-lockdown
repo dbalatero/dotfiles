@@ -72,6 +72,18 @@ function remove_samsung_bixby() {
   done
 }
 
+function remove_samsung_browser() {
+  local packages=(
+    com.sec.android.app.sbrowser
+    com.samsung.android.app.sbrowseredge
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
 function remove_samsung_dex() {
   local packages=(
     com.sec.android.desktopmode.uiservice
@@ -103,12 +115,133 @@ function remove_samsung_email() {
 }
 
 function remove_samsung_game_launcher() {
+  #     com.samsung.android.game.gos
   local packages=(
     com.samsung.android.game.gamehome
     com.enhance.gameservice
     com.samsung.android.game.gametools
-    com.samsung.android.game.gos
     com.samsung.android.gametuner.thin
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+function remove_samsung_store_bloat() {
+  local packages=(
+    com.sec.android.app.samsungapps
+    com.samsung.android.themestore
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+function remove_samsung_pay() {
+  local packages=(
+    com.samsung.android.samsungpassautofill
+    com.samsung.android.authfw
+    com.samsung.android.samsungpass
+    com.samsung.android.spay
+    com.samsung.android.spayfw
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+function remove_microsoft_shit() {
+  local packages=(
+    com.microsoft.office.outlook
+    com.microsoft.office.officehubrow
+    com.microsoft.skydrive
+    com.microsoft.appmanager
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+function remove_samsung_random_shit() {
+  local packages=(
+    com.samsung.android.hmt.vrsvc
+    com.samsung.android.app.vrsetupwizardstub
+    com.samsung.android.hmt.vrshell
+    com.google.vr.vrcore
+    com.samsung.vvm.se
+    com.samsung.android.kidsinstaller
+    com.samsung.android.app.ledbackcover
+    com.sec.android.cover.ledcover
+    com.samsung.android.service.peoplestripe
+    com.samsung.android.oneconnect
+    com.samsung.android.beaconmanager
+    jp.gocro.smartnews.android
+    com.synchronoss.dcs.att.r2g
+    com.wavemarket.waplauncher
+    com.pandora.android
+    com.sec.penup
+    com.samsung.android.service.livedrawing
+    com.linkedin.android
+    co.hunge.app
+    com.greatbigstory.greatbigstory
+    com.android.documentsui
+    com.drivemode
+    com.att.dh
+    com.att.dtv.shaderemote
+    com.att.tv
+    com.samsung.android.app.contacts
+    com.android.chrome
+    com.samsung.android.calendar
+    com.cnn.mobile.android.phone
+    com.bleacherreport.android.teamstream
+    com.att.android.attsmartwifi
+    net.aetherpal.device
+    com.asurion.android.protech.att
+    com.samsung.android.messaging
+    com.google.android.dialer
+    com.wb.goog.got.conquest
+    com.google.android.youtube
+    com.wb.goog.dcuniverse
+    com.innogames.foeandroid
+    com.playstudios.popslots
+    com.gsn.android.tripeaks
+    com.att.myWireless
+    com.foxnextgames.m3
+    com.samsung.attvvm
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+function remove_google_apps() {
+  local packages=(
+    com.google.android.apps.docs
+    com.google.android.apps.maps
+    com.google.android.apps.photos
+    com.google.android.apps.tachyon
+    com.google.android.apps.wellbeing
+    com.google.android.feedback
+    com.google.android.googlequicksearchbox
+    com.google.android.inputmethod.latin
+    com.google.android.marvin.talkback
+    com.google.android.music
+    com.google.android.printservice.recommendation
+    com.google.android.syncadapters.calendar
+    com.google.android.tts
+    com.google.android.videos
+    com.google.android.youtube
+    com.google.ar.lens
   )
 
   for pkg in "${packages[@]}"
@@ -143,12 +276,18 @@ case "${CMD}" in
     ;;
   disable)
     echo "Disabling all packages"
+    remove_samsung_pay
+    remove_facebook
+    remove_google_apps
+    remove_microsoft_shit
     remove_samsung_bixby
+    remove_samsung_browser
     remove_samsung_car_mode
     remove_samsung_dex
     remove_samsung_email
     remove_samsung_game_launcher
-    remove_facebook
+    remove_samsung_random_shit
+    remove_samsung_store_bloat
     ;;
   *)
     print_usage
