@@ -1,0 +1,156 @@
+#!/usr/bin/env bash
+
+function command_exists() {
+  local name=$1
+
+  command -v "$name" >/dev/null 2>&1
+}
+
+function adb_installed() {
+  if ! command_exists "adb"; then
+    echo "Installing adb via homebrew ..."
+    brew install android-platform-tools
+  fi
+}
+
+function adb_connected() {
+  devices=$(adb devices -l | egrep -v "^List of devices|^\$")
+  # echo "adb devices found:\n${devices}\n"
+
+  if [ "${devices}" = "" ]; then
+    echo "Phone not found. Connect a USB cable and enable USB debugging: https://developer.android.com/studio/command-line/adb"
+    exit 1
+  fi
+}
+
+function print_usage() {
+  echo "Usage: bin/android-lockdown [command]"
+  echo
+  echo "  list"
+  echo "    Lists all the packages installed on the device."
+  echo
+  echo "  disable"
+  echo "    Disables all the packages configured in this script."
+}
+
+function list_packages() {
+  adb shell pm list packages
+}
+
+function package_exists() {
+  local pkg="$1"
+  list_packages | grep -q "package:$pkg"
+}
+
+function remove_package() {
+  local pkg="$1"
+
+  if package_exists "$pkg" ; then
+    echo "[+] Removing $pkg"
+    adb shell pm disable-user --user 0 $pkg 2>/dev/null
+    adb shell pm uninstall --user 0 $pkg 2>/dev/null
+  fi
+}
+
+# From: https://www.minitool.com/news/list-of-samsung-bloatware-safe-to-remove.html
+function remove_samsung_bixby() {
+  local packages=(
+    com.samsung.android.bixby.wakeup
+    com.samsung.android.app.spage
+    com.samsung.android.app.routines
+    com.samsung.android.bixby.service
+    com.samsung.android.visionintelligence
+    com.samsung.android.bixby.agent
+    com.samsung.android.bixby.agent.dummy
+    com.samsung.android.bixbyvision.framework
+    com.samsung.android.app.settings.bixby
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+function remove_samsung_dex() {
+  local packages=(
+    com.sec.android.desktopmode.uiservice
+    com.samsung.desktopsystemui
+    com.sec.android.app.desktoplauncher
+    com.sec.android.app.dexonpc
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+function remove_samsung_car_mode() {
+  remove_package "com.samsung.android.drivelink.stub"
+}
+
+function remove_samsung_email() {
+  local packages=(
+    com.samsung.android.email.provider
+    com.wsomacp
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+function remove_samsung_game_launcher() {
+  local packages=(
+    com.samsung.android.game.gamehome
+    com.enhance.gameservice
+    com.samsung.android.game.gametools
+    com.samsung.android.game.gos
+    com.samsung.android.gametuner.thin
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+function remove_facebook() {
+  local packages=(
+    com.facebook.appmanager
+    com.facebook.katana
+    com.facebook.system
+    com.facebook.services
+  )
+
+  for pkg in "${packages[@]}"
+  do
+    remove_package "$pkg"
+  done
+}
+
+adb_installed
+adb_connected
+
+readonly CMD=$1
+shift
+
+case "${CMD}" in
+  list)
+    adb shell pm list packages
+    ;;
+  disable)
+    echo "Disabling all packages"
+    remove_samsung_bixby
+    remove_samsung_car_mode
+    remove_samsung_dex
+    remove_samsung_email
+    remove_samsung_game_launcher
+    remove_facebook
+    ;;
+  *)
+    print_usage
+    ;;
+esac
