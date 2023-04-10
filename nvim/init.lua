@@ -26,7 +26,40 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
 
   -- Useful plugin to show you pending keybinds.
-  { "folke/which-key.nvim", opts = {} },
+  {
+    "folke/which-key.nvim",
+    config = function()
+      local wk = require("which-key")
+      wk.setup({})
+
+      wk.register({
+        b = {
+          name = "+comment-[b]ox",
+        },
+        f = {
+          name = "+fzf",
+        },
+        l = {
+          name = "+lsp",
+          w = {
+            name = "+workspace",
+          },
+        },
+        m = {
+          name = "+marks",
+        },
+        n = {
+          name = "+a[n]notations",
+        },
+        s = {
+          name = "+search",
+        },
+        x = {
+          name = "+trouble",
+        },
+      }, { prefix = "<leader>" })
+    end,
+  },
 
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Larger plugin configs we import                        │
@@ -50,14 +83,14 @@ require("lazy").setup({
 --  ╰──────────────────────────────────────────────────────────╯
 
 -- Disable this stupid mode
-vim.o.noexrc = true
-vim.o.noex = true
-vim.o.nosecure = true
+vim.o.exrc = false
+vim.o.ex = false
+vim.o.secure = false
 
 -- Indentation
 vim.o.expandtab = true
 vim.o.linebreak = true
-vim.o.nowrap = true
+vim.o.wrap = false
 vim.o.shiftwidth = 2
 vim.o.smartindent = true
 vim.o.softtabstop = 2
@@ -68,9 +101,9 @@ vim.opt.textwidth = 80
 vim.opt.colorcolumn = "81" -- show column at 81
 
 -- No swap or backup file
-vim.o.noswapfile = true
-vim.o.nobackup = true
-vim.o.nowb = true
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.wb = false
 
 -- Scrolling
 vim.o.scrolloff = 8 -- Start scrolling when we're 8 lines away from margins
