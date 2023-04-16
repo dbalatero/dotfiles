@@ -49,7 +49,9 @@ else
   antigen bundle robbyrussell/oh-my-zsh plugins/rbenv
 fi
 
-antigen bundle robbyrussell/oh-my-zsh plugins/vi-mode
+# vim mode
+export ZVM_VI_ESCAPE_BINDKEY=jk
+antigen bundle jeffreytse/zsh-vi-mode
 
 antigen bundle dbalatero/fzf-git
 antigen bundle DarrinTisdale/zsh-aliases-exa
