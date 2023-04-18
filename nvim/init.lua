@@ -70,6 +70,7 @@ require("lazy").setup({
   { import = "custom.plugins.fzf" },
   { import = "custom.plugins.git" },
   { import = "custom.plugins.lsp" },
+  { import = "custom.plugins.neotest" },
   { import = "custom.plugins.telescope" },
   { import = "custom.plugins.testing" },
   { import = "custom.plugins.tmux" },
