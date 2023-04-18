@@ -29,7 +29,6 @@ return {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
       automatic_setup = true,
-
       -- You'll need to check that you have the required things installed
       -- online, please don't ask me how to install them :)
       ensure_installed = {
@@ -43,12 +42,12 @@ return {
     require("mason-nvim-dap").setup_handlers()
 
     -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set("n", "<F5>", dap.continue)
-    vim.keymap.set("n", "<F1>", dap.step_into)
-    vim.keymap.set("n", "<F2>", dap.step_over)
-    vim.keymap.set("n", "<F3>", dap.step_out)
-    vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint)
-    vim.keymap.set("n", "<leader>B", function()
+    vim.keymap.set("n", "<leader>dc", dap.continue)
+    vim.keymap.set("n", "<leader>dsi", dap.step_into)
+    vim.keymap.set("n", "<leader>dso", dap.step_over)
+    vim.keymap.set("n", "<leader>dst", dap.step_out)
+    vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
+    vim.keymap.set("n", "<leader>dB", function()
       dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
     end)
 
