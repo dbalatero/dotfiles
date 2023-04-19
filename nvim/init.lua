@@ -64,6 +64,20 @@ require("lazy").setup({
     end,
   },
 
+  -- Additional lua configuration, makes nvim stuff amazing!
+  {
+    "folke/neodev.nvim",
+    config = function()
+      -- Setup neovim lua configuration
+      require("neodev").setup({
+        library = {
+          plugins = { "nvim-dap-ui" },
+          types = true,
+        },
+      })
+    end,
+  },
+
   --  ╭──────────────────────────────────────────────────────────╮
   --  │   Larger plugin configs we import                        │
   --  ╰──────────────────────────────────────────────────────────╯
