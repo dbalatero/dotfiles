@@ -19,7 +19,7 @@ return {
     "jay-babu/mason-nvim-dap.nvim",
 
     -- Add your own debuggers here
-    "leoluz/nvim-dap-go",
+    "mxsdev/nvim-dap-vscode-js",
   },
   config = function()
     local dap = require("dap")
@@ -33,23 +33,23 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        "delve",
+        "js",
       },
     })
 
-    -- You can provide additional configuration to the handlers,
-    -- see mason-nvim-dap README for more information
-    require("mason-nvim-dap").setup_handlers()
-
     -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set("n", "<leader>dc", dap.continue)
-    vim.keymap.set("n", "<leader>dsi", dap.step_into)
-    vim.keymap.set("n", "<leader>dso", dap.step_over)
-    vim.keymap.set("n", "<leader>dst", dap.step_out)
-    vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
+    --
+    -- I suspect this should be one key:
+    -- https://twitter.com/id_aa_carmack/status/566426468834889728?lang=eu
+    vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Continue" })
+    vim.keymap.set("n", "<leader>dsi", dap.step_into, { desc = "Step into" })
+    vim.keymap.set("n", "<leader>dso", dap.step_over, { desc = "Step over" })
+    vim.keymap.set("n", "<leader>dst", dap.step_out, { desc = "Step out" })
+    vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+
     vim.keymap.set("n", "<leader>dB", function()
       dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-    end)
+    end, { desc = "Set breakpoint" })
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
@@ -75,8 +75,5 @@ return {
     dap.listeners.after.event_initialized["dapui_config"] = dapui.open
     dap.listeners.before.event_terminated["dapui_config"] = dapui.close
     dap.listeners.before.event_exited["dapui_config"] = dapui.close
-
-    -- Install golang specific config
-    require("dap-go").setup()
   end,
 }

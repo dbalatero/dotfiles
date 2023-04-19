@@ -36,6 +36,9 @@ require("lazy").setup({
         b = {
           name = "+comment-[b]ox",
         },
+        d = {
+          name = "+debug",
+        },
         f = {
           name = "+fzf",
         },
@@ -65,6 +68,7 @@ require("lazy").setup({
   --  │   Larger plugin configs we import                        │
   --  ╰──────────────────────────────────────────────────────────╯
   { import = "custom.plugins.completion" },
+  { import = "custom.plugins.debug" },
   { import = "custom.plugins.editing" },
   { import = "custom.plugins.files" },
   { import = "custom.plugins.fzf" },
