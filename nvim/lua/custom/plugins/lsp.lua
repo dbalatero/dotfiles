@@ -52,6 +52,9 @@ return {
         },
       },
 
+      -- Additional lua configuration, makes nvim stuff amazing!
+      "folke/neodev.nvim",
+
       -- Diagnostics
       {
         "folke/trouble.nvim",
@@ -259,6 +262,19 @@ return {
           },
         },
       }
+
+      -- Setup neovim lua configuration
+      require("neodev").setup({
+        library = {
+          enabled = true,
+          plugins = { "nvim-dap-ui" },
+          runtime = true,
+          types = true,
+        },
+        lspconfig = true,
+        pathStrict = true,
+        setup_jsonls = true,
+      })
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()
