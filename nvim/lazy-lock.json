@@ -68,5 +68,6 @@
   "vim-togglelist": { "branch": "master", "commit": "48f0d30292efdf20edc883e61b121e6123e03df7" },
   "vimfiler.vim": { "branch": "master", "commit": "0fdf9f2f7e6014a49625433058c1665f72a3b86f" },
   "vimux": { "branch": "master", "commit": "616fcb4799674a7a809b14ca2dc155bb6ba25788" },
+  "vscode-js-debug": { "branch": "main", "commit": "369aaf1837a5dd7d57fafe69b14f5942783fe89a" },
   "which-key.nvim": { "branch": "main", "commit": "87b1459b3e0be0340da2183fc4ec8a00b2960678" }
 }

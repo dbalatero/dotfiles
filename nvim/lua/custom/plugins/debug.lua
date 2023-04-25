@@ -19,7 +19,15 @@ return {
     "jay-babu/mason-nvim-dap.nvim",
 
     -- Add your own debuggers here
-    "mxsdev/nvim-dap-vscode-js",
+    {
+      "mxsdev/nvim-dap-vscode-js",
+      dependencies = {
+        {
+          "microsoft/vscode-js-debug",
+          build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+        },
+      },
+    },
   },
   config = function()
     local dap = require("dap")
@@ -43,6 +51,9 @@ return {
     --
     -- I suspect this should be one key:
     -- https://twitter.com/id_aa_carmack/status/566426468834889728?lang=eu
+    --
+    -- TODO: change these to single keys
+    --   F2, F3, F4, F5
     vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Continue" })
     vim.keymap.set("n", "<leader>dsi", dap.step_into, { desc = "Step into" })
     vim.keymap.set("n", "<leader>dso", dap.step_over, { desc = "Step over" })
@@ -77,5 +88,47 @@ return {
     dap.listeners.after.event_initialized["dapui_config"] = dapui.open
     dap.listeners.before.event_terminated["dapui_config"] = dapui.close
     dap.listeners.before.event_exited["dapui_config"] = dapui.close
+
+    --  ╭──────────────────────────────────────────────────────────╮
+    --  │     TypeScript setup                                     │
+    --  ╰──────────────────────────────────────────────────────────╯
+    require("dap-vscode-js").setup({
+      debugger_path = require("dotfiles").plugin_path() .. "/vscode-js-debug",
+    })
+
+    -- TODO: get TypeScript actually working, but JavaScript _does_ work.
+    for _, language in ipairs({ "typescript", "javascript" }) do
+      dap.configurations[language] = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+        },
+        {
+          type = "pwa-node",
+          request = "attach",
+          name = "Attach",
+          processId = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+        },
+        -- TODO: see about integrating with neotest-jest
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Debug Jest Tests",
+          runtimeExecutable = "node",
+          runtimeArgs = {
+            "./node_modules/jest/bin/jest.js",
+            "--runInBand",
+          },
+          rootPath = "${workspaceFolder}",
+          cwd = "${workspaceFolder}",
+          console = "integratedTerminal",
+          internalConsoleOptions = "neverOpen",
+        },
+      }
+    end
   end,
 }
