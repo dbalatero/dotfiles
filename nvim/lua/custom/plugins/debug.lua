@@ -22,6 +22,7 @@ return {
     {
       "mxsdev/nvim-dap-vscode-js",
       dependencies = {
+        -- Currently manually installing this debugger.
         {
           "microsoft/vscode-js-debug",
           build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
@@ -33,6 +34,10 @@ return {
     local dap = require("dap")
     local dapui = require("dapui")
 
+    -- I don't know if this is working here.
+    --
+    -- This is currently doing nothing for me - in theory, maybe this can
+    -- replace "microsoft/vscode-js-debug"
     require("mason-nvim-dap").setup({
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
@@ -93,6 +98,8 @@ return {
     --  │     TypeScript setup                                     │
     --  ╰──────────────────────────────────────────────────────────╯
     require("dap-vscode-js").setup({
+      -- Maybe Mason makes this unnecessary
+      -- OR I just have trawl somewhere else and figure out where Mason put it
       debugger_path = require("dotfiles").plugin_path() .. "/vscode-js-debug",
     })
 
