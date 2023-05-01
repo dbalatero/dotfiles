@@ -88,6 +88,8 @@ do
   source $file
 done
 
+source ~/.zsh/custom/graphite.zsh
+
 source $HOME/.zsh/themes/original.zsh
 
 for file in $HOME/.zsh/secrets/**/*.zsh
