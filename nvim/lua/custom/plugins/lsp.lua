@@ -250,7 +250,6 @@ return {
             },
           },
         },
-        sorbet = {},
         tsserver = {},
         yamlls = {
           yaml = {
@@ -292,6 +291,14 @@ return {
 
       local lspconfig = require("lspconfig")
 
+      -- Sorbet needs to be set up manually...
+      lspconfig.sorbet.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {},
+        root_dir = lspconfig.util.root_pattern("sorbet"),
+      })
+
       mason_lspconfig.setup_handlers({
         -- Default setup handler
         function(server_name)
@@ -299,15 +306,6 @@ return {
             capabilities = capabilities,
             on_attach = on_attach,
             settings = servers[server_name],
-          })
-        end,
-        -- Custom handlers
-        sorbet = function()
-          lspconfig.sorbet.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = {},
-            root_dir = lspconfig.util.root_pattern("sorbet"),
           })
         end,
         tsserver = function()
