@@ -95,6 +95,9 @@ dotheader "Setting up ZSH..."
 symlink_dotfile profile ~/.profile
 symlink_dotfile inputrc ~/.inputrc
 
+brew_tap romkatv/gitstatus
+brew_install gitstatus
+
 brew_install exa
 brew_install neofetch
 install_base16_shell

@@ -10,7 +10,7 @@ alias srync="rsync -vrazh"
 alias tk="tmux kill-session"
 alias tn="tmuxinator"
 alias emacs="TERM=xterm-24bit emacs -nw"
-alias nvim="nvim --startuptime /tmp/nvim-startuptime"
+# alias nvim="nvim --startuptime /tmp/nvim-startuptime"
 alias vim="nvim"
 alias 6="exec zsh"
 
