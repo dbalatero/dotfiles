@@ -114,7 +114,7 @@ else
   if [ ! -d ~/.nerd-fonts ]; then
     git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git ~/.nerd-fonts
 
-    cp -v ~/.nerd-fonts/patched-fonts/JetBrainsMono/NoLigatures/*/complete/*.ttf ~/Library/Fonts
-    cp -v ~/.nerd-fonts/patched-fonts/InconsolataGo/*/complete/*.ttf ~/Library/Fonts
+    cp -v ~/.nerd-fonts/patched-fonts/JetBrainsMono/NoLigatures/**/*.ttf ~/Library/Fonts
+    cp -v ~/.nerd-fonts/patched-fonts/InconsolataGo/**/*.ttf ~/Library/Fonts
   fi
 fi
