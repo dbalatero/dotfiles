@@ -64,13 +64,22 @@ antigen bundle hlissner/zsh-autopair
 
 antigen theme romkatv/powerlevel10k
 
+if [ ! -f ~/.config/dotfiles/no-nvm ]; then
+  export NVM_LAZY_LOAD=true
+  export NVM_AUTO_USE=true
+  antigen bundle lukechilds/zsh-nvm
+fi
+
 antigen apply
 
 [ -f ~/.base16_theme ] && source ~/.base16_theme
 
 eval "$(direnv hook zsh)"
 eval "$(fasd --init auto)"
-eval "$(nodenv init -)"
+
+if [ -f ~/.config/dotfiles/no-nvm ]; then
+  eval "$(nodenv init -)"
+fi
 
 # =========== Custom settings ================
 
