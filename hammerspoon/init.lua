@@ -54,7 +54,6 @@ if hs.host.localizedName() == 'st-dbalatero3' then
 end
 
 require('spotify')
-require('github')
 require('rich-link-copy')
 require('qmk-layer-indicator')
 
