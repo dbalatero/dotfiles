@@ -50,8 +50,8 @@ else
 fi
 
 # vim mode
-export ZVM_VI_ESCAPE_BINDKEY=jk
-antigen bundle jeffreytse/zsh-vi-mode
+# export ZVM_VI_ESCAPE_BINDKEY=jk
+# antigen bundle jeffreytse/zsh-vi-mode
 
 antigen bundle dbalatero/fzf-git
 antigen bundle DarrinTisdale/zsh-aliases-exa
@@ -88,8 +88,6 @@ do
   source $file
 done
 
-source ~/.zsh/custom/graphite.zsh
-
 source $HOME/.zsh/themes/original.zsh
 
 for file in $HOME/.zsh/secrets/**/*.zsh
@@ -103,6 +101,5 @@ if [ ! -f ~/.config/dotfiles/rbenv ]; then
   [ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 fi
 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
