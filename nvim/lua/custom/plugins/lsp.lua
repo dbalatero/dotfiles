@@ -2,6 +2,34 @@
 --  │   LSP Configuration & Plugins                            │
 --  ╰──────────────────────────────────────────────────────────╯
 
+local function filter(arr, fn)
+  if type(arr) ~= "table" then
+    return arr
+  end
+
+  local filtered = {}
+  for k, v in pairs(arr) do
+    if fn(v, k, arr) then
+      table.insert(filtered, v)
+    end
+  end
+
+  return filtered
+end
+
+local function typescript_on_definition_list(options)
+  local items = options.items
+
+  if #items > 1 then
+    items = filter(items, function(definition)
+      return string.match(definition.filename, "node_modules") == nil
+    end)
+  end
+
+  vim.fn.setqflist({}, " ", { title = options.title, items = items, context = options.context })
+  vim.api.nvim_command("cfirst") -- or maybe you want 'copen' instead of 'cfirst'
+end
+
 return {
   {
     "rafamadriz/friendly-snippets",
@@ -157,7 +185,9 @@ return {
         nmap("<leader>lr", vim.lsp.buf.rename, "[R]ename")
         nmap("<leader>lc", vim.lsp.buf.code_action, "[C]ode Action")
 
-        nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+        nmap("gd", function()
+          vim.lsp.buf.definition({ on_list = typescript_on_definition_list })
+        end, "[G]oto [D]efinition")
         nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
         nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
         nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
