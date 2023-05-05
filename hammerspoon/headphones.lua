@@ -3,6 +3,17 @@ local resolvePath = require('utils.resolve-path')
 -- Sony WH-1000XM4
 local headphoneDeviceId = '94-db-56-47-6a-86'
 
+-- Override preferred devices by hostname.
+
+local function getDeviceId()
+  local deviceOverrides = {
+    -- Work WH-1000XM5 headphones
+    ambient = '88-c9-e8-59-08-81',
+  }
+
+  return deviceOverrides[hs.host.localizedName()] or headphoneDeviceId
+end
+
 local blueUtil = resolvePath({
   '/opt/homebrew/bin/blueutil',
   '/usr/local/bin/blueutil',
@@ -14,7 +25,7 @@ local function disconnectHeadphones()
       hs.alert('Disconnected headphones')
     end, {
       '--disconnect',
-      headphoneDeviceId,
+      getDeviceId(),
     })
     :start()
 end
@@ -25,7 +36,7 @@ local function connectHeadphones()
       hs.alert('Connected headphones')
     end, {
       '--connect',
-      headphoneDeviceId,
+      getDeviceId(),
     })
     :start()
 end
@@ -39,7 +50,7 @@ local function checkHeadphonesConnected(fn)
       fn(isConnected)
     end, {
       '--is-connected',
-      headphoneDeviceId,
+      getDeviceId(),
     })
     :start()
 end
