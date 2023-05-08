@@ -66,6 +66,9 @@ export PATH=$HOME/.nix-profile/bin:$PATH
 
 export PATH=$HOME/.work-cli/bin:$PATH
 
+# Apparently `brew doctor` says i need it.
+export PATH="/opt/homebrew/sbin:$PATH"
+
 # Keyboard/qmk
 export PATH="/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
 export PATH="/opt/homebrew/opt/arm-gcc-bin@8/bin:$PATH"
