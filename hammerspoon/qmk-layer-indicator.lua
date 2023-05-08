@@ -159,8 +159,8 @@ end
 local lowTom = hs.sound.getByFile(os.getenv('HOME') .. '/.dotfiles/sounds/808-tom-low.wav')
 local highTom = hs.sound.getByFile(os.getenv('HOME') .. '/.dotfiles/sounds/808-tom-high.wav')
 
-lowTom:volume(0.3)
-highTom:volume(0.3)
+lowTom:volume(0.05)
+highTom:volume(0.05)
 
 local indicator = LayerIndicator:new(layers.default)
 
