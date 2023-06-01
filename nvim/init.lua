@@ -160,6 +160,9 @@ vim.o.splitbelow = true
 -- Minimum window width
 vim.o.winwidth = 100
 
+-- Don't autowrap lines as I type
+vim.cmd([[set formatoptions-=t]])
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ Set up languages                                         │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -210,6 +213,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
   group = highlight_group,
   pattern = "*",
+})
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.md",
+  command = "set wrap",
+})
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.md",
+  command = "set formatoptions-=t",
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
