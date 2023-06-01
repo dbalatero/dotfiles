@@ -322,6 +322,9 @@ defaults write NSGlobalDomain NSWindowResizeTime .001
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
 defaults -currentHost write -globalDomain AppleFontSmoothing -int 2
 
+# STOP DOCK BOUNCING
+defaults write com.apple.dock no-bouncing -bool TRUE
+
 # Kill affected applications
 for app in Finder Dock Mail Safari iTunes iCal Address\ Book SystemUIServer; do killall "$app" > /dev/null 2>&1; done
 echo "OSX Hacks Done. Note that some of these changes require a logout/restart to take effect."
