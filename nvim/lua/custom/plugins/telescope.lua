@@ -70,12 +70,9 @@ return {
       { desc = "[S]earch [F]iles" }
     )
 
-    vim.keymap.set(
-      "n",
-      "<leader>sb",
-      require("telescope.builtin").buffers,
-      { desc = "[S]earch existing buffers" }
-    )
+    vim.keymap.set("n", "<leader>sb", function()
+      require("telescope.builtin").buffers({ ignore_current_buffer = true, sort_mru = true })
+    end, { desc = "[S]earch existing buffers" })
 
     vim.keymap.set(
       "n",

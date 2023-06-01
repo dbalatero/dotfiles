@@ -27,5 +27,6 @@ brew_install gnu-tar
 brew_install heroku
 brew_install gh
 brew_install redis
+brew_install pgcli
 
 symlink_dotfile ideavimrc ~/.ideavimrc
