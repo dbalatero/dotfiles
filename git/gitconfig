@@ -86,6 +86,9 @@
   # reset
   unstage = reset HEAD              # remove files from index (tracking)
 
+  # switch branches interactive
+  si = switch-interactive
+
   # stash
   ss = stash                        # stash changes
   sl = stash list                   # list stashes
