@@ -14,8 +14,11 @@ alias emacs="TERM=xterm-24bit emacs -nw"
 alias vim="nvim"
 alias 6="exec zsh"
 
-alias b="work begin"
-alias p="work pr show"
+function b() {
+  gt bc "$USER/$1"
+}
+
+alias p="gt dp"
 
 # OS X apps
 alias md="open -a Markoff $@"
