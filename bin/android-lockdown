@@ -42,6 +42,14 @@ function package_exists() {
   list_packages | grep -q "package:$pkg"
 }
 
+function add_package() {
+  local pkg="$1"
+  echo "[+] Adding $pkg"
+
+  adb shell pm install --user 0 $pkg 2>/dev/null
+  adb shell pm enable --user 0 $pkg 2>/dev/null
+}
+
 function remove_package() {
   local pkg="$1"
 
@@ -318,7 +326,7 @@ case "${CMD}" in
   disable)
     echo "Disabling all packages"
     remove_samsung_print_services
-    remove_samsung_pay
+    # remove_samsung_pay
     remove_facebook
     remove_google_apps
     remove_microsoft_shit
