@@ -58,6 +58,7 @@ return {
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         "j-hui/fidget.nvim",
+        tag = "legacy", -- Apparently they are rewriting the plugin
         config = function()
           require("fidget").setup({
             sources = {
@@ -163,6 +164,20 @@ return {
             vim.diagnostic.setloclist,
             { desc = "Open diagnostics list" }
           )
+
+          -- temporary
+          vim.keymap.set("n", "<leader>lp", function()
+            local var_name = vim.fn.expand("<cWORD>")
+            if var_name:match("_") ~= nil then
+              vim.lsp.buf.rename("_args")
+            else
+              vim.lsp.buf.rename("args")
+            end
+          end, { desc = "Rename params -> args" })
+
+          vim.keymap.set("n", "<leader>lm", function()
+            vim.lsp.buf.rename("TMutationArgs")
+          end, { desc = "Rename mutation" })
         end,
       },
     },
@@ -352,8 +367,9 @@ return {
             init_options = {
               maxTsServerMemory = "8192",
               preferences = {
-                -- Ensure we always import from absolute paths
-                importModuleSpecifierPreference = "non-relative",
+                -- Ensure we always import from relative paths
+                -- Can be 'auto' | 'relative' | 'non-relative'
+                importModuleSpecifierPreference = "relative",
               },
             },
             root_dir = lspconfig.util.root_pattern("tsconfig.json"),
@@ -375,22 +391,49 @@ return {
         return diagnostic.code ~= "prettier/prettier"
       end
 
-      local hasEslintConfig = function(utils)
-        return utils.root_has_file({
-          ".eslintrc",
-          ".eslintrc.json",
-          ".eslintrc.js",
-        })
+      -- given a filepath = "path/to/blah.js"
+      local findNearestEslintConfigDir = function(filepath)
+        local directory = vim.fs.dirname(filepath)
+        local config_path = vim.fn.findfile(".eslintrc.js", directory .. ";")
+
+        if config_path then
+          return vim.fs.dirname(config_path)
+        else
+          return nil
+        end
       end
 
-      local eslintConfig = {
-        condition = hasEslintConfig,
+      local isMonorepo = function()
+        return vim.fn.getcwd():match("code/monologue") ~= nil
+      end
+
+      local hasEslintConfig = function(utils)
+        return isMonorepo()
+          or utils.root_has_file({
+            ".eslintrc",
+            ".eslintrc.json",
+            ".eslintrc.js",
+          })
+      end
+
+      local isNotMonorepo = function(utils)
+        return not isMonorepo() and hasEslintConfig(utils)
+      end
+
+      local eslintCwd = function(params)
+        return findNearestEslintConfigDir(params.bufname) or nil
+      end
+
+      local standardEslintConfig = {
+        condition = isNotMonorepo,
+        cwd = eslintCwd,
         filter = ignorePrettierRules,
       }
 
       local null_ls = require("null-ls")
 
       null_ls.setup({
+        debug = true, -- log_level = trace, basically
         capabilities = capabilities,
         on_attach = on_attach,
         sources = {
@@ -408,8 +451,53 @@ return {
           --  │     TypeScript                                           │
           --  ╰──────────────────────────────────────────────────────────╯
           null_ls.builtins.formatting.prettierd,
-          null_ls.builtins.code_actions.eslint_d.with(eslintConfig),
-          null_ls.builtins.diagnostics.eslint_d.with(eslintConfig),
+
+          -- null_ls.builtins.diagnostics.eslint.with({
+          --   dynamic_command = require("null-ls.helpers.command_resolver").from_yarn_pnp(),
+          --   conditions = function(utils)
+          --     return utils.root_has_file({ ".pnp.cjs" })
+          --   end,
+          -- }),
+
+          -- null_ls.builtins.diagnostics.eslint_d.with({
+          --   command = "yarn",
+          --   args = {
+          --     "eslint_d",
+          --     "-f",
+          --     "json",
+          --     "--stdin",
+          --     "--stdin-filename",
+          --     "$FILENAME",
+          --   },
+          --   cwd = eslintCwd,
+          -- }),
+
+          -- null_ls.builtins.diagnostics.eslint.with({
+          --   command = "yarn",
+          --   args = {
+          --     "eslint",
+          --     "--cache",
+          --     "-f",
+          --     "json",
+          --     "--stdin",
+          --     "--stdin-filename",
+          --     "$FILENAME",
+          --   },
+          --   cwd = eslintCwd,
+          --   -- filter = ignorePrettierRules,
+          -- }),
+
+          -- null_ls.builtins.diagnostics.eslint.with({
+          --   dynamic_command = function()
+          --     return "yarn run eslint"
+          --   end,
+          --   condition = isMonorepo,
+          --   cwd = eslintCwd,
+          --   filter = ignorePrettierRules,
+          -- }),
+          --
+          -- null_ls.builtins.code_actions.eslint_d.with(standardEslintConfig),
+          -- null_ls.builtins.diagnostics.eslint_d.with(standardEslintConfig),
         },
       })
 
