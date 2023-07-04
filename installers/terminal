@@ -4,20 +4,6 @@ source "${BASH_SOURCE%/*}/shared.sh"
 
 require_installer package-manager
 
-function install_terminfo() {
-  if ! command_exists "alacritty"; then
-    git clone https://github.com/alacritty/alacritty.git /tmp/alacritty
-    cd /tmp/alacritty
-
-    dotsay "@b@blue[[+ Installing Alacritty terminfo]]"
-    sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
-
-    cd $HOME
-    rm -fr /tmp/alacritty
-  fi
-}
-
-install_terminfo
 symlink_dotfile alacritty ~/.config/alacritty
 brew_cask_install alacritty
 
