@@ -18,7 +18,7 @@ function install_terminfo() {
 }
 
 install_terminfo
-symlink_dotfile alacritty.yml ~/.alacritty.yml
+symlink_dotfile alacritty ~/.config/alacritty
 brew_cask_install alacritty
 
 # get fucking bent, Catalina
