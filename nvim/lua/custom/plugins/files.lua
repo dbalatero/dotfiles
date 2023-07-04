@@ -19,4 +19,6 @@ return {
   },
 
   "danro/rename.vim",
+
+  "lbrayner/vim-rzip",
 }
