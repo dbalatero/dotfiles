@@ -94,7 +94,9 @@ dotheader "Setting up ZSH..."
 
 symlink_dotfile profile ~/.profile
 symlink_dotfile inputrc ~/.inputrc
+symlink_dotfile zsh/starship.toml ~/.config/starship.toml
 
+brew_install starship
 brew_tap romkatv/gitstatus
 brew_install gitstatus
 

@@ -62,7 +62,7 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle dbalatero/fast-syntax-highlighting
 antigen bundle hlissner/zsh-autopair
 
-antigen theme romkatv/powerlevel10k
+# antigen theme romkatv/powerlevel10k
 
 if [ ! -f ~/.config/dotfiles/no-nvm ]; then
   export NVM_LAZY_LOAD=true
@@ -103,3 +103,5 @@ fi
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(starship init zsh)"
