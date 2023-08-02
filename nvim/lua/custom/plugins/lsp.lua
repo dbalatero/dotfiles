@@ -391,16 +391,20 @@ return {
         return diagnostic.code ~= "prettier/prettier"
       end
 
-      -- given a filepath = "path/to/blah.js"
-      local findNearestEslintConfigDir = function(filepath)
+      local getDirectoryContaining = function(filepath, containingFile)
         local directory = vim.fs.dirname(filepath)
-        local config_path = vim.fn.findfile(".eslintrc.js", directory .. ";")
+        local found_dir = vim.fn.findfile(containingFile, directory .. ";")
 
-        if config_path then
-          return vim.fs.dirname(config_path)
+        if found_dir then
+          return vim.fs.dirname(found_dir)
         else
           return nil
         end
+      end
+
+      -- given a filepath = "path/to/blah.js"
+      local findNearestEslintConfigDir = function(filepath)
+        return getDirectoryContaining(filepath, ".eslintrc.js")
       end
 
       local isMonorepo = function()
@@ -414,6 +418,10 @@ return {
             ".eslintrc.json",
             ".eslintrc.js",
           })
+      end
+
+      local getRepoRoot = function(filepath)
+        return getDirectoryContaining(filepath, ".git")
       end
 
       local isNotMonorepo = function(utils)
@@ -431,6 +439,15 @@ return {
       }
 
       local null_ls = require("null-ls")
+
+      local monologueEslint = {
+        cwd = eslintCwd,
+        env = function(params)
+          return {
+            NODE_OPTIONS = "--require " .. params.root .. "/.pnp.cjs",
+          }
+        end,
+      }
 
       null_ls.setup({
         debug = true, -- log_level = trace, basically
@@ -459,18 +476,9 @@ return {
           --   end,
           -- }),
 
-          -- null_ls.builtins.diagnostics.eslint_d.with({
-          --   command = "yarn",
-          --   args = {
-          --     "eslint_d",
-          --     "-f",
-          --     "json",
-          --     "--stdin",
-          --     "--stdin-filename",
-          --     "$FILENAME",
-          --   },
-          --   cwd = eslintCwd,
-          -- }),
+          null_ls.builtins.code_actions.eslint_d.with(monologueEslint),
+          null_ls.builtins.diagnostics.eslint_d.with(monologueEslint),
+          null_ls.builtins.formatting.eslint_d.with(monologueEslint),
 
           -- null_ls.builtins.diagnostics.eslint.with({
           --   command = "yarn",
