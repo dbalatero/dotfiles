@@ -31,6 +31,8 @@ local function getRichLinkToCurrentChromeTab()
     ' %- Google Sheets',
     ' %- Jira',
     ' – Figma',
+    -- Notion's "(9+) " comment indicator
+    '%(%d+%+*%) ',
   }
 
   for _, pattern in ipairs(removePatterns) do
