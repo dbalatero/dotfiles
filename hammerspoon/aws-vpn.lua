@@ -1,3 +1,5 @@
+-- The AWS VPN Client is terrible and steals focus all the time.
+
 -- Set up an event tap that we can use to prevent space/return presses.
 keyPrevention = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
   local keyPressed = hs.keycodes.map[event:getKeyCode()]
@@ -21,9 +23,11 @@ vpnWatcher = hs.application.watcher.new(function(applicationName, eventType)
 
   if eventType == hs.application.watcher.activated then
     -- When AWS VPN Client is the active application, prevent key presses
+    print('Preventing accidental disconnects...')
     keyPrevention:start()
   elseif eventType == hs.application.watcher.deactivated then
     -- When we focus away from the VPN client, allow key presses
+    print('...done preventing')
     keyPrevention:stop()
   end
 end)
