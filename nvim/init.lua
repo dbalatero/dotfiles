@@ -80,7 +80,9 @@ require("lazy").setup({
   { import = "custom.plugins.tmux" },
   { import = "custom.plugins.treesitter" },
   { import = "custom.plugins.ui" },
-}, {})
+}, {
+  change_detection = { enabled = false },
+})
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ Setting options                                          │
