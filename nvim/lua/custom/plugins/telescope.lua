@@ -63,12 +63,12 @@ return {
       require("telescope.builtin").oldfiles,
       { desc = "[?] Find recently opened files" }
     )
-    vim.keymap.set(
-      "n",
-      "<leader><space>",
-      require("telescope.builtin").find_files,
-      { desc = "[S]earch [F]iles" }
-    )
+    vim.keymap.set("n", "<leader><space>", function()
+      require("telescope.builtin").find_files({
+        layout_strategy = "vertical",
+        -- path_display = { shorten = { exclude = { 1, 2, 3, -1 } } },
+      })
+    end, { desc = "[S]earch [F]iles" })
 
     vim.keymap.set("n", "<leader>sb", function()
       require("telescope.builtin").buffers({ ignore_current_buffer = true, sort_mru = true })
