@@ -475,6 +475,9 @@ return {
           --  ╰──────────────────────────────────────────────────────────╯
           null_ls.builtins.formatting.prettierd,
 
+          -- I want workspace-wide diagnostics for reformatting.
+          null_ls.builtins.diagnostics.tsc,
+
           -- null_ls.builtins.diagnostics.eslint.with({
           --   dynamic_command = require("null-ls.helpers.command_resolver").from_yarn_pnp(),
           --   conditions = function(utils)
