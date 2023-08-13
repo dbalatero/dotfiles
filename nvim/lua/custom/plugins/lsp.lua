@@ -93,6 +93,12 @@ return {
 
       -- Diagnostics
       {
+        "ivanjermakov/troublesum.nvim",
+        config = function()
+          require("troublesum").setup()
+        end,
+      },
+      {
         "folke/trouble.nvim",
         dependencies = {
           "kyazdani42/nvim-web-devicons",
@@ -444,7 +450,7 @@ return {
         cwd = eslintCwd,
         env = function(params)
           return {
-            NODE_OPTIONS = "--require " .. params.root .. "/.pnp.cjs",
+            -- NODE_OPTIONS = "--require " .. params.root .. "/.pnp.cjs",
           }
         end,
       }

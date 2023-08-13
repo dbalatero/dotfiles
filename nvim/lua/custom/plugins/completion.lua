@@ -13,26 +13,6 @@ end
 
 return {
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup({
-        -- Disable these, we're going to use this as a cmp plugin.
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-    end,
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    config = function()
-      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
-
-      require("copilot_cmp").setup()
-    end,
-  },
-  {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
     config = function()
@@ -83,7 +63,6 @@ return {
           format = require("lspkind").cmp_format({
             mode = "symbol_text",
             max_width = 50,
-            symbol_map = { Copilot = "" },
           }),
         },
         snippet = {
@@ -121,8 +100,6 @@ return {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "copilot" },
-        }, {
           {
             name = "buffer",
             option = {
@@ -136,8 +113,6 @@ return {
         sorting = {
           priority_weight = 2,
           comparators = {
-            require("copilot_cmp.comparators").prioritize,
-
             -- Sort by distance of the word from the cursor
             -- https://github.com/hrsh7th/cmp-buffer#locality-bonus-comparator-distance-based-sorting
             function(...)
