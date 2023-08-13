@@ -1,3 +1,12 @@
+# _fzf_complete_gt() {
+#   _fzf_complete --multi --reverse --prompt="github username> " -- "$@" < <(
+#     echo amy
+#     echo don
+#     echo fred
+#     echo joyce
+#   )
+# }
+
 function new_graphite_pr() {
   git checkout main
 
