@@ -81,12 +81,11 @@ return {
       { desc = "[S]earch [d]irectory for [f]iles" }
     )
 
-    vim.keymap.set(
-      "n",
-      "<leader>sdg",
-      require("telescope").extensions.dir.live_grep,
-      { desc = "[S]earch [d]irectory by [g]rep" }
-    )
+    vim.keymap.set("n", "<leader>sdg", function()
+      require("telescope").extensions.dir.live_grep({
+        layout_strategy = "vertical",
+      })
+    end, { desc = "[S]earch [d]irectory by [g]rep" })
 
     vim.keymap.set(
       "n",
@@ -100,12 +99,9 @@ return {
       require("telescope.builtin").find_files,
       { desc = "[S]earch [F]iles" }
     )
-    vim.keymap.set(
-      "n",
-      "<leader>sg",
-      require("telescope.builtin").live_grep,
-      { desc = "[S]earch by [G]rep" }
-    )
+    vim.keymap.set("n", "<leader>sg", function()
+      require("telescope.builtin").live_grep({ layout_strategy = "vertical" })
+    end, { desc = "[S]earch by [G]rep" })
     vim.keymap.set(
       "n",
       "<leader>sh",
