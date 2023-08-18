@@ -32,7 +32,7 @@ require('aws-vpn')
 local SkyRocket = hs.loadSpoon('SkyRocket')
 
 sky = SkyRocket:new({
-  disabledApps = { 'Alacritty', 'iTerm2' },
+  disabledApps = { 'Alacritty', 'kitty', 'iTerm2' },
 
   -- Which modifiers to hold to move a window?
   moveModifiers = { 'cmd', 'shift' },
