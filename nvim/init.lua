@@ -203,6 +203,20 @@ vim.keymap.set({ "n" }, "vv", "<C-w>v", { noremap = true })
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
+vim.cmd([[
+  " relative path  (src/foo.txt)
+  nnoremap <leader>cf :let @*=expand("%")<CR>
+
+  " absolute path  (/something/src/foo.txt)
+  nnoremap <leader>cF :let @*=expand("%:p")<CR>
+
+  " filename       (foo.txt)
+  nnoremap <leader>ct :let @*=expand("%:t")<CR>
+
+  " directory name (/something/src)
+  nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
+]])
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ Highlight on yank                                        │
 --  │ See `:help vim.highlight.on_yank()`                      │

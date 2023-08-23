@@ -10,7 +10,7 @@ return {
     "bluz71/vim-nightfly-guicolors",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("nightfly")
+      -- vim.cmd.colorscheme("nightfly")
 
       -- Enable transparent terminal background
       vim.o.termguicolors = true
@@ -22,7 +22,27 @@ return {
       ]])
     end,
   },
+  {
+    "electron-highlighter/nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      require("electron_highlighter").setup({
+        dim_inactive = false,
+        transparent = true,
+        on_highlights = function(hl, colors)
+          -- Fix "unused function" highlights
+          hl.DiagnosticUnnecessary = {
+            bg = colors.bg_dark,
+            fg = colors.teal,
+          }
+        end,
+      })
 
+      vim.cmd.colorscheme("electron_highlighter")
+    end,
+  },
   -- show hex colors in CSS/HTML files
   {
     "NvChad/nvim-colorizer.lua",
@@ -42,7 +62,7 @@ return {
     opts = {
       options = {
         icons_enabled = true,
-        theme = "nightfly",
+        theme = "electron_highlighter",
         component_separators = "|",
         section_separators = "",
       },

@@ -212,6 +212,7 @@ return {
         nmap("<leader>li", ":LspInfo<CR>", "[I]nfo")
         nmap("<leader>lr", vim.lsp.buf.rename, "[R]ename")
         nmap("<leader>lc", vim.lsp.buf.code_action, "[C]ode Action")
+        nmap("<leader>lx", ":LspRestart<CR>", "Restart LSP in buffer")
 
         nmap("gd", function()
           vim.lsp.buf.definition({ on_list = typescript_on_definition_list })
