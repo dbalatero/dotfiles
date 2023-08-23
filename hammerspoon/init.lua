@@ -28,6 +28,7 @@ require('water-menubar')
 -- require "good-morning-obsidian"
 require('code-screen-recorder')
 require('aws-vpn')
+require('graphite')
 
 local SkyRocket = hs.loadSpoon('SkyRocket')
 
