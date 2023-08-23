@@ -23,10 +23,13 @@ local function swapToDomain(domain)
   end
 end
 
--- I use a super special keybind system
+-- I use a super special keybind system for jerks
 superKey:bind('1'):toFunction('Swap to localhost:3000', swapToDomain('localhost:3000'))
 superKey:bind('2'):toFunction('Swap to staging', swapToDomain('app.stg.graphite.dev'))
 
--- But you can just use this for standard keybinding:
+-- But you can just use this for standard keybinding by uncommenting the
+-- following lines & deleting the 2 lines above:
+-- (edit your keybindings to taste)
+
 -- hs.hotkey.bind({ 'cmd', 'alt', 'ctrl' }, '1', swapToDomain('localhost:3000'))
 -- hs.hotkey.bind({ 'cmd', 'alt', 'ctrl' }, '2', swapToDomain('app.stg.graphite.dev'))
