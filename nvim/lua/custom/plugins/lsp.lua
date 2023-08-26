@@ -201,17 +201,25 @@ return {
         --
         -- In this case, we create a function that lets us more easily define mappings specific
         -- for LSP related items. It sets the mode, buffer and description for us each time.
-        local nmap = function(keys, func, desc)
+        local map = function(modes, keys, func, desc)
           if desc then
             desc = "LSP: " .. desc
           end
 
-          vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+          vim.keymap.set(modes, keys, func, { buffer = bufnr, desc = desc })
+        end
+
+        local nmap = function(keys, func, desc)
+          return map("n", keys, func, desc)
+        end
+
+        local nvmap = function(keys, func, desc)
+          return map({ "n", "v" }, keys, func, desc)
         end
 
         nmap("<leader>li", ":LspInfo<CR>", "[I]nfo")
         nmap("<leader>lr", vim.lsp.buf.rename, "[R]ename")
-        nmap("<leader>lc", vim.lsp.buf.code_action, "[C]ode Action")
+        nvmap("<leader>lc", vim.lsp.buf.code_action, "[C]ode Action")
         nmap("<leader>lx", ":LspRestart<CR>", "Restart LSP in buffer")
 
         nmap("gd", function()
