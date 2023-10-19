@@ -139,10 +139,14 @@ function LayerIndicator:render()
 end
 
 function LayerIndicator:show()
-  self.canvas:show()
+  if self.layer.name == layers.default.name then
+    self.canvas:hide()
+  else
+    self.canvas:show()
 
-  -- show it above the Menu Bar
-  self.canvas:level('overlay')
+    -- show it above the Menu Bar
+    self.canvas:level('overlay')
+  end
 end
 
 function LayerIndicator:getFrame()
@@ -151,6 +155,7 @@ end
 
 function LayerIndicator:setLayer(layer)
   self.layer = layer
+  self:show()
   self:render()
 end
 

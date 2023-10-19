@@ -31,6 +31,12 @@ export PATH="$PATH:$HOME/.config/base16-shell"
 export DOOMDIR=$HOME/.doom.d
 export PATH="$PATH:$HOME/.emacs.d/bin"
 
+# Local Graphite CLI build
+export PATH="$HOME/bin/gt-dev:$PATH"
+
+# Fix GPG's bullshit
+export GPG_TTY=$(tty)
+
 # Cargo
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 

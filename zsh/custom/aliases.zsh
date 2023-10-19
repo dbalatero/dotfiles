@@ -15,10 +15,10 @@ alias vim="nvim"
 alias 6="exec zsh"
 
 function b() {
-  gt bc "$USER/$1"
+  gt create "$USER/$1"
 }
 
-alias p="gt dp"
+alias p="gt pr"
 
 # OS X apps
 alias md="open -a Markoff $@"
