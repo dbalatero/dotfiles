@@ -84,8 +84,8 @@ Author's Address
 EOF
 
   git add rfc1149.txt
-  gt bc -am "Test branch"
+  gt create -am "Test branch $RANDOM"
   gt ss --no-interactive
-  gt dp
+  gt pr
 }
 
