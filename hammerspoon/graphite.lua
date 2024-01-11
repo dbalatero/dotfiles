@@ -9,7 +9,7 @@ local function swapToDomain(domain)
 
     local script = [[
       tell application "Google Chrome"
-        get URL of active tab of first window
+        get URL of active tab of front window
       end tell
     ]]
 
@@ -17,9 +17,23 @@ local function swapToDomain(domain)
     local _, url = hs.osascript.applescript(script)
     local newUrl = string.gsub(url, '([^/]+)//([^/]+)', '%1//' .. domain)
 
-    hs.eventtap.keyStroke({ 'cmd' }, 'l', 0)
-    hs.eventtap.keyStrokes(newUrl)
-    hs.eventtap.keyStroke({}, 'return', 0)
+    local updateScript = [[
+      const chrome = Application('Google Chrome');
+      let activeTab = null;
+      let minIndex = 99999999999999999;
+
+      chrome.windows().forEach((window) => {
+        const index = window.index();
+
+        if (index < minIndex) {
+          minIndex = index;
+        activeTab = window.activeTab;
+        }
+      });
+    ]]
+
+    updateScript = updateScript .. '\n' .. 'activeTab.url = "' .. newUrl .. '";'
+    hs.osascript.javascript(updateScript)
   end
 end
 
