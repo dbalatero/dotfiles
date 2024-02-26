@@ -43,6 +43,30 @@ return {
             ["<C-d>"] = false,
           },
         },
+        vimgrep_arguments = {
+          "rg",
+          "--hidden",
+          "--glob",
+          "!{node_modules/*,.git/*}",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+        },
+      },
+      pickers = {
+        find_files = {
+          find_command = {
+            "rg",
+            "--files",
+            "--hidden",
+            "--glob",
+            "!{node_modules/*,.git/*}",
+            "--color=never",
+          },
+        },
       },
     })
 
