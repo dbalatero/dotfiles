@@ -47,3 +47,8 @@ superKey:bind('2'):toFunction('Swap to staging', swapToDomain('app.stg.graphite.
 
 -- hs.hotkey.bind({ 'cmd', 'alt', 'ctrl' }, '1', swapToDomain('localhost:3000'))
 -- hs.hotkey.bind({ 'cmd', 'alt', 'ctrl' }, '2', swapToDomain('app.stg.graphite.dev'))
+
+-- Rebind the keyboard shortcut for Graphite menu bar app
+hyperKey:bind('i'):toFunction('Graphite menu bar', function()
+  hs.eventtap.keyStroke({ 'cmd', 'alt' }, 'g', 10)
+end)
