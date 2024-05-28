@@ -49,6 +49,25 @@ return {
     opts = {},
   },
 
+  {
+    "stefanlogue/hydrate.nvim",
+    config = function()
+      require("hydrate").setup({
+        minute_interval = 20,
+      })
+
+      vim.keymap.set(
+        "n",
+        "<leader>wd",
+        "<cmd>HydrateDisable<cr>",
+        { silent = true, noremap = true }
+      )
+      vim.keymap.set("n", "<leader>we", "<cmd>HydrateEnable<cr>", { silent = true, noremap = true })
+      vim.keymap.set("n", "<leader>wn", "<cmd>HydrateNow<cr>", { silent = true, noremap = true })
+      vim.keymap.set("n", "<leader>ww", "<cmd>HydrateWhen<cr>", { silent = true, noremap = true })
+    end,
+  },
+
   { "kyazdani42/nvim-web-devicons", opts = {} },
 
   {

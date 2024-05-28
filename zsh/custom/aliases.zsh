@@ -15,7 +15,7 @@ alias vim="nvim"
 alias 6="exec zsh"
 
 function b() {
-  gt create "$USER/$1"
+  gt create "db/$1"
 }
 
 alias p="gt pr"
