@@ -146,18 +146,23 @@ return {
           )
 
           -- More keybinds
+          vim.keymap.set("n", "gk", function()
+            vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+          end, { desc = "Go to previous error message" })
+
           vim.keymap.set(
             "n",
-            "gk",
+            "g<",
             vim.diagnostic.goto_prev,
-            { desc = "Go to previous diagnostic message" }
+            { desc = "Go to previous diagnostic" }
           )
-          vim.keymap.set(
-            "n",
-            "gj",
-            vim.diagnostic.goto_next,
-            { desc = "Go to next diagnostic message" }
-          )
+
+          vim.keymap.set("n", "gj", function()
+            vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+          end, { desc = "Go to next error message" })
+
+          vim.keymap.set("n", "g>", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+
           vim.keymap.set(
             "n",
             "<leader>e",
