@@ -37,6 +37,7 @@ function install_home_manager() {
 function rebuild_nix_home() {
   home-manager build
   home-manager switch
+  rm result || echo "Whoops"
 }
 
 symlink_dotfile nix/home-manager ~/.config/home-manager
