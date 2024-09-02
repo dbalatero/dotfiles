@@ -2,19 +2,46 @@
 
 source "${BASH_SOURCE%/*}/installers/shared.sh"
 
-require_installer package-manager
-require_installer terminal
-require_installer mac-app-store
-require_installer mac-custom-apps
-require_installer git
-require_installer devtools
-require_installer zsh
-require_installer python
-require_installer ruby
-require_installer node
-require_installer tmux
-require_installer fonts
-require_installer neovim
-require_installer backups
-require_installer os-keys
-require_installer audio
+function install_nix() {
+  if ! command_exists nix ; then
+    curl --proto '=https' --tlsv1.2 -sSf \
+      -L https://install.determinate.systems/nix \
+      | sh -s -- install
+
+    source_nix_shell
+  else
+    echo "Nix already installed, skipping"
+  fi
+}
+
+function source_nix_shell() {
+  if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  fi
+}
+
+function symlink_nix_config() {
+  mkdir -p ~/.config
+  symlink_dotfile nix/default ~/.config/nix
+}
+
+function install_home_manager() {
+  if ! command_exists "home-manager" ; then
+    nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+    nix-channel --update
+
+    nix-shell '<home-manager>' -A install
+  fi
+}
+
+function rebuild_nix_home() {
+  home-manager build
+  home-manager switch
+}
+
+symlink_dotfile nix/home-manager ~/.config/home-manager
+symlink_nix_config
+source_nix_shell
+install_nix
+install_home_manager
+rebuild_nix_home
