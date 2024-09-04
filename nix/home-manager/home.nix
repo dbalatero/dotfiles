@@ -27,6 +27,7 @@ in
     git
     gitstatus
     hostname
+    lazygit
     less
     neofetch
     neovim
@@ -43,6 +44,9 @@ in
     ".gitmessage".source = (dotfile "git/gitmessage");
 
     ".gitconfig.user".text = ''
+      [github]
+        user = dbalatero
+
       [user]
         name = David Balatero
 	email = dbalatero@users.noreply.github.com
