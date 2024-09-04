@@ -17,11 +17,6 @@ function setup_git_scripts() {
 
 dotheader "Setting up Git..."
 
-install_package "git"
-
-brew_tap jesseduffield/lazygit
-brew_install lazygit
-
 setup_git_scripts
 
 symlink_dotfile bin/git-main-branch ~/.local/bin/git-main-branch

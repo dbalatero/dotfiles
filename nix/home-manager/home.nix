@@ -37,6 +37,8 @@ in
   ];
 
   home.file = {
+    ".local/bin".source = (dotfile "bin");
+
     # Git stuff
     ".gitattributes".source = (dotfile "git/gitattributes");
     ".gitconfig".source = (dotfile "git/gitconfig");
