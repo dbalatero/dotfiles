@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  dotfile = x: "${config.home.homeDirectory}/.dotfiles/${x}";
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -15,43 +18,44 @@
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = [
-    pkgs.less
-    pkgs.neofetch
-
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+  home.packages = with pkgs; [
+    diff-so-fancy
+    direnv
+    eza
+    fasd
+    fzf
+    git
+    gitstatus
+    hostname
+    less
+    neofetch
+    neovim
+    ripgrep
+    starship
+    zsh
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
+    # Git stuff
+    ".gitattributes".source = (dotfile "git/gitattributes");
+    ".gitconfig".source = (dotfile "git/gitconfig");
+    ".gitignore".source = (dotfile "git/gitignore");
+    ".gitmessage".source = (dotfile "git/gitmessage");
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+    ".gitconfig.user".text = ''
+      [user]
+        name = David Balatero
+	email = dbalatero@users.noreply.github.com
+      '';
+
+    # ZSH stuff
+    ".config/starship.toml".source = (dotfile "zsh/starship.toml");
+    ".inputrc".source = (dotfile "inputrc");
+    ".profile".source = (dotfile "profile");
+    ".zsh".source = (dotfile "zsh");
+    ".zshenv".source = (dotfile "zsh/zshenv");
+    ".zprofile".source = (dotfile "zsh/zprofile");
+    ".zshrc".source = (dotfile "zshrc");
   };
 
   # Home Manager can also manage your environment variables through
@@ -71,7 +75,7 @@
   #  /etc/profiles/per-user/dbalatero/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "vim";
   };
 
   # Let Home Manager install and manage itself.

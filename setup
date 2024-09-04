@@ -37,8 +37,31 @@ function install_home_manager() {
 function rebuild_nix_home() {
   home-manager build
   home-manager switch
-  rm result || echo "Whoops"
+  [ -e result ] && rm result
 }
+
+function zsh_binary() {
+  echo "$HOME/.nix-profile/bin/zsh"
+}
+
+function update_shell_whitelist() {
+  local zshbin=$(zsh_binary)
+  if ! cat /etc/shells | grep -q "$zshbin"; then
+    echo "Adding $zshbin to /etc/shells, please enter your sudo password"
+
+    echo $zshbin | sudo tee -a /etc/shells > /dev/null
+  fi
+}
+
+function chsh_zsh() {
+  if [[ "$SHELL" != "$(zsh_binary)" ]]; then
+    dotsay "@b@blue[[Changing shell for $current_user...]]"
+
+    local current_user=$USER
+    sudo chsh -s $(zsh_binary) $current_user
+  fi
+}
+
 
 symlink_dotfile nix/home-manager ~/.config/home-manager
 symlink_nix_config
@@ -46,3 +69,5 @@ source_nix_shell
 install_nix
 install_home_manager
 rebuild_nix_home
+update_shell_whitelist
+chsh_zsh
