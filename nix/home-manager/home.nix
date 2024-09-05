@@ -2,6 +2,7 @@
 
 let
   dotfile = x: "${config.home.homeDirectory}/.dotfiles/${x}";
+  isMacOS = builtins.currentSystem == "darwin";
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -19,6 +20,8 @@ in
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
+    autojump
+    cargo
     diff-so-fancy
     direnv
     eza
@@ -31,8 +34,15 @@ in
     less
     neofetch
     neovim
+    proximity-sort
     ripgrep
+    rust-analyzer
+    rustc
     starship
+    tmux
+    tmuxinator
+    tree-sitter
+    wget
     zsh
   ];
 
@@ -62,6 +72,23 @@ in
     ".zshenv".source = (dotfile "zsh/zshenv");
     ".zprofile".source = (dotfile "zsh/zprofile");
     ".zshrc".source = (dotfile "zshrc");
+
+    # tmux
+    # home.file.".tmux/plugins/tpm".source = pkgs.tmuxPlugins.tpm;
+  };
+
+  programs.tmux = {
+    enable = true;
+    terminal = "xterm-256color";
+    historyLimit = 100000;
+	#    plugins = [
+	#      plugin = pkgs.tmuxPlugins.tpm;
+	#      extraConfig = ''
+	#        set -g @plugin 'tmux-plugins/tpm'
+	# set -g @plugin 'tmux-plugins/tmux-yank'
+	# run '~/.tmux/plugins/tpm/tpm'
+	#      '';
+	#    ];
   };
 
   # Home Manager can also manage your environment variables through

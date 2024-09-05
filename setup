@@ -9,6 +9,8 @@ function install_nix() {
       | sh -s -- install
 
     source_nix_shell
+
+    sudo -i nix-channel --update nixpkgs
   else
     echo "Nix already installed, skipping"
   fi

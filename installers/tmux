@@ -64,9 +64,7 @@ function install_tmux_from_source_linux() {
 
 dotheader "Setting up Tmux..."
 
-symlink_dotfile bin/tmux-airline ~/.local/bin/tmux-airline
 brew_install reattach-to-user-namespace
-brew_install tmux
 brew_install urlview
 
 install_tmux_from_source_linux
