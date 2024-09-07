@@ -383,7 +383,13 @@ return {
         tsserver = function()
           lspconfig.tsserver.setup({
             cmd_env = { NODE_OPTIONS = "--max-old-space-size=8192" }, -- Give 8gb of RAM to node
-            filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+            filetypes = {
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+              "typescript.tsx",
+            },
             init_options = {
               maxTsServerMemory = "8192",
               preferences = {
