@@ -38,14 +38,6 @@ function chsh_zsh() {
   fi
 }
 
-function install_fzf() {
-  brew_install fzf
-
-  if [ ! -f $HOME/.fzf.zsh ]; then
-    $(brew --prefix)/opt/fzf/install --no-update-rc --key-bindings --completion
-  fi
-}
-
 function install_fasd() {
   if is_linux; then
     if ! command_exists "fasd"; then
@@ -110,7 +102,6 @@ install_package zsh-completions
 
 install_package direnv
 install_fasd
-install_fzf
 
 setup_zsh_symlinks
 install_antigen
