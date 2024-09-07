@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  dotfile = x: "${config.home.homeDirectory}/.dotfiles/${x}";
+  dotfile = x: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/${x}";
   isMacOS = builtins.currentSystem == "darwin";
 in
 {
