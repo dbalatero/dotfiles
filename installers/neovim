@@ -53,10 +53,6 @@ function setup_neovim_config() {
 	symlink_dotfile nvim ~/.config/nvim
 }
 
-function ensure_plugin_directory() {
-	mkdir -p ~/.local/share/nvim/plugged
-}
-
 function install_neovim_plugins() {
 	dotsay "@b@blue[[+ Installing nvim plugins]]"
 	pyenv activate py2neovim

@@ -72,15 +72,15 @@ in
     ".zshenv".source = (dotfile "zsh/zshenv");
     ".zprofile".source = (dotfile "zsh/zprofile");
     ".zshrc".source = (dotfile "zshrc");
-
-    # tmux
-    # home.file.".tmux/plugins/tpm".source = pkgs.tmuxPlugins.tpm;
   };
 
   programs.tmux = {
     enable = true;
     terminal = "xterm-256color";
     historyLimit = 100000;
+    keyMode = "vi";
+    prefix = "C-o";
+    baseIndex = 1;
 	#    plugins = [
 	#      plugin = pkgs.tmuxPlugins.tpm;
 	#      extraConfig = ''
