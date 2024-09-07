@@ -22,22 +22,28 @@ in
   home.packages = with pkgs; [
     autojump
     cargo
+    coreutils
     diff-so-fancy
     direnv
     eza
     fasd
+    fd
     fzf
+    gh
     git
     gitstatus
+    gnutar
     hostname
     lazygit
     less
     neofetch
     neovim
     proximity-sort
+    redis
     ripgrep
     rust-analyzer
     rustc
+    sl
     starship
     tmux
     tmuxinator
