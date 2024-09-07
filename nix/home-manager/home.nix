@@ -28,6 +28,7 @@ in
     eza
     fasd
     fd
+    ffmpeg
     fzf
     gh
     git
@@ -44,6 +45,7 @@ in
     rust-analyzer
     rustc
     sl
+    sox
     starship
     tmux
     tmuxinator
