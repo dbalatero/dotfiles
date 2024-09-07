@@ -4,7 +4,6 @@ source "${BASH_SOURCE%/*}/installers/shared.sh"
 
 require_installer mac-app-store
 require_installer mac-custom-apps
-require_installer devtools
 require_installer zsh
 require_installer python
 require_installer ruby
