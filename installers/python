@@ -40,9 +40,6 @@ function install_pyenv_virtualenvs() {
 
 dotheader "Setting up Python..."
 
-brew_install readline
-brew_install xz
-
 brew_install pyenv
 brew_install pyenv-virtualenv
 load_pyenv
