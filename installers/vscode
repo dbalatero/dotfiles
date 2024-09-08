@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-source "${BASH_SOURCE%/*}/shared.sh"
-
-VSCODE_CONFIG_DIR="$HOME/Library/Application Support/Code/User"
-
-mkdir -p "$VSCODE_CONFIG_DIR"
-symlink_dotfile vscode/keybindings.json "$VSCODE_CONFIG_DIR/keybindings.json"
-symlink_dotfile vscode/settings.json "$VSCODE_CONFIG_DIR/settings.json"
