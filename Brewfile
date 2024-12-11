@@ -2,6 +2,13 @@
 
 is_stripe = Dir.exist?("/Applications/Santa.app")
 
+# Core
+brew "fd"
+brew "readline"
+brew "ripgrep"
+brew "wget"
+brew "xz"
+
 # Git
 brew "diff-so-fancy"
 brew "gh" if OS.mac?
