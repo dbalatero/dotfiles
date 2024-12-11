@@ -1,0 +1,151 @@
+[advice]
+	statusHints = false
+
+[alias]
+	a = "add"
+	amend = "commit --amend"
+	b = "branch -v"
+	c = "commit -m"
+	ca = "commit -am"
+	changes = "log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status"
+	ci = "commit"
+	co = "checkout"
+	cp = "cherry-pick -x"
+	d = "diff"
+	dc = "diff --cached"
+	done = "!git fetch origin $(git main-branch):$(git main-branch) && git checkout $(git main-branch)"
+	l = "log --graph --date=short"
+	last = "diff HEAD^"
+	m = "checkout master"
+	nb = "checkout -b"
+	p = "push -u --force-with-lease"
+	pl = "pull"
+	please = "push -u --force-with-lease"
+	ps = "push -u"
+	qsync = "!git fetch origin $(git main-branch):$(git main-branch) && git rebase --no-keep-empty $(git main-branch)"
+	r = "remote -v"
+	rc = "rebase --continue"
+	recent-branches = "!git for-each-ref --count=5 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
+	respond = "!git commit --amend --no-edit && git push --force-with-lease"
+	rs = "rebase --skip"
+	s = "status"
+	sa = "stash apply"
+	sd = "stash drop"
+	short = "log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\""
+	shortnocolor = "log --pretty=format:\"%h %cr %cn %s\""
+	si = "switch-interactive"
+	simple = "log --pretty=format:\" * %s\""
+	sl = "stash list"
+	ss = "stash"
+	st = "status"
+	stat = "status"
+	sync = "!git fetch origin $(git main-branch):$(git main-branch) && git rebase --no-keep-empty -i $(git main-branch)"
+	t = "tag -n"
+	take-master = "!git checkout --ours $1 && git add $1 && git status"
+	unstage = "reset HEAD"
+	upstream = "!git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref HEAD)"
+
+[apply]
+	whitespace = "nowarn"
+
+[branch]
+	autosetupmerge = true
+
+[color]
+	ui = true
+
+[color "branch"]
+	current = "yellow reverse"
+	local = "yellow"
+	remote = "green"
+
+[color "diff"]
+	frag = "magenta bold"
+	meta = "yellow bold"
+	new = "green"
+	old = "red"
+
+[commit]
+	template = "~/.config/git/message"
+
+[core]
+	autocrlf = false
+	commitGraph = true
+	deltabasecachelimit = "4g"
+	editor = "nvim"
+	fsmonitor = true
+	pager = "diff-so-fancy | less '--tabs=4' -RFX"
+	precomposeUnicode = true
+	preloadindex = true
+	untrackedCache = true
+
+[diff]
+	algorithm = "patience"
+	mnemonicprefix = true
+
+[diff-so-fancy]
+	changeHunkIndicators = true
+	markEmptyLines = true
+	stripLeadingSymbols = true
+	useUnicodeRuler = true
+
+[feature]
+	manyFiles = true
+
+[fetch]
+	prune = true
+
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
+	required = true
+	smudge = "git-lfs smudge -- %f"
+
+[format]
+	pretty = "format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset"
+
+[gc]
+	writecommitGraph = true
+
+[github]
+	user = "dbalatero"
+
+[help]
+	autocorrect = 0
+
+[init]
+	defaultBranch = "main"
+
+[interactive]
+	diffFilter = "diff-so-fancy --patch"
+	singlekey = true
+
+[merge]
+	conflictstyle = "diff3"
+	summary = true
+	tool = "nvimdiff"
+	verbosity = 1
+
+[mergetool]
+	prompt = false
+
+[pull]
+	ff = "only"
+
+[push]
+	autoSetupRemote = true
+	default = "current"
+
+[rerere]
+	enabled = true
+
+[user]
+	name = "David Balatero"
+
+[work "features"]
+	gh = true
+
+[include]
+	path = ~/.config/git/config.user
+
+# vim: set ft=gitconfig

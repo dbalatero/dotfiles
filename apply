@@ -37,8 +37,19 @@ symlink_dotfile git/bin/git-what-i-did.sh ~/.local/bin/git-what-i-did
 
 mkdir -p "$(xdg_config_dir)/git"
 symlink_dotfile git/attributes "$(xdg_config_dir)/git/attributes"
+symlink_dotfile git/config "$(xdg_config_dir)/git/config"
 symlink_dotfile git/ignore "$(xdg_config_dir)/git/ignore"
 symlink_dotfile git/message "$(xdg_config_dir)/git/message"
+
+function git_user_config() {
+  if is_stripe_machine; then
+    echo "git/config.user.stripe"
+  else
+    echo "git/config.user.default"
+  fi
+}
+
+symlink_dotfile "$(git_user_config)" "$(xdg_config_dir)/git/config.user"
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Ruby                                                     │
