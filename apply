@@ -13,10 +13,32 @@ function install_homebrew() {
   fi
 }
 
-echo "dotfiles setup"
+# ╭──────────────────────────────────────────────────────────╮
+# │ Basics                                                   │
+# ╰──────────────────────────────────────────────────────────╯
+mkdir -p ~/.local/bin
 
+# ╭──────────────────────────────────────────────────────────╮
+# │ Homebrew                                                 │
+# ╰──────────────────────────────────────────────────────────╯
 install_homebrew
 brew bundle
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ Git                                                      │
+# ╰──────────────────────────────────────────────────────────╯
+symlink_dotfile git/bin/git-churn.sh ~/.local/bin/git-churn
+symlink_dotfile git/bin/git-delete-merged-branches.sh ~/.local/bin/git-delete-merged-branches
+symlink_dotfile git/bin/git-local-repos.sh ~/.local/bin/git-local-repos
+symlink_dotfile git/bin/git-main-branch.sh ~/.local/bin/git-main-branch
+symlink_dotfile git/bin/git-submit.sh ~/.local/bin/git-submit
+symlink_dotfile git/bin/git-switch-interactive.sh ~/.local/bin/git-switch-interactive
+symlink_dotfile git/bin/git-what-i-did.sh ~/.local/bin/git-what-i-did
+
+mkdir -p "$(xdg_config_dir)/git"
+symlink_dotfile git/attributes "$(xdg_config_dir)/git/attributes"
+symlink_dotfile git/ignore "$(xdg_config_dir)/git/ignore"
+symlink_dotfile git/message "$(xdg_config_dir)/git/message"
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Ruby                                                     │

@@ -11,7 +11,8 @@ function command_exists() {
 # }
 
 function dotfiles_location() {
-  echo "$HOME/.dotfiles"
+  # Fix this
+  echo "$HOME/stripe/dotfiles"
 }
 
 function symlink_dotfile() {
@@ -24,4 +25,16 @@ function symlink_dotfile() {
     mkdir -p "$(dirname "$destination")"
     ln -s "$full_file_path" "$destination"
   fi
+}
+
+function is_stripe_laptop() {
+  [ -e "/Applications/Santa.app" ]
+}
+
+function is_stripe_machine() {
+  is_stripe_laptop
+}
+
+function xdg_config_dir() {
+  echo "$HOME/.config"
 }
