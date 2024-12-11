@@ -17,3 +17,8 @@ echo "dotfiles setup"
 
 install_homebrew
 brew bundle
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ Ruby                                                     │
+# ╰──────────────────────────────────────────────────────────╯
+symlink_dotfile ruby/pryrc.rb ~/.pryrc
