@@ -25,6 +25,12 @@ install_homebrew
 brew bundle
 
 # ╭──────────────────────────────────────────────────────────╮
+# │ Terminal                                                 │
+# ╰──────────────────────────────────────────────────────────╯
+mkdir -p "$(xdg_config_dir)/alacritty"
+symlink_dotfile alacritty/alacritty.toml "$(xdg_config_dir)/alacritty/alacritty.toml"
+
+# ╭──────────────────────────────────────────────────────────╮
 # │ Git                                                      │
 # ╰──────────────────────────────────────────────────────────╯
 symlink_dotfile git/bin/git-churn.sh ~/.local/bin/git-churn
@@ -55,3 +61,7 @@ symlink_dotfile "$(git_user_config)" "$(xdg_config_dir)/git/config.user"
 # │ Ruby                                                     │
 # ╰──────────────────────────────────────────────────────────╯
 symlink_dotfile ruby/pryrc.rb ~/.pryrc
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ Neovim                                                   │
+# ╰──────────────────────────────────────────────────────────╯
