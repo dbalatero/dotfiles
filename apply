@@ -16,3 +16,4 @@ function install_homebrew() {
 echo "dotfiles setup"
 
 install_homebrew
+brew bundle
