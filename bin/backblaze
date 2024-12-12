@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+function setup_backblaze_keys() {
+  local key_file="$HOME/.zsh/secrets/backblaze.zsh"
+
+  if [ ! -f "$key_file" ]; then
+    echo "+ Setting up Backblaze keys..."
+    echo "  You can find them here: https://secure.backblaze.com/b2_buckets.htm"
+    echo
+
+    printf "What is your Backblaze account ID? > "
+    read account_id
+
+    printf "What is your Backblaze account key? > "
+    read account_key
+
+    echo "export B2_ACCOUNT_ID=\"$account_id\"" >"$key_file"
+    echo "export B2_ACCOUNT_KEY=\"$account_key\"" >>"$key_file"
+
+    chmod 600 "$key_file"
+  fi
+
+  source "$key_file"
+}
+
+echo "Setting up backups..."
+echo
+setup_backblaze_keys
+
+# vim: set ft=bash
