@@ -79,4 +79,10 @@ brew "neofetch" if OS.mac?
 brew "zplug"
 brew "zsh"
 
+# ╭──────────────────────────────────────────────────────────╮
+# │ tmux                                                     │
+# ╰──────────────────────────────────────────────────────────╯
+brew "reattach-to-user-namespace" if OS.mac?
+brew "tmux"
+
 # vim: set ft=ruby

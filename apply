@@ -28,6 +28,12 @@ install_homebrew
 brew bundle
 
 # ╭──────────────────────────────────────────────────────────╮
+# │ tmux                                                     │
+# ╰──────────────────────────────────────────────────────────╯
+symlink_dotfile tmux "$(xdg_config_dir)/tmux"
+symlink_dotfile tmuxinator "$(xdg_config_dir)/tmuxinator"
+
+# ╭──────────────────────────────────────────────────────────╮
 # │ ZSH                                                      │
 # ╰──────────────────────────────────────────────────────────╯
 symlink_dotfile zsh/inputrc ~/.inputrc
