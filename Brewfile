@@ -13,6 +13,7 @@ end
 # │ Core                                                     │
 # ╰──────────────────────────────────────────────────────────╯
 brew "fd"
+brew "imagemagick" if OS.mac?
 brew "readline"
 brew "ripgrep"
 brew "wget"

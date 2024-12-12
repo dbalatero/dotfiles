@@ -22,6 +22,25 @@ symlink_dotfile bin/slack-thread-format.rb ~/.local/bin/slack-thread-format
 symlink_dotfile bin/truecolor.sh ~/.local/bin/truecolor
 
 # ╭──────────────────────────────────────────────────────────╮
+# │ MacOS                                                    │
+# ╰──────────────────────────────────────────────────────────╯
+if is_macos; then
+  symlink_dotfile bin/emoji-intensifies.sh ~/.local/bin/emoji-intensifies
+
+  # ╭──────────────────────────────────────────────────────────╮
+  # │ Karabiner                                                │
+  # ╰──────────────────────────────────────────────────────────╯
+  symlink_dotfile karabiner "$(xdg_config_dir)/karabiner"
+
+  # ╭──────────────────────────────────────────────────────────╮
+  # │ Obsidian                                                 │
+  # ╰──────────────────────────────────────────────────────────╯
+  if [ -d "$HOME/Documents/David" ]; then
+    symlink_dotfile obsidian/obsidian.vimrc "$HOME/Documents/David/.obsidian.vimrc"
+  fi
+fi
+
+# ╭──────────────────────────────────────────────────────────╮
 # │ Homebrew                                                 │
 # ╰──────────────────────────────────────────────────────────╯
 install_homebrew

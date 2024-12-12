@@ -38,3 +38,13 @@ function is_stripe_machine() {
 function xdg_config_dir() {
   echo "$HOME/.config"
 }
+
+_current_os="$(uname)"
+
+function is_macos() {
+  [[ "$_current_os" == "Darwin" ]]
+}
+
+function is_linux() {
+  [[ "$_current_os" == "Linux" ]]
+}
