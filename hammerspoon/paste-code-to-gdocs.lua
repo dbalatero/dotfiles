@@ -1,0 +1,2 @@
+-- local docs = require('GoogleDocsCodePaste')
+-- hs.hotkey.bind(super, 'g', docs.pasteToGoogleDocs)

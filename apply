@@ -28,6 +28,13 @@ if is_macos; then
   symlink_dotfile bin/emoji-intensifies.sh ~/.local/bin/emoji-intensifies
 
   # ╭──────────────────────────────────────────────────────────╮
+  # │ Hammerspoon                                              │
+  # ╰──────────────────────────────────────────────────────────╯
+  symlink_dotfile bin/daily.sh ~/.local/bin/daily
+  symlink_dotfile bin/dnd-toggle.sh ~/.local/bin/dnd-toggle
+  symlink_dotfile hammerspoon ~/.hammerspoon
+
+  # ╭──────────────────────────────────────────────────────────╮
   # │ Karabiner                                                │
   # ╰──────────────────────────────────────────────────────────╯
   symlink_dotfile karabiner "$(xdg_config_dir)/karabiner"
