@@ -1,3 +1,137 @@
-eval "$(nodenv init -)"
+BREW_PREFIX="$(brew --prefix)"
+export TERM="xterm-256color"
 
-# TODO: add pyenv
+[ -e "~/.zshenv" ] && source ~/.zshenv
+
+# Disable auto title so tmux window titles don't get messed up.
+export DISABLE_AUTO_TITLE="true"
+
+# Maintain a stack of cd directory traversals for `popd`
+setopt AUTO_PUSHD
+
+# Allow extended matchers like ^file, etc
+set -o EXTENDED_GLOB
+
+# ========== History settings ===========
+
+setopt append_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt inc_append_history
+setopt extended_glob
+
+# Use viins keymap as the default.
+bindkey -v
+
+# ========== Plugins ===========
+export ZPLUG_HOME="$BREW_PREFIX/opt/zplug"
+source "$ZPLUG_HOME/init.zsh"
+
+zplug "dbalatero/fzf-git"
+zplug "twang817/zsh-ssh-agent"
+zplug "dbalatero/fast-syntax-highlighting"
+zplug "hlissner/zsh-autopair"
+zplug "chriskempson/base16-shell"
+zplug romkatv/powerlevel10k, as:theme, depth:1
+zplug "plugins/git", from:oh-my-zsh
+
+if ! zplug check; then
+  zplug install
+fi
+
+zplug load
+
+# =========== more history options =========
+HISTSIZE="10000"
+SAVEHIST="10000"
+
+HISTFILE="$HOME/.local/share/zsh/history"
+mkdir -p "$(dirname "$HISTFILE")"
+
+setopt HIST_FCNTL_LOCK
+setopt HIST_IGNORE_DUPS
+unsetopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+unsetopt HIST_EXPIRE_DUPS_FIRST
+setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
+
+export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!{node_modules/*,.git/*}'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+if [[ $options[zle] = on ]]; then
+  eval "$(fzf --zsh)"
+fi
+
+# ============ Stripe ==============
+if [[ -f ~/.stripe/shellinit/zshrc ]]; then
+  source ~/.stripe/shellinit/zshrc
+fi
+
+[ -f "$BREW_PREFIX/etc/profile.d/autojump.sh" ] && \
+  source "$BREW_PREFIX/etc/profile.d/autojump.sh"
+
+# Use jk to exit insert mode on the command line
+bindkey -M viins 'jk' vi-cmd-mode
+
+# Set vi mode AGAIN
+bindkey -v
+
+# secrets
+for file in $HOME/.zsh/secrets/**/*.zsh
+do
+  source $file
+done
+
+[ -f "$HOME/.zsh/p10k.zsh" ] && source ~/.zsh/p10k.zsh
+
+# node, py, ruby
+export PYENV_ROOT="$HOME/.local/share/pyenv"
+eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init -)"
+eval "$(nodenv init -)"
+eval "$(rbenv init - zsh)"
+eval "$(direnv hook zsh)"
+
+# aliases
+alias -- 6='exec zsh'
+alias -- b='work begin'
+alias -- dev='tn start remote'
+alias -- eza='eza '
+alias -- l='ls -al'
+alias -- la='eza -a'
+alias -- ll='eza -l'
+alias -- lla='eza -la'
+alias -- ls=eza
+alias -- lt='eza --tree'
+alias -- p='work pr show'
+alias -- r='work review'
+alias -- st='~/stripe/st/bin/repo-dev'
+alias -- tk='tmux kill-session'
+alias -- tn=tmuxinator
+alias -- vim=nvim
+alias -- weather='curl wttr.in'
+
+
+export EDITOR="nvim"
+export NVIM_TUI_ENABLE_TRUE_COLOR="1"
+
+# Tmux UTF8 support
+export LANG="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+
+      # Fix GPG's bullshit
+export GPG_TTY="$(tty)"
+
+export HOMEBREW_NO_AUTO_UPDATE="1"
+export GITSTATUS_DAEMON="$HOME/.nix-profile/bin/gitstatusd"
+
+# Restic/Backblaze
+# restic mount -r $SYNC_REPO ~/backblaze
+export RESTIC_REPOSITORY="b2:dbalatero-backup"
+export SYNC_REPO="$RESTIC_REPOSITORY:/Sync"
+export FREEZE_REPO="$RESTIC_REPOSITORY:/Freeze"
+
+export PATH="$PATH:$HOME/stripe/work/exe"
+export PATH="./node_modules/.bin:$HOME/.config/base16-shell:$PATH"

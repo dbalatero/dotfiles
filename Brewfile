@@ -68,4 +68,15 @@ brew "bat"
 brew "neovim"
 brew "tree-sitter"
 
+# ╭──────────────────────────────────────────────────────────╮
+# │ ZSH                                                      │
+# ╰──────────────────────────────────────────────────────────╯
+brew "autojump"
+brew "direnv"
+brew "eza"
+brew "fzf"
+brew "neofetch" if OS.mac?
+brew "zplug"
+brew "zsh"
+
 # vim: set ft=ruby

@@ -18,11 +18,21 @@ function install_homebrew() {
 # ╰──────────────────────────────────────────────────────────╯
 mkdir -p ~/.local/bin
 
+symlink_dotfile bin/slack-thread-format.rb ~/.local/bin/slack-thread-format
+symlink_dotfile bin/truecolor.sh ~/.local/bin/truecolor
+
 # ╭──────────────────────────────────────────────────────────╮
 # │ Homebrew                                                 │
 # ╰──────────────────────────────────────────────────────────╯
 install_homebrew
 brew bundle
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ ZSH                                                      │
+# ╰──────────────────────────────────────────────────────────╯
+symlink_dotfile zsh/inputrc ~/.inputrc
+symlink_dotfile zsh/zshrc ~/.zshrc
+symlink_dotfile zsh/zsh ~/.zsh
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Terminal                                                 │
