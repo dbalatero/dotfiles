@@ -16,14 +16,23 @@ function dotfiles_location() {
 }
 
 function symlink_dotfile() {
-  local file=$1
-  local destination=$2
+  local file="$1"
+  local destination="$2"
   local full_file_path="$(dotfiles_location)/$file"
 
   if [ ! -e "$destination" ]; then
     echo "Symlinking $full_file_path -> $destination"
     mkdir -p "$(dirname "$destination")"
     ln -s "$full_file_path" "$destination"
+  fi
+}
+
+function ensure_git_clone() {
+  local repo="$1"
+  local destination="$2"
+
+  if [ ! -d "$destination" ]; then
+    git clone "$repo" "$destination"
   fi
 }
 

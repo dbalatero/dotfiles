@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+defaults write .GlobalPreferences AppleShowAllExtensions -bool true
+
+# Dock settings
+defaults write com.apple.dock autohide-delay -float 0.0
+defaults write com.apple.dock autohide-time-modifier -float 0.25
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock expose-animation-duration -float 0.0
+defaults write com.apple.dock launchanim -bool false
+defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock mouse-over-hilite-stack -bool true # Enable highlight hover effect for the grid view of a stack (Dock)
+defaults write com.apple.dock orientation -string "left"
+defaults write com.apple.dock show-process-indicators -bool true
+defaults write com.apple.dock show-recents -bool false
+defaults write com.apple.dock static-only -bool true
+
+# Disable hot corners (disabled = 1)
+defaults write com.apple.dock wvous-tl-corner -int 1
+defaults write com.apple.dock wvous-tr-corner -int 1
+defaults write com.apple.dock wvous-bl-corner -int 1
+defaults write com.apple.dock wvous-br-corner -int 1
+
+# Finder settings
+defaults write com.apple.finder AppleShowAllExtensions -bool true
+defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write com.apple.finder CreateDesktop -bool false # remove all desktop icons
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv" # View files as list
+defaults write com.apple.finder QuitMenuItem -bool true             # Allow quitting Finder via ⌘ + Q; doing so will also hide desktop icons
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true # Display full POSIX path as Finder window title
+
+# Screenshot settings
+defaults write com.apple.screencapture disable-shadow -bool true # Disable shadow in screenshots
+
+# Screensaver settings
+defaults write com.apple.screensaver askForPassword -bool true
+defaults write com.apple.screensaver askForPasswordDelay -int 5 # How many seconds to wait until requiring?
+
+# LaunchServices settings
+defaults write com.apple.LaunchServices LSQuarantine -bool false # Disable the "Are you sure you want to open this application?" dialog
+
+# TimeMachine settings
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true # Prevent Time Machine from prompting to use new hard drives as backup volume
+
+# Disable Dock bouncing
+defaults write com.apple.dock no-bouncing -bool true # defaults write com.apple.dock no-bouncing -bool TRUE
+
+# NSGlobalDomain settings
+defaults write NSGlobalDomain KeyRepeat -int 2 # Fastest key repeat
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false             # Disable hold to bring up accent letters
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3                       # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+defaults write NSGlobalDomain AppleFontSmoothing -int 2                        # Enable subpixel font rendering on non-Apple LCDs
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always"             # Always show scrollbars
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false # Disable auto-correct
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true    # Expand save panel by default
+defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true          # Display ASCII control characters using caret notation in standard text views
+defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false             # Smooth scrolling
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001                  # Increase window resize speed for Cocoa applications
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false   # Disable opening and closing window animations
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true       # Expand print panel by default
+defaults write -g com.apple.trackpad.scaling -float 3.0                        # Tracking Speed
+defaults write com.apple.sound.beep.feedback -int 0                            # Disable sound feedback for keyboard
+defaults write com.apple.keyboard.fnState -bool true                           # Use the function keys as default F1-F12
+
+# vim: set ft=bash

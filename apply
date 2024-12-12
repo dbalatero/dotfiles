@@ -34,6 +34,10 @@ if is_macos; then
   symlink_dotfile bin/dnd-toggle.sh ~/.local/bin/dnd-toggle
   symlink_dotfile hammerspoon ~/.hammerspoon
 
+  ensure_git_clone git@github.com:dbalatero/HyperKey.spoon ~/.hammerspoon/Spoons/HyperKey.spoon
+  ensure_git_clone git@github.com:dbalatero/SkyRocket.spoon ~/.hammerspoon/Spoons/SkyRocket.spoon
+  ensure_git_clone git@github.com:dbalatero/VimMode.spoon ~/.hammerspoon/Spoons/VimMode.spoon
+
   # ╭──────────────────────────────────────────────────────────╮
   # │ Karabiner                                                │
   # ╰──────────────────────────────────────────────────────────╯
@@ -45,6 +49,8 @@ if is_macos; then
   if [ -d "$HOME/Documents/David" ]; then
     symlink_dotfile obsidian/obsidian.vimrc "$HOME/Documents/David/.obsidian.vimrc"
   fi
+
+  ./macos-settings
 fi
 
 # ╭──────────────────────────────────────────────────────────╮
