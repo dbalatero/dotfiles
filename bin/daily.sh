@@ -66,12 +66,12 @@ function add_amount() {
     # Write it back
     echo "$new_value" >"$daily_file"
 
-    echo $new_value
+    echo "$new_value"
   else
     # Start a new file
     echo "$amount" >"$daily_file"
 
-    echo $amount
+    echo "$amount"
   fi
 }
 
@@ -79,7 +79,7 @@ function reset_amount() {
   local item=$1
 
   local item_dir="$HOME/.daily/items/$item/history"
-  mkdir -p $item_dir
+  mkdir -p "$item_dir"
 
   local daily_file="$item_dir/$(date '+%Y-%m-%d')"
 
@@ -107,7 +107,7 @@ function updated_amount() {
   local daily_file="$item_dir/$(date '+%Y-%m-%d')"
 
   if [ -f "$daily_file" ]; then
-    echo $(last_modified_seconds "$daily_file")
+    last_modified_seconds "$daily_file"
   else
     # return high value, 24hrs, whatever
     echo 86400
