@@ -10,6 +10,26 @@ return {
     config = function()
       -- TODO: convert -> Lua someday or like never who cares
       vim.cmd([[
+        if !exists('test#custom_runners')
+          let test#custom_runners = {}
+        endif
+
+        if !has_key(test#custom_runners, 'lua')
+          let test#custom_runners['lua'] = []
+        endif
+
+        if !has_key(test#custom_runners, 'ruby')
+          let test#custom_runners['ruby'] = []
+        endif
+
+        if !has_key(test#custom_runners, 'javascript')
+          let test#custom_runners['javascript'] = []
+        endif
+
+        if !exists("test#enabled_runners")
+          let test#enabled_runners = []
+        endif
+
         nmap <silent> <leader>T :TestNearest<CR>
         nmap <silent> <leader>t :TestFile<CR>
 
