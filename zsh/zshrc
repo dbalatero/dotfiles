@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 BREW_PREFIX="$(brew --prefix)"
 export TERM="xterm-256color"
 
@@ -84,8 +91,6 @@ do
   source $file
 done
 
-[ -f "$HOME/.zsh/p10k.zsh" ] && source ~/.zsh/p10k.zsh
-
 # node, py, ruby
 export PYENV_ROOT="$HOME/.local/share/pyenv"
 eval "$(pyenv virtualenv-init -)"
@@ -135,3 +140,8 @@ export FREEZE_REPO="$RESTIC_REPOSITORY:/Freeze"
 
 export PATH="$PATH:$HOME/stripe/work/exe"
 export PATH="./node_modules/.bin:$HOME/.config/base16-shell:$PATH"
+
+export POWERLEVEL9K_DISABLE_GITSTATUS=true
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
