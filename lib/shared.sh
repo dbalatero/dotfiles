@@ -4,15 +4,10 @@ function command_exists() {
   command -v "$name" >/dev/null 2>&1
 }
 
-# _symlinks_current_dir="${BASH_SOURCE%/*}"
-
-# function dotfiles_location() {
-#   echo $(cd $_symlinks_current_dir/../.. && pwd)
-# }
+_symlinks_current_dir="${BASH_SOURCE%/*}"
 
 function dotfiles_location() {
-  # Fix this
-  echo "$HOME/stripe/dotfiles"
+  echo $(cd $_symlinks_current_dir/.. && pwd)
 }
 
 function symlink_dotfile() {
@@ -45,7 +40,11 @@ function is_stripe_machine() {
 }
 
 function xdg_config_dir() {
-  echo "$HOME/.config"
+  echo "${XDG_CONFIG_HOME:-$HOME/.config}"
+}
+
+function xdg_data_dir() {
+  echo "${XDG_DATA_HOME:-$HOME/.local/share}"
 }
 
 _current_os="$(uname)"
