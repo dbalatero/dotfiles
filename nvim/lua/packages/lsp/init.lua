@@ -21,6 +21,41 @@ return {
   },
 
   {
+    "pmizio/typescript-tools.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require("typescript-tools").setup({
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+
+          require("packages.lsp.setup").on_attach(client, bufnr)
+        end,
+        settings = {
+          expose_as_code_action = "all",
+          separate_diagnostic_server = true,
+          publish_diagnostic_on = "insert_leave",
+          tsserver_max_memory = "auto",
+          tsserver_locale = "en",
+          tsserver_file_preferences = {
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+        },
+      })
+    end
+  },
+
+  {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
     opts = {
@@ -156,6 +191,7 @@ return {
               "cssls",
               "jsonls",
               "lua_ls",
+              "yamlls",
             },
           })
         end
