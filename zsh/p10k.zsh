@@ -486,7 +486,9 @@
   # sagging, try setting POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY to a number lower than the output
   # of `git ls-files | wc -l`. Alternatively, add `bash.showDirtyState = false` to the repository's
   # config: `git config bash.showDirtyState false`.
-  typeset -g POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY=-1
+  typeset -g POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY=100000
+
+  typeset -g POWERLEVEL9K_VCS_DISABLED_DIR_PATTERN="~/stripe/pay-server(|/*)"
 
   # Don't show Git status in prompt for repositories whose workdir matches this pattern.
   # For example, if set to '~', the Git repository at $HOME/.git will be ignored.
@@ -498,7 +500,7 @@
   # Install our own Git status formatter.
   typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION='${$((my_git_formatter()))+${my_git_format}}'
   # Enable counters for staged, unstaged, etc.
-  typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=-1
+  typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=100000
 
   # Disable gitstatus
   typeset -g POWERLEVEL9K_DISABLE_GITSTATUS=true
