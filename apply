@@ -65,6 +65,19 @@ brew bundle
 symlink_dotfile tmux "$(xdg_config_dir)/tmux"
 symlink_dotfile tmuxinator "$(xdg_config_dir)/tmuxinator"
 
+export TMUX_PLUGIN_MANAGER_PATH="$HOME/.local/share/tmux/plugins"
+
+function install_tpm() {
+  if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  fi
+
+  if [ ! -d "$TMUX_PLUGIN_MANAGER_PATH" ]; then
+    TMUX_PLUGIN_MANAGER_PATH="$TMUX_PLUGIN_MANAGER_PATH" ~/.tmux/plugins/tpm/bin/install_plugins
+  fi
+}
+install_tpm
+
 # ╭──────────────────────────────────────────────────────────╮
 # │ ZSH                                                      │
 # ╰──────────────────────────────────────────────────────────╯
