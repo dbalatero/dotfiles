@@ -170,26 +170,36 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 require("custom.ensure_package_manager")
 
 require("lazy").setup({
-  --  ╭──────────────────────────────────────────────────────────╮
-  --  │   Core plugins                                           │
-  --  ╰──────────────────────────────────────────────────────────╯
-  -- Additional help under :h nvim-lua-guide
-  "nanotee/nvim-lua-guide",
+  change_detection = {
+    enabled = true,
+    notify = false,
+  },
+  ui = {
+    border = "rounded",
+  },
+  spec = {
+    --  ╭──────────────────────────────────────────────────────────╮
+    --  │   Core plugins                                           │
+    --  ╰──────────────────────────────────────────────────────────╯
+    -- Additional help under :h nvim-lua-guide
+    "nanotee/nvim-lua-guide",
 
-  -- useful Lua functions, e.g. like boost
-  "nvim-lua/plenary.nvim",
+    -- useful Lua functions, e.g. like boost
+    "nvim-lua/plenary.nvim",
 
-  { import = "packages.completion" },
-  { import = "packages.editing" },
-  { import = "packages.files" },
-  { import = "packages.fzf" },
-  { import = "packages.git" },
-  -- Can't use telescope in pay-server
-  -- { import = "packages.telescope" },
-  { import = "packages.testing" },
-  { import = "packages.tmux" },
-  { import = "packages.treesitter" },
-  { import = "packages.ui" },
+    { import = "packages.completion" },
+    { import = "packages.editing" },
+    { import = "packages.files" },
+    { import = "packages.fzf" },
+    { import = "packages.git" },
+    { import = "packages.lsp" },
+    -- Can't use telescope in pay-server
+    -- { import = "packages.telescope" },
+    { import = "packages.testing" },
+    { import = "packages.tmux" },
+    { import = "packages.treesitter" },
+    { import = "packages.ui" },
+  },
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
