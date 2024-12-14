@@ -25,7 +25,14 @@ return {
   },
 
   -- enable GHE/Github links with :Gbrowse
-  "tpope/vim-rhubarb",
+  {
+    "tpope/vim-rhubarb",
+    config = function()
+      if require("custom.config").stripe.machine then
+        vim.g.github_enterprise_urls = { "https://git.corp.stripe.com" }
+      end
+    end
+  },
 
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes

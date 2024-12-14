@@ -170,8 +170,6 @@ return {
       require("packages.lsp.servers")
     end,
     dependencies = {
-      "lukas-reineke/lsp-format.nvim",
-
       -- Automatically install LSPs to stdpath for neovim
       {
         "williamboman/mason.nvim",
@@ -182,18 +180,28 @@ return {
           })
         end
       },
+      "williamboman/mason-lspconfig.nvim",
       {
-        "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
         config = function()
-          require("mason-lspconfig").setup({
+          require('mason-tool-installer').setup({
             ensure_installed = {
+              -- LSPs
               "bashls",
               "cssls",
               "jsonls",
               "lua_ls",
+              "stylua",
               "yamlls",
             },
           })
+        end
+      },
+      {
+        url = "git@git.corp.stripe.com:nms/nvim-lspconfig-stripe.git",
+        cond = require("custom.config").stripe.utils.is_stripe_machine,
+        config = function()
+          require("packages.lsp.payserver_sorbet")
         end
       }
     },

@@ -188,13 +188,16 @@ require("lazy").setup({
     "nvim-lua/plenary.nvim",
 
     { import = "packages.completion" },
+    { import = "packages.diagnostics.init" },
     { import = "packages.editing" },
     { import = "packages.files" },
+    { import = "packages.formatting" },
     { import = "packages.fzf" },
     { import = "packages.git" },
     { import = "packages.lsp.init" },
     -- Can't use telescope in pay-server
     -- { import = "packages.telescope" },
+    { import = "packages.snippets" },
     { import = "packages.testing" },
     { import = "packages.tmux" },
     { import = "packages.treesitter" },

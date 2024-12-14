@@ -14,9 +14,17 @@ local function is_stripe_machine()
   return is_stripe_laptop()
 end
 
+local function in_pay_server()
+  return string.find(vim.fn.getcwd(), "pay-server", 1, true)
+end
+
 return {
   stripe = {
     machine = is_stripe_machine(),
     laptop = is_stripe_laptop(),
+    payServer = in_pay_server(),
+    utils = {
+      is_stripe_machine = is_stripe_machine,
+    }
   }
 }

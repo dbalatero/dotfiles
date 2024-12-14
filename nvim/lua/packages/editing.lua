@@ -160,4 +160,9 @@ return {
 
   -- :AV :AS for alternate files
   "tpope/vim-projectionist",
+
+  {
+    url = "git@git.corp.stripe.com:nms/payjectionist.nvim.git",
+    cond = require("custom.config").stripe.utils.is_stripe_machine,
+  },
 }

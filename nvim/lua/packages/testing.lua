@@ -59,4 +59,25 @@ return {
       ]])
     end,
   },
+
+  {
+    url = "git@git.corp.stripe.com:dbalatero/vim-test-stripe.git",
+    dependencies = {
+      "janko-m/vim-test",
+    },
+    cond = require("custom.config").stripe.utils.is_stripe_machine,
+    config = function()
+      -- TODO: convert -> Lua someday or like never who cares
+      vim.cmd([[
+          " Define the runners
+          call add(test#custom_runners['ruby'], "payserver")
+          call add(test#custom_runners['javascript'], "payserver")
+
+          if fnamemodify(getcwd(), ':p') =~ "pay-server"
+            call add(test#enabled_runners, "ruby#payserver")
+            call add(test#enabled_runners, "javascript#payserver")
+          end
+        ]])
+    end
+  }
 }
