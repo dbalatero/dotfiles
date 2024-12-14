@@ -113,3 +113,4 @@ symlink_dotfile ruby/pryrc.rb ~/.pryrc
 # ╭──────────────────────────────────────────────────────────╮
 # │ Neovim                                                   │
 # ╰──────────────────────────────────────────────────────────╯
+symlink_dotfile nvim "$(xdg_config_dir)/nvim"
