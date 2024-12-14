@@ -470,6 +470,10 @@ mods = "Command"
 history = 10000
 multiplier = 3
 
+[shell]
+program = "zsh"
+args = ["--login"]
+
 [window]
 dynamic_title = false
 opacity = 1.0
