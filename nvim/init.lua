@@ -192,7 +192,7 @@ require("lazy").setup({
     { import = "packages.files" },
     { import = "packages.fzf" },
     { import = "packages.git" },
-    { import = "packages.lsp" },
+    { import = "packages.lsp.init" },
     -- Can't use telescope in pay-server
     -- { import = "packages.telescope" },
     { import = "packages.testing" },

@@ -16,7 +16,9 @@ require("lspconfig").lua_ls.setup({
           vim.env.VIMRUNTIME
         },
       },
-      telemetry = { enable = false },
+      telemetry = {
+        enable = false,
+      },
     },
   },
 })

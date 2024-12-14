@@ -46,6 +46,8 @@ return {
       require("packages.lsp.servers")
     end,
     dependencies = {
+      "lukas-reineke/lsp-format.nvim",
+
       -- Automatically install LSPs to stdpath for neovim
       {
         "williamboman/mason.nvim",
@@ -67,5 +69,12 @@ return {
         end
       }
     },
-  }
+  },
+
+  {
+    "j-hui/fidget.nvim",
+    config = function()
+      require('fidget').setup({})
+    end
+  },
 }
