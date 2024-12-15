@@ -72,7 +72,9 @@ hs.hotkey.bind(hyper, "7", function()
 end)
 
 hs.hotkey.bind(hyper, "8", function()
-  hs.eventtap.keyStrokes("replace_shipment_references_with_shipping_rate_references")
+  hs.eventtap.keyStrokes(
+    "replace_shipment_references_with_shipping_rate_references"
+  )
   hs.eventtap.keyStroke({}, "return", 0)
   hs.eventtap.keyStroke({}, "tab", 0)
   hs.eventtap.keyStroke({}, "tab", 0)
