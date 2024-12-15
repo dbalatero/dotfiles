@@ -1,5 +1,7 @@
 inspect = hs.inspect.inspect
 
+hs.loadSpoon("EmmyLua")
+
 require("common")
 require("nytimes")
 require("quick-switch")

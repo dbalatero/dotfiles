@@ -94,5 +94,6 @@ brew "zsh"
 # ╰──────────────────────────────────────────────────────────╯
 brew "reattach-to-user-namespace" if OS.mac?
 brew "tmux"
+brew "tmuxinator"
 
 # vim: set ft=ruby
