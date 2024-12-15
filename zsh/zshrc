@@ -1,4 +1,10 @@
+IS_STRIPE=false
+
 if [ -e "/Applications/Santa.app" ]; then
+  IS_STRIPE=true
+fi
+
+if [[ "$IS_STRIPE" == "true" ]]; then
   export XDG_CACHE_HOME="$HOME/stripe/.cache"
   mkdir -p "$XDG_CACHE_HOME"
 fi
@@ -146,8 +152,12 @@ export RESTIC_REPOSITORY="b2:dbalatero-backup"
 export SYNC_REPO="$RESTIC_REPOSITORY:/Sync"
 export FREEZE_REPO="$RESTIC_REPOSITORY:/Freeze"
 
-export PATH="$PATH:$HOME/stripe/work/exe"
 export PATH="./node_modules/.bin:$HOME/.config/base16-shell:$PATH"
+
+if [[ "$IS_STRIPE" == "true" ]]; then
+  export PATH="$PATH:$HOME/stripe/work/exe"
+  export PATH="$HOME/stripe/mason/bin:$PATH"
+fi
 
 export POWERLEVEL9K_DISABLE_GITSTATUS=true
 
