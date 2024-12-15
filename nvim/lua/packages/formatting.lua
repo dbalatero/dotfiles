@@ -16,7 +16,7 @@ return {
         },
 
         -- Setup autocmd to format on save
-        format_on_save = {
+        format_after_save = {
           -- These options will be passed to conform.format()
           timeout_ms = 500,
           lsp_format = "fallback",
