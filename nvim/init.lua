@@ -171,11 +171,26 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 --  ╰──────────────────────────────────────────────────────────╯
 require("custom.ensure_package_manager")
 
+local config = require("custom.config")
+local dev_configuration = {}
+
+if config.stripe.laptop then
+  dev_configuration = {
+    path = "~/stripe/neovim",
+    patterns = {
+      "nvim-lspconfig",
+      "nvim-lspconfig-stripe",
+    },
+    fallback = true,
+  }
+end
+
 require("lazy").setup({
   change_detection = {
     enabled = true,
     notify = false,
   },
+  dev = dev_configuration,
   ui = {
     border = "rounded",
   },
