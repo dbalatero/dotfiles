@@ -1,5 +1,6 @@
 inspect = hs.inspect.inspect
 
+require("hs.ipc")
 hs.loadSpoon("EmmyLua")
 
 require("common")
