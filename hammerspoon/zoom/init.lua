@@ -1,5 +1,5 @@
-local MuteUi = require('zoom.mute-ui')
-local statuses = require('zoom.status')
+local MuteUi = require("zoom.mute-ui")
+local statuses = require("zoom.status")
 
 -----------------
 
@@ -27,7 +27,7 @@ muteWatcher = hs.timer.new(2, function()
 end)
 
 zoomAppWatcher = hs.application.watcher.new(function(applicationName, eventType)
-  if applicationName ~= 'zoom.us' then
+  if applicationName ~= "zoom.us" then
     return
   end
 
@@ -40,13 +40,13 @@ end)
 
 zoomAppWatcher:start()
 
-if hs.application.find('zoom.us') then
+if hs.application.find("zoom.us") then
   muteStatus:show()
   muteStatus:setMuted(statuses.getStatus() == statuses.muted)
 
   muteWatcher:start()
 end
 
-hyperKey:bind('z'):toFunction('Toggle mute status', function()
+hyperKey:bind("z"):toFunction("Toggle mute status", function()
   muteStatus:toggle()
 end)

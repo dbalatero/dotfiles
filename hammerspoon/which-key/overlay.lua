@@ -1,4 +1,4 @@
-local buildCanvas = require('which-key.build-canvas')
+local buildCanvas = require("which-key.build-canvas")
 
 local Overlay = {}
 

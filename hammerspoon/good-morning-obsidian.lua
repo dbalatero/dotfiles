@@ -1,5 +1,5 @@
 local function wasFileTouchedToday(file)
-  local currentTime = os.date('*t', os.time())
+  local currentTime = os.date("*t", os.time())
   local beginningOfDay = os.time({
     month = currentTime.month,
     day = currentTime.day,
@@ -21,19 +21,19 @@ end
 local function touchOrCreateFile(file)
   hs.task
     .new(
-      '/bin/bash',
+      "/bin/bash",
       nil,
       function() end, -- noop
       {
-        '-c',
-        'touch ' .. file,
+        "-c",
+        "touch " .. file,
       }
     )
     :start()
 end
 
 local function cycleObsidian()
-  local lastRanFile = os.getenv('HOME') .. '/.config/last-obsidian-cycle'
+  local lastRanFile = os.getenv("HOME") .. "/.config/last-obsidian-cycle"
 
   -- Only cycle the app once per day.
   if wasFileTouchedToday(lastRanFile) then
@@ -43,17 +43,17 @@ local function cycleObsidian()
   -- Touch the modification time.
   touchOrCreateFile(lastRanFile)
 
-  local runningApp = hs.application.find('Obsidian')
+  local runningApp = hs.application.find("Obsidian")
 
   if runningApp then
     runningApp:kill()
   end
 
-  hs.application.open('Obsidian')
+  hs.application.open("Obsidian")
 end
 
 -- Only load this if Obsidian exists on the machine.
-if hs.fs.displayName('/Applications/Obsidian.app') then
+if hs.fs.displayName("/Applications/Obsidian.app") then
   obsidianWatcher = hs.caffeinate.watcher.new(function(state)
     if state == hs.caffeinate.watcher.systemDidWake then
       cycleObsidian()

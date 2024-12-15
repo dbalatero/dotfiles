@@ -81,10 +81,12 @@ return {
     -- See `:help telescope.builtin`
     vim.keymap.set("n", "<leader>/", function()
       -- You can pass additional configuration to telescope to change theme, layout, etc.
-      require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-        winblend = 10,
-        previewer = false,
-      }))
+      require("telescope.builtin").current_buffer_fuzzy_find(
+        require("telescope.themes").get_dropdown({
+          winblend = 10,
+          previewer = false,
+        })
+      )
     end, { desc = "[/] Fuzzily search in current buffer" })
 
     vim.keymap.set(
@@ -102,7 +104,10 @@ return {
     end, { desc = "[S]earch [F]iles" })
 
     vim.keymap.set("n", "<leader>sb", function()
-      require("telescope.builtin").buffers({ ignore_current_buffer = true, sort_mru = true })
+      require("telescope.builtin").buffers({
+        ignore_current_buffer = true,
+        sort_mru = true,
+      })
     end, { desc = "[S]earch existing buffers" })
 
     vim.keymap.set(
@@ -118,12 +123,27 @@ return {
       })
     end, { desc = "[S]earch [d]irectory by [g]rep" })
 
-    vim.keymap.set("n", "<leader>si", require("telescope.builtin").diagnostics, { desc = "[S]earch D[i]agnostics" })
-    vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
+    vim.keymap.set(
+      "n",
+      "<leader>si",
+      require("telescope.builtin").diagnostics,
+      { desc = "[S]earch D[i]agnostics" }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>sf",
+      require("telescope.builtin").find_files,
+      { desc = "[S]earch [F]iles" }
+    )
     vim.keymap.set("n", "<leader>sg", function()
       require("telescope.builtin").live_grep({ layout_strategy = "vertical" })
     end, { desc = "[S]earch by [G]rep" })
-    vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
+    vim.keymap.set(
+      "n",
+      "<leader>sh",
+      require("telescope.builtin").help_tags,
+      { desc = "[S]earch [H]elp" }
+    )
     vim.keymap.set(
       "n",
       "<leader>sw",

@@ -3,7 +3,7 @@ local function swapToDomain(domain)
     local application = hs.application.frontmostApplication()
 
     -- Only swap if focused on Chrome
-    if application:bundleID() ~= 'com.google.Chrome' then
+    if application:bundleID() ~= "com.google.Chrome" then
       return
     end
 
@@ -15,7 +15,7 @@ local function swapToDomain(domain)
 
     -- Swap the domain
     local _, url = hs.osascript.applescript(script)
-    local newUrl = string.gsub(url, '([^/]+)//([^/]+)', '%1//' .. domain)
+    local newUrl = string.gsub(url, "([^/]+)//([^/]+)", "%1//" .. domain)
 
     local updateScript = [[
       const chrome = Application('Google Chrome');
@@ -32,14 +32,18 @@ local function swapToDomain(domain)
       });
     ]]
 
-    updateScript = updateScript .. '\n' .. 'activeTab.url = "' .. newUrl .. '";'
+    updateScript = updateScript .. "\n" .. 'activeTab.url = "' .. newUrl .. '";'
     hs.osascript.javascript(updateScript)
   end
 end
 
 -- I use a super special keybind system for jerks
-superKey:bind('1'):toFunction('Swap to localhost:3000', swapToDomain('localhost:3000'))
-superKey:bind('2'):toFunction('Swap to staging', swapToDomain('app.stg.graphite.dev'))
+superKey
+  :bind("1")
+  :toFunction("Swap to localhost:3000", swapToDomain("localhost:3000"))
+superKey
+  :bind("2")
+  :toFunction("Swap to staging", swapToDomain("app.stg.graphite.dev"))
 
 -- But you can just use this for standard keybinding by uncommenting the
 -- following lines & deleting the 2 lines above:
@@ -49,6 +53,6 @@ superKey:bind('2'):toFunction('Swap to staging', swapToDomain('app.stg.graphite.
 -- hs.hotkey.bind({ 'cmd', 'alt', 'ctrl' }, '2', swapToDomain('app.stg.graphite.dev'))
 
 -- Rebind the keyboard shortcut for Graphite menu bar app
-hyperKey:bind('i'):toFunction('Graphite menu bar', function()
-  hs.eventtap.keyStroke({ 'cmd', 'alt' }, 'g', 10)
+hyperKey:bind("i"):toFunction("Graphite menu bar", function()
+  hs.eventtap.keyStroke({ "cmd", "alt" }, "g", 10)
 end)

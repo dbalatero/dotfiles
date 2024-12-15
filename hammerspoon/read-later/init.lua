@@ -3,7 +3,11 @@ ReadLater = {}
 ReadLater.articles = {}
 
 ReadLater.menu = hs.menubar.new()
-ReadLater.menu:setIcon(hs.image.imageFromPath(os.getenv('HOME') .. '/.hammerspoon/read-later/book.png'))
+ReadLater.menu:setIcon(
+  hs.image.imageFromPath(
+    os.getenv("HOME") .. "/.hammerspoon/read-later/book.png"
+  )
+)
 
 local saveCurrentTabArticle = nil
 local updateMenu = nil
@@ -14,13 +18,13 @@ local updateMenu = nil
 --
 -- If you use Dropbox and save it to your ~/Dropbox folder, it will work across
 -- multiple computers. Otherwise, you can choose a different path.
-ReadLater.jsonSyncPath = os.getenv('HOME') .. '/Dropbox/read-later.json'
+ReadLater.jsonSyncPath = os.getenv("HOME") .. "/Dropbox/read-later.json"
 
 local function readArticlesFromDisk()
-  local file = io.open(ReadLater.jsonSyncPath, 'r')
+  local file = io.open(ReadLater.jsonSyncPath, "r")
 
   if file then
-    local contents = file:read('*all')
+    local contents = file:read("*all")
     file:close()
 
     ReadLater.articles = hs.json.decode(contents) or {}
@@ -36,7 +40,7 @@ end
 
 local function openUrl(url)
   local task = hs.task.new(
-    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
     nil,
     function() end, -- noop
     {
@@ -48,9 +52,12 @@ local function openUrl(url)
 end
 
 local function removeArticle(article)
-  ReadLater.articles = hs.fnutils.filter(ReadLater.articles, function(savedArticle)
-    return savedArticle.url ~= article.url
-  end)
+  ReadLater.articles = hs.fnutils.filter(
+    ReadLater.articles,
+    function(savedArticle)
+      return savedArticle.url ~= article.url
+    end
+  )
 
   updateMenu()
   writeArticlesToDisk()
@@ -71,18 +78,18 @@ end
 updateMenu = function()
   local items = {
     {
-      title = 'ReadLater',
+      title = "ReadLater",
       disabled = true,
     },
   }
 
   -- Add a divider line
-  table.insert(items, { title = '-' })
+  table.insert(items, { title = "-" })
 
   -- Render each article
   if #ReadLater.articles == 0 then
     table.insert(items, {
-      title = 'No more articles to read',
+      title = "No more articles to read",
       disabled = true,
     })
   else
@@ -95,7 +102,7 @@ updateMenu = function()
         end,
         menu = {
           {
-            title = 'Remove article',
+            title = "Remove article",
             fn = function()
               removeArticle(article)
             end,
@@ -105,18 +112,18 @@ updateMenu = function()
     end
   end
 
-  table.insert(items, { title = '-' })
+  table.insert(items, { title = "-" })
   table.insert(items, {
-    title = 'Save current tab          (⌘⌥⌃ S)',
+    title = "Save current tab          (⌘⌥⌃ S)",
     fn = saveCurrentTabArticle,
   })
 
   table.insert(items, {
-    title = 'Read random article',
+    title = "Read random article",
     fn = readRandomArticle,
   })
 
-  ReadLater.menu:setTitle('(' .. tostring(#ReadLater.articles) .. ')')
+  ReadLater.menu:setTitle("(" .. tostring(#ReadLater.articles) .. ")")
   ReadLater.menu:setMenu(items)
 end
 
@@ -129,7 +136,7 @@ end
 --
 -- Returns `nil` if there are no open Chrome tabs.
 local function getCurrentArticle()
-  if not hs.application.find('Google Chrome') then
+  if not hs.application.find("Google Chrome") then
     -- Chrome isn't running right now.
     return nil
   end
@@ -149,7 +156,7 @@ local function getCurrentArticle()
     ]])
 
   -- Remove trailing garbage from window title
-  title = string.gsub(title, '- - Google Chrome.*', '')
+  title = string.gsub(title, "- - Google Chrome.*", "")
 
   return {
     url = url,
@@ -173,10 +180,10 @@ saveCurrentTabArticle = function()
   -- Sync to disk
   writeArticlesToDisk()
 
-  hs.alert('Saved ' .. article.title)
+  hs.alert("Saved " .. article.title)
 end
 
-superKey:bind('s'):toFunction('Read later', saveCurrentTabArticle)
+superKey:bind("s"):toFunction("Read later", saveCurrentTabArticle)
 
 ----
 

@@ -6,9 +6,9 @@ return {
     config = function()
       require("stripe-luasnips")
 
-      local snipConfig = require('stripe-luasnips.config')
+      local snipConfig = require("stripe-luasnips.config")
       snipConfig.payfile.opus_project = "payment_pages"
       snipConfig.todo.jira_project = "RUN_CPL"
-    end
+    end,
   },
 }

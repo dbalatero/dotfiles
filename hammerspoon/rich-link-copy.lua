@@ -91,4 +91,6 @@ local function getRichLinkToCurrentChromeTab()
   hs.alert('Copied link to "' .. title .. '"')
 end
 
-hyperKey:bind("g"):toFunction("Copy a link to current tab", getRichLinkToCurrentChromeTab)
+hyperKey
+  :bind("g")
+  :toFunction("Copy a link to current tab", getRichLinkToCurrentChromeTab)

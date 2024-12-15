@@ -1,13 +1,13 @@
 local statuses = {
-  muted = 'muted',
-  unmuted = 'unmuted',
-  notMeeting = 'notMeeting',
+  muted = "muted",
+  unmuted = "unmuted",
+  notMeeting = "notMeeting",
 }
 
 statuses.getStatus = function()
-  local zoomApp = hs.application.find('zoom.us')
+  local zoomApp = hs.application.find("zoom.us")
 
-  if not zoomApp or not zoomApp:findMenuItem({ 'Meeting', 'Fullscreen' }) then
+  if not zoomApp or not zoomApp:findMenuItem({ "Meeting", "Fullscreen" }) then
     return statuses.notMeeting
   end
 
@@ -33,9 +33,9 @@ statuses.getStatus = function()
 
   local _, value = hs.osascript.applescript(script)
 
-  if value == 'Muted' then
+  if value == "Muted" then
     return statuses.muted
-  elseif value == 'Unmuted' then
+  elseif value == "Unmuted" then
     return statuses.unmuted
   else
     return statuses.notMeeting

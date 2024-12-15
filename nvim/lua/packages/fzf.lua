@@ -61,7 +61,12 @@ return {
         winopts = { preview = { layout = "vertical" } },
       })
 
-      vim.keymap.set("n", "<leader><space>", FZFPromixitySort, { desc = "FZF: Find files" })
+      vim.keymap.set(
+        "n",
+        "<leader><space>",
+        FZFPromixitySort,
+        { desc = "FZF: Find files" }
+      )
 
       vim.keymap.set("n", "<leader>sb", function()
         require("fzf-lua").buffers({

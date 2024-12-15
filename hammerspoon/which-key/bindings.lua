@@ -3,10 +3,10 @@ local ApplicationBinding = {}
 function ApplicationBinding:new(applicationPath)
   -- Convert an `applicationPath` like "/Applications/Google Chrome.app"
   -- into just its name: "Google Chrome"
-  local parts = hs.fnutils.split(applicationPath, '/')
+  local parts = hs.fnutils.split(applicationPath, "/")
   local name = parts[#parts]
 
-  local nameParts = hs.fnutils.split(name, '.', nil, true)
+  local nameParts = hs.fnutils.split(name, ".", nil, true)
   local basename = nameParts[1]
 
   local applicationBinding = {

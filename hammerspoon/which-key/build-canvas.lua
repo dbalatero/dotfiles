@@ -54,7 +54,9 @@ local function buildCanvas(bindings)
   --
   -- Because the final item in the column will add some extra margin, we subtract
   -- `itemBottomMargin` from the total so the top and bottom appear balanced.
-  local canvasHeight = (containerPadding * 2) + (itemsPerColumn * itemContainerHeight) - itemBottomMargin
+  local canvasHeight = (containerPadding * 2)
+    + (itemsPerColumn * itemContainerHeight)
+    - itemBottomMargin
 
   local canvas = hs.canvas.new({
     w = canvasWidth,
@@ -72,15 +74,15 @@ local function buildCanvas(bindings)
   })
 
   -- Make sure it sits above all the windows
-  canvas:level('overlay')
+  canvas:level("overlay")
 
   -- render the blue background
   canvas:insertElement({
-    type = 'rectangle',
-    action = 'fill',
+    type = "rectangle",
+    action = "fill",
     roundedRectRadii = { xRadius = 10, yRadius = 10 },
     fillColor = rgba(24, 135, 250, 1),
-    frame = { x = 0, y = 0, h = '100%', w = '100%' },
+    frame = { x = 0, y = 0, h = "100%", w = "100%" },
   })
 
   -- Sort the keybindings by key code, from A-Z
@@ -120,8 +122,8 @@ local function buildCanvas(bindings)
 
     -- Draw a 25x25 square keycap "icon"
     canvas:insertElement({
-      type = 'rectangle',
-      action = 'fill',
+      type = "rectangle",
+      action = "fill",
       roundedRectRadii = { xRadius = 5, yRadius = 5 },
       fillColor = rgba(255, 255, 255, 1.0),
       frame = {
@@ -141,10 +143,10 @@ local function buildCanvas(bindings)
 
     -- Write the keycode (e.g. "Z") inside of the 25x25 keycap icon.
     canvas:insertElement({
-      type = 'text',
+      type = "text",
       -- Uppercase keys look nicer.
       text = string.upper(entry.key),
-      action = 'fill',
+      action = "fill",
       frame = {
         x = startX,
         y = startY + 3,
@@ -152,24 +154,24 @@ local function buildCanvas(bindings)
         w = keySize,
       },
       -- Center the text in the keycap
-      textAlignment = 'center',
+      textAlignment = "center",
       textColor = rgba(38, 38, 38, 1.0),
-      textFont = 'Helvetica Bold',
+      textFont = "Helvetica Bold",
       textSize = 14,
     })
 
     -- Write the description (e.g. "Mute Zoom") to the right of the keycap
     canvas:insertElement({
-      type = 'text',
+      type = "text",
       text = hs.styledtext.new(entry.binding.name, {
-        font = { name = 'Helvetica Neue', size = 16 },
+        font = { name = "Helvetica Neue", size = 16 },
         color = rgba(255, 255, 255, 1.0),
         kerning = 1.2,
         shadow = {
           blurRadius = 10,
         },
       }),
-      action = 'fill',
+      action = "fill",
       frame = {
         -- Make sure there's margin between the keycap at the text so it
         -- doesn't look cramped.

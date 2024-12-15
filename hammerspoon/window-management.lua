@@ -1,21 +1,21 @@
 hs.window.animationDuration = 0
 
 -- No margins between windows.
-hs.grid.setMargins('0, 0')
+hs.grid.setMargins("0, 0")
 
 local function setGridForScreens()
   -- Set screen grid depending on resolution
   for _, screen in pairs(hs.screen.allScreens()) do
     if screen:frame().w / screen:frame().h > 2 then
       -- 10 * 4 for ultra wide screen
-      hs.grid.setGrid('10 * 4', screen)
+      hs.grid.setGrid("10 * 4", screen)
     else
       if screen:frame().w < screen:frame().h then
         -- 4 * 8 for vertically aligned screen
-        hs.grid.setGrid('4 * 8', screen)
+        hs.grid.setGrid("4 * 8", screen)
       else
         -- 8 * 4 for normal screen
-        hs.grid.setGrid('8 * 4', screen)
+        hs.grid.setGrid("8 * 4", screen)
       end
     end
   end
@@ -86,7 +86,12 @@ end
 -- 2. Resizes it to take up the right half of the screen (grid)
 module.rightHalf = function()
   local meta = windowMeta()
-  local cell = hs.geometry(0.5 * meta.screenGrid.w, 0, 0.5 * meta.screenGrid.w, meta.screenGrid.h)
+  local cell = hs.geometry(
+    0.5 * meta.screenGrid.w,
+    0,
+    0.5 * meta.screenGrid.w,
+    meta.screenGrid.h
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end
@@ -104,7 +109,12 @@ end
 -- 2. Resizes it to take up the bottom half of the screen (grid)
 module.bottomHalf = function()
   local meta = windowMeta()
-  local cell = hs.geometry(0, 0.5 * meta.screenGrid.h, meta.screenGrid.w, 0.5 * meta.screenGrid.h)
+  local cell = hs.geometry(
+    0,
+    0.5 * meta.screenGrid.h,
+    meta.screenGrid.w,
+    0.5 * meta.screenGrid.h
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end
@@ -112,7 +122,12 @@ end
 -- Shrinks a window's size horizontally to the left.
 module.shrinkLeft = function()
   local meta = windowMeta()
-  local cell = hs.geometry(meta.windowGrid.x, meta.windowGrid.y, meta.windowGrid.w - 1, meta.windowGrid.h)
+  local cell = hs.geometry(
+    meta.windowGrid.x,
+    meta.windowGrid.y,
+    meta.windowGrid.w - 1,
+    meta.windowGrid.h
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end
@@ -120,7 +135,12 @@ end
 -- Grows a window's size horizontally to the right.
 module.growRight = function()
   local meta = windowMeta()
-  local cell = hs.geometry(meta.windowGrid.x, meta.windowGrid.y, meta.windowGrid.w + 1, meta.windowGrid.h)
+  local cell = hs.geometry(
+    meta.windowGrid.x,
+    meta.windowGrid.y,
+    meta.windowGrid.w + 1,
+    meta.windowGrid.h
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end
@@ -128,7 +148,12 @@ end
 -- Shrinks a window's size vertically up.
 module.shrinkUp = function()
   local meta = windowMeta()
-  local cell = hs.geometry(meta.windowGrid.x, meta.windowGrid.y, meta.windowGrid.w, meta.windowGrid.h - 1)
+  local cell = hs.geometry(
+    meta.windowGrid.x,
+    meta.windowGrid.y,
+    meta.windowGrid.w,
+    meta.windowGrid.h - 1
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end
@@ -136,35 +161,60 @@ end
 -- Grows a window's size vertically down.
 module.growDown = function()
   local meta = windowMeta()
-  local cell = hs.geometry(meta.windowGrid.x, meta.windowGrid.y, meta.windowGrid.w, meta.windowGrid.h + 1)
+  local cell = hs.geometry(
+    meta.windowGrid.x,
+    meta.windowGrid.y,
+    meta.windowGrid.w,
+    meta.windowGrid.h + 1
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end
 
 module.nudgeLeft = function()
   local meta = windowMeta()
-  local cell = hs.geometry(meta.windowGrid.x - 1, meta.windowGrid.y, meta.windowGrid.w, meta.windowGrid.h)
+  local cell = hs.geometry(
+    meta.windowGrid.x - 1,
+    meta.windowGrid.y,
+    meta.windowGrid.w,
+    meta.windowGrid.h
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end
 
 module.nudgeRight = function()
   local meta = windowMeta()
-  local cell = hs.geometry(meta.windowGrid.x + 1, meta.windowGrid.y, meta.windowGrid.w, meta.windowGrid.h)
+  local cell = hs.geometry(
+    meta.windowGrid.x + 1,
+    meta.windowGrid.y,
+    meta.windowGrid.w,
+    meta.windowGrid.h
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end
 
 module.nudgeUp = function()
   local meta = windowMeta()
-  local cell = hs.geometry(meta.windowGrid.x, meta.windowGrid.y - 1, meta.windowGrid.w, meta.windowGrid.h)
+  local cell = hs.geometry(
+    meta.windowGrid.x,
+    meta.windowGrid.y - 1,
+    meta.windowGrid.w,
+    meta.windowGrid.h
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end
 
 module.nudgeDown = function()
   local meta = windowMeta()
-  local cell = hs.geometry(meta.windowGrid.x, meta.windowGrid.y + 1, meta.windowGrid.w, meta.windowGrid.h)
+  local cell = hs.geometry(
+    meta.windowGrid.x,
+    meta.windowGrid.y + 1,
+    meta.windowGrid.w,
+    meta.windowGrid.h
+  )
 
   hs.grid.set(meta.window, cell, meta.screen)
 end

@@ -1,16 +1,16 @@
 local function convertMarkdownToConfluence()
   local originalClipboardContents = hs.pasteboard.getContents()
 
-  hs.alert.show('Converting from Markdown...')
+  hs.alert.show("Converting from Markdown...")
 
   -- Select all
-  hs.eventtap.keyStroke({ 'cmd' }, 'a', 0)
+  hs.eventtap.keyStroke({ "cmd" }, "a", 0)
 
   -- Get the current change count of the clipboard
   local changeCount = hs.pasteboard.changeCount()
 
   -- Cut to clipboard
-  hs.eventtap.keyStroke({ 'cmd' }, 'c', 0)
+  hs.eventtap.keyStroke({ "cmd" }, "c", 0)
 
   -- Wait for the clipboard to have the <textarea> contents.
   clipboardHasUpdated = function()
@@ -22,29 +22,29 @@ local function convertMarkdownToConfluence()
     local markdown = hs.pasteboard.getContents()
 
     -- Write it to a file
-    local file = io.open('/tmp/jira.md', 'w+')
+    local file = io.open("/tmp/jira.md", "w+")
     io.output(file)
     io.write(markdown)
     io.close(file)
 
     -- Run it through md2confl
-    local binPath = os.getenv('HOME') .. '/go/bin/md2confl'
-    local result = hs.execute('cat /tmp/jira.md | ' .. binPath)
+    local binPath = os.getenv("HOME") .. "/go/bin/md2confl"
+    local result = hs.execute("cat /tmp/jira.md | " .. binPath)
 
     -- Trim whitespace
-    result = string.gsub(result, '^%s*(.-)%s*$', '%1')
+    result = string.gsub(result, "^%s*(.-)%s*$", "%1")
 
-    local lines = hs.fnutils.split(result, '\n', nil, true)
+    local lines = hs.fnutils.split(result, "\n", nil, true)
 
     for index, line in ipairs(lines) do
       hs.eventtap.keyStrokes(line)
 
       if index < #lines then
-        hs.eventtap.keyStroke({}, 'return', 0)
+        hs.eventtap.keyStroke({}, "return", 0)
       end
     end
 
-    hs.alert.show('Done!')
+    hs.alert.show("Done!")
 
     -- Restore clipboard
     hs.pasteboard.setContents(originalClipboardContents)
@@ -56,4 +56,4 @@ local function convertMarkdownToConfluence()
   end)
 end
 
-hyperKey:bind('x'):toFunction('Markdown -> JIRA', convertMarkdownToConfluence)
+hyperKey:bind("x"):toFunction("Markdown -> JIRA", convertMarkdownToConfluence)

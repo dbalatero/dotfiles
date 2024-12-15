@@ -1,7 +1,7 @@
-local HyperKey = hs.loadSpoon('HyperKey')
+local HyperKey = hs.loadSpoon("HyperKey")
 
-hyper = { 'ctrl', 'alt', 'cmd', 'shift' }
-super = { 'ctrl', 'alt', 'cmd' }
+hyper = { "ctrl", "alt", "cmd", "shift" }
+super = { "ctrl", "alt", "cmd" }
 
 hyperKey = HyperKey:new(hyper)
 superKey = HyperKey:new(super)

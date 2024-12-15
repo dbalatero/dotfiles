@@ -17,28 +17,28 @@ local function eachCharacter(str, fn)
 end
 
 local characterOverrides = {
-  [' '] = { {}, 'space' },
-  ['!'] = { { 'shift' }, '1' },
-  ['@'] = { { 'shift' }, '2' },
-  ['#'] = { { 'shift' }, '3' },
-  ['$'] = { { 'shift' }, '4' },
-  ['%'] = { { 'shift' }, '5' },
-  ['^'] = { { 'shift' }, '6' },
-  ['&'] = { { 'shift' }, '7' },
-  ['*'] = { { 'shift' }, '8' },
-  ['('] = { { 'shift' }, '9' },
-  [')'] = { { 'shift' }, '0' },
-  ['"'] = { { 'shift' }, "'" },
-  [':'] = { { 'shift' }, ';' },
-  ['+'] = { { 'shift' }, '=' },
-  ['_'] = { { 'shift' }, '-' },
-  ['<'] = { { 'shift' }, ',' },
-  ['>'] = { { 'shift' }, '.' },
-  ['{'] = { { 'shift' }, '[' },
-  ['}'] = { { 'shift' }, ']' },
-  ['|'] = { { 'shift' }, '\\' },
-  ['?'] = { { 'shift' }, '/' },
-  ['~'] = { { 'shift' }, '`' },
+  [" "] = { {}, "space" },
+  ["!"] = { { "shift" }, "1" },
+  ["@"] = { { "shift" }, "2" },
+  ["#"] = { { "shift" }, "3" },
+  ["$"] = { { "shift" }, "4" },
+  ["%"] = { { "shift" }, "5" },
+  ["^"] = { { "shift" }, "6" },
+  ["&"] = { { "shift" }, "7" },
+  ["*"] = { { "shift" }, "8" },
+  ["("] = { { "shift" }, "9" },
+  [")"] = { { "shift" }, "0" },
+  ['"'] = { { "shift" }, "'" },
+  [":"] = { { "shift" }, ";" },
+  ["+"] = { { "shift" }, "=" },
+  ["_"] = { { "shift" }, "-" },
+  ["<"] = { { "shift" }, "," },
+  [">"] = { { "shift" }, "." },
+  ["{"] = { { "shift" }, "[" },
+  ["}"] = { { "shift" }, "]" },
+  ["|"] = { { "shift" }, "\\" },
+  ["?"] = { { "shift" }, "/" },
+  ["~"] = { { "shift" }, "`" },
 }
 
 local function printKeys(characters, options)
@@ -62,8 +62,8 @@ local function printKeys(characters, options)
         character = characterOverrides[char][2]
       end
 
-      if char:find('[A-Z]') then
-        table.insert(modifiers, 'shift')
+      if char:find("[A-Z]") then
+        table.insert(modifiers, "shift")
       end
 
       hs.eventtap.keyStroke(modifiers, character, 0)
@@ -78,9 +78,10 @@ local function printKeys(characters, options)
 end
 
 local function printLine(line, options)
-  print('printing: ' .. line)
+  print("printing: " .. line)
 
-  local newLineAtEnd = options.newLineAtEnd == nil and true or options.newLineAtEnd
+  local newLineAtEnd = options.newLineAtEnd == nil and true
+    or options.newLineAtEnd
 
   -- Pull out the passed in doneFn so we can wrap it:
   local doneFn = options.doneFn
@@ -88,7 +89,7 @@ local function printLine(line, options)
   options.doneFn = function()
     hs.timer.doAfter(150 / 1000, function()
       if newLineAtEnd then
-        hs.eventtap.keyStroke({}, 'return', 0)
+        hs.eventtap.keyStroke({}, "return", 0)
       end
 
       doneFn()
@@ -100,18 +101,18 @@ local function printLine(line, options)
 end
 
 local function triggerCompletions()
-  hs.eventtap.keyStroke({ 'ctrl' }, 'space', 0)
+  hs.eventtap.keyStroke({ "ctrl" }, "space", 0)
 end
 
 local actionHandlers = {
   closeHoverBox = function(_, nextAction)
-    hs.eventtap.keyStroke({}, 'escape', 0)
+    hs.eventtap.keyStroke({}, "escape", 0)
     hs.timer.doAfter(50 / 1000, nextAction)
   end,
   hoverDocumentation = function(_, nextAction)
     -- cmd+k cmd+i is hover docs by default in VSCode
-    hs.eventtap.keyStroke({ 'cmd' }, 'k', 50)
-    hs.eventtap.keyStroke({ 'cmd' }, 'i', 50)
+    hs.eventtap.keyStroke({ "cmd" }, "k", 50)
+    hs.eventtap.keyStroke({ "cmd" }, "i", 50)
     hs.timer.doAfter(50 / 1000, nextAction)
   end,
   keyPress = function(action, nextAction)
@@ -125,11 +126,11 @@ local actionHandlers = {
     end
   end,
   newLine = function(_action, nextAction)
-    hs.eventtap.keyStroke({}, 'return', 0)
+    hs.eventtap.keyStroke({}, "return", 0)
     nextAction()
   end,
   saveFile = function(_action, nextAction)
-    hs.eventtap.keyStroke({ 'cmd' }, 's', 0)
+    hs.eventtap.keyStroke({ "cmd" }, "s", 0)
     nextAction()
   end,
   selectFromAutocomplete = function(action, nextAction)
@@ -145,7 +146,7 @@ local actionHandlers = {
         newLineAtEnd = false,
         doneFn = function()
           -- Select autocomplete result
-          hs.eventtap.keyStroke({}, 'return', 0)
+          hs.eventtap.keyStroke({}, "return", 0)
           nextAction()
         end,
       })
@@ -173,8 +174,8 @@ local actionHandlers = {
     -- otherwise default to normal typing speed.
     local lines = action.lines
 
-    local afterLastLine = action.afterLastLine or 'printNewLine'
-    local newLineAfterLastLine = afterLastLine == 'printNewLine'
+    local afterLastLine = action.afterLastLine or "printNewLine"
+    local newLineAfterLastLine = afterLastLine == "printNewLine"
 
     local handleLine = nil
     handleLine = function()
@@ -183,11 +184,11 @@ local actionHandlers = {
       if line then
         local newLineAtEnd = newLineAfterLastLine or #lines > 0
 
-        if action.typingSpeed == 'instant' then
+        if action.typingSpeed == "instant" then
           hs.eventtap.keyStrokes(line)
           hs.timer.doAfter(100 / 1000, function()
             if newLineAtEnd then
-              hs.eventtap.keyStroke({}, 'return', 0)
+              hs.eventtap.keyStroke({}, "return", 0)
             end
             handleLine()
           end)
@@ -199,7 +200,9 @@ local actionHandlers = {
         end
       else
         -- Either wait for autocomplete to popup, or immediately fire nextAction.
-        local waitTimeout = action.afterLastLine == 'waitForAutocomplete' and 750 or 0
+        local waitTimeout = action.afterLastLine == "waitForAutocomplete"
+            and 750
+          or 0
         hs.timer.doAfter(waitTimeout / 1000, nextAction)
       end
     end
@@ -232,127 +235,127 @@ local function runMovieScript(movieScript)
   nextAction()
 end
 
-hs.hotkey.bind(super, '0', function()
+hs.hotkey.bind(super, "0", function()
   local dummyScript = {
     {
-      type = 'type',
+      type = "type",
       lines = {
         "import Mux from 'mux';",
-        '',
-        'const mux = new Mux({',
-        '  // These are dev env values',
+        "",
+        "const mux = new Mux({",
+        "  // These are dev env values",
         '  tokenId: "<your api token>",',
         '  tokenSecret: "<your api secret>",',
-        '});',
-        '',
-        'async function main() {',
+        "});",
+        "",
+        "async function main() {",
       },
-      typingSpeed = 'instant',
+      typingSpeed = "instant",
     },
     {
-      type = 'type',
+      type = "type",
       lines = {
-        '  const asset = await mux.video.',
+        "  const asset = await mux.video.",
       },
-      afterLastLine = 'waitForAutocomplete',
+      afterLastLine = "waitForAutocomplete",
     },
     {
-      type = 'type',
+      type = "type",
       lines = {
-        'as',
+        "as",
       },
-      afterLastLine = 'nothing',
+      afterLastLine = "nothing",
     },
-    { type = 'wait', waitMs = 200 },
-    { type = 'selectFromAutocomplete' },
+    { type = "wait", waitMs = 200 },
+    { type = "selectFromAutocomplete" },
     {
-      type = 'type',
+      type = "type",
       lines = {
-        '.',
+        ".",
       },
-      afterLastLine = 'waitForAutocomplete',
+      afterLastLine = "waitForAutocomplete",
     },
     {
-      type = 'selectFromAutocomplete',
-      narrowResults = 'cre',
+      type = "selectFromAutocomplete",
+      narrowResults = "cre",
     },
-    { type = 'wait', waitMs = 200 },
-    { type = 'hoverDocumentation' },
-    { type = 'wait', waitMs = 1800 },
-    { type = 'closeHoverBox' },
+    { type = "wait", waitMs = 200 },
+    { type = "hoverDocumentation" },
+    { type = "wait", waitMs = 1800 },
+    { type = "closeHoverBox" },
     {
-      type = 'type',
+      type = "type",
       lines = {
-        '({',
-        '    ',
+        "({",
+        "    ",
       },
-      afterLastLine = 'nothing',
+      afterLastLine = "nothing",
     },
-    { type = 'triggerCompletions' },
+    { type = "triggerCompletions" },
     {
-      type = 'type',
-      lines = { 'input' },
-      afterLastLine = 'nothing',
+      type = "type",
+      lines = { "input" },
+      afterLastLine = "nothing",
     },
-    { type = 'wait', waitMs = 200 },
-    { type = 'selectFromAutocomplete' },
-    { type = 'wait', waitMs = 200 },
-    { type = 'closeHoverBox' },
-    { type = 'hoverDocumentation' },
-    { type = 'wait', waitMs = 3000 },
+    { type = "wait", waitMs = 200 },
+    { type = "selectFromAutocomplete" },
+    { type = "wait", waitMs = 200 },
+    { type = "closeHoverBox" },
+    { type = "hoverDocumentation" },
+    { type = "wait", waitMs = 3000 },
     {
-      type = 'type',
+      type = "type",
       lines = {
         ": [{ url: 'https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4' }],",
-        '    play',
+        "    play",
       },
-      afterLastLine = 'nothing',
+      afterLastLine = "nothing",
     },
-    { type = 'triggerCompletions' },
-    { type = 'wait', waitMs = 200 },
-    { type = 'selectFromAutocomplete', triggerCompletions = false },
-    { type = 'wait', waitMs = 200 },
-    { type = 'closeHoverBox' },
-    { type = 'hoverDocumentation' },
-    { type = 'wait', waitMs = 3000 },
+    { type = "triggerCompletions" },
+    { type = "wait", waitMs = 200 },
+    { type = "selectFromAutocomplete", triggerCompletions = false },
+    { type = "wait", waitMs = 200 },
+    { type = "closeHoverBox" },
+    { type = "hoverDocumentation" },
+    { type = "wait", waitMs = 3000 },
     {
-      type = 'type',
+      type = "type",
       lines = {
         ": ['",
       },
-      afterLastLine = 'nothing',
+      afterLastLine = "nothing",
     },
-    { type = 'wait', waitMs = 1200 },
-    { type = 'selectFromAutocomplete' },
-    { type = 'wait', waitMs = 200 },
-    { type = 'type', lines = { "']," } },
+    { type = "wait", waitMs = 1200 },
+    { type = "selectFromAutocomplete" },
+    { type = "wait", waitMs = 200 },
+    { type = "type", lines = { "']," } },
     {
-      type = 'type',
+      type = "type",
       lines = {
-        '  });',
-        '  console.log(asset);',
-        '',
-        '  const assets = [];',
+        "  });",
+        "  console.log(asset);",
+        "",
+        "  const assets = [];",
       },
-      typingSpeed = 'instant',
+      typingSpeed = "instant",
     },
     {
-      type = 'type',
+      type = "type",
       lines = {
-        '  for await (const asset of mux.video.assets.list()) {',
-        '    console.log(asset.id);',
-        '    assets.push(asset);',
-        '  }',
-        '  console.log(assets.length);',
-        '}',
-        '',
-        'main().catch(console.error);',
+        "  for await (const asset of mux.video.assets.list()) {",
+        "    console.log(asset.id);",
+        "    assets.push(asset);",
+        "  }",
+        "  console.log(assets.length);",
+        "}",
+        "",
+        "main().catch(console.error);",
       },
-      afterLastLine = 'nothing',
-      typingSpeed = 'instant',
+      afterLastLine = "nothing",
+      typingSpeed = "instant",
     },
     {
-      type = 'saveFile',
+      type = "saveFile",
     },
   }
 

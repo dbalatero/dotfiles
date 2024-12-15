@@ -4,7 +4,7 @@ module.traverseChildren = function(element, matchFn)
   if matchFn(element) then
     return element
   else
-    local children = element:attributeValue('AXChildren')
+    local children = element:attributeValue("AXChildren")
 
     if children and #children > 0 then
       for _, child in ipairs(children) do
@@ -27,7 +27,7 @@ module.searchByChain = function(startElement, fns, debugPrint)
     current = module.traverseChildren(current, predicate)
 
     if debugPrint then
-      p('Got: ' .. hs.inspect.inspect(current))
+      p("Got: " .. hs.inspect.inspect(current))
     end
     if not current then
       return nil

@@ -1,10 +1,10 @@
-local find = require('slack.find')
-local debug = require('slack.debug')
+local debug = require("slack.debug")
+local find = require("slack.find")
 
 ----------
 
 local function getAxSlackWindow()
-  local app = hs.application.find('Slack')
+  local app = hs.application.find("Slack")
   if not app then
     return
   end
@@ -12,7 +12,7 @@ local function getAxSlackWindow()
   -- Electron apps require this attribute to be set or else you cannot
   -- read the accessibility tree
   axApp = hs.axuielement.applicationElement(app)
-  axApp:setAttributeValue('AXManualAccessibility', true)
+  axApp:setAttributeValue("AXManualAccessibility", true)
 
   local window = app:mainWindow()
   window:focus()
@@ -21,7 +21,7 @@ local function getAxSlackWindow()
 end
 
 local function hasClass(element, class)
-  local classList = element:attributeValue('AXDOMClassList')
+  local classList = element:attributeValue("AXDOMClassList")
   if not classList then
     return false
   end
@@ -41,24 +41,24 @@ module.mainMessageBox = function()
 
   local textarea = find.searchByChain(window, {
     function(elem)
-      return hasClass(elem, 'p-workspace-layout')
+      return hasClass(elem, "p-workspace-layout")
     end,
     function(elem)
-      return elem:attributeValue('AXSubrole') == 'AXLandmarkMain'
+      return elem:attributeValue("AXSubrole") == "AXLandmarkMain"
     end,
     function(elem)
-      return hasClass(elem, 'p-workspace__primary_view_contents')
+      return hasClass(elem, "p-workspace__primary_view_contents")
     end,
     function(elem)
-      return hasClass(elem, 'c-wysiwyg_container')
+      return hasClass(elem, "c-wysiwyg_container")
     end,
     function(elem)
-      return elem:attributeValue('AXRole') == 'AXTextArea'
+      return elem:attributeValue("AXRole") == "AXTextArea"
     end,
   })
 
   if textarea then
-    textarea:setAttributeValue('AXFocused', true)
+    textarea:setAttributeValue("AXFocused", true)
   end
 end
 
@@ -73,19 +73,19 @@ module.threadMessageBox = function(withRetry)
   local findTextarea = function()
     return find.searchByChain(window, {
       function(elem)
-        return hasClass(elem, 'p-workspace-layout')
+        return hasClass(elem, "p-workspace-layout")
       end,
       function(elem)
-        return hasClass(elem, 'p-flexpane')
+        return hasClass(elem, "p-flexpane")
       end,
       function(elem)
-        return hasClass(elem, 'p-threads_flexpane')
+        return hasClass(elem, "p-threads_flexpane")
       end,
       function(elem)
-        return hasClass(elem, 'c-wysiwyg_container')
+        return hasClass(elem, "c-wysiwyg_container")
       end,
       function(elem)
-        return elem:attributeValue('AXRole') == 'AXTextArea'
+        return elem:attributeValue("AXRole") == "AXTextArea"
       end,
     })
   end
@@ -98,7 +98,7 @@ module.threadMessageBox = function(withRetry)
   end
 
   local focusTextarea = function()
-    textarea:setAttributeValue('AXFocused', true)
+    textarea:setAttributeValue("AXFocused", true)
   end
 
   if withRetry then
@@ -123,10 +123,11 @@ module.leaveChannel = function()
 
   local button = find.searchByChain(window, {
     function(elem)
-      return hasClass(elem, 'p-workspace-layout')
+      return hasClass(elem, "p-workspace-layout")
     end,
     function(elem)
-      return elem:attributeValue('AXRole') == 'AXPopUpButton' and hasClass(elem, 'p-view_header__big_button--channel')
+      return elem:attributeValue("AXRole") == "AXPopUpButton"
+        and hasClass(elem, "p-view_header__big_button--channel")
     end,
   })
 
@@ -134,17 +135,19 @@ module.leaveChannel = function()
     return
   end
 
-  button:performAction('AXPress')
+  button:performAction("AXPress")
 
   leaveButton = nil
 
   local findLeaveButton = function()
     return find.searchByChain(window, {
       function(elem)
-        return elem:attributeValue('AXSubrole') == 'AXApplicationDialog' and hasClass(elem, 'p-about_modal')
+        return elem:attributeValue("AXSubrole") == "AXApplicationDialog"
+          and hasClass(elem, "p-about_modal")
       end,
       function(elem)
-        return elem:attributeValue('AXRole') == 'AXButton' and elem:attributeValue('AXTitle') == 'Leave channel'
+        return elem:attributeValue("AXRole") == "AXButton"
+          and elem:attributeValue("AXTitle") == "Leave channel"
       end,
     })
   end
@@ -155,7 +158,7 @@ module.leaveChannel = function()
   end
 
   local buttonTimer = hs.timer.waitUntil(leaveButtonVisible, function()
-    leaveButton:performAction('AXPress')
+    leaveButton:performAction("AXPress")
   end)
 
   hs.timer.doAfter(2, function()

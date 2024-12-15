@@ -1,10 +1,10 @@
-local VimMode = hs.loadSpoon('VimMode')
+local VimMode = hs.loadSpoon("VimMode")
 local vim = VimMode:new()
 
 hs.chooser.globalCallback = function(chooser, eventName)
   hs.chooser._defaultGlobalCallback(chooser, eventName)
 
-  if eventName == 'willOpen' then
+  if eventName == "willOpen" then
     vim:disable()
   else
     vim:enable()
@@ -15,23 +15,23 @@ end
 -- For example, you don't want this plugin overriding your control of Terminal
 -- vim
 vim
-  :disableForApp('Alacritty')
-  :disableForApp('kitty')
-  :disableForApp('Obsidian')
-  :disableForApp('Code')
-  :disableForApp('Terminal')
-  :disableForApp('Tuple')
-  :disableForApp('Visual Studio Code')
-  :disableForApp('iTerm')
-  :disableForApp('iTerm2')
-  :disableForApp('zoom.us')
-  :disableForApp('IntelliJ IDEA')
+  :disableForApp("Alacritty")
+  :disableForApp("kitty")
+  :disableForApp("Obsidian")
+  :disableForApp("Code")
+  :disableForApp("Terminal")
+  :disableForApp("Tuple")
+  :disableForApp("Visual Studio Code")
+  :disableForApp("iTerm")
+  :disableForApp("iTerm2")
+  :disableForApp("zoom.us")
+  :disableForApp("IntelliJ IDEA")
 
-vim:enableBetaFeature('block_cursor_overlay')
+vim:enableBetaFeature("block_cursor_overlay")
 
-vim:enableBetaFeature('fallback_only_urls')
+vim:enableBetaFeature("fallback_only_urls")
 vim:setFallbackOnlyUrlPatterns({
-  'docs.google.com',
+  "docs.google.com",
 })
 
 -- If you want the screen to dim (a la Flux) when you enter normal mode
@@ -42,10 +42,10 @@ vim:shouldDimScreenInNormalMode(false)
 -- this to true
 vim:shouldShowAlertInNormalMode(true)
 
-vim:setAlertFont('InconsolataGo Bold Nerd Font Complete')
+vim:setAlertFont("InconsolataGo Bold Nerd Font Complete")
 
 -- Enter normal mode by typing a key sequence
-vim:enterWithSequence('jk', 100)
+vim:enterWithSequence("jk", 100)
 -- if you want to bind a single key to entering vim, remove the
 -- :enterWithSequence('jk') line above and uncomment the bindHotKeys line
 -- below:
@@ -59,4 +59,6 @@ vim:enterWithSequence('jk', 100)
 --------------------------------
 --
 
-hyperKey:bind('2'):toFunction('Test accessibility', VimMode.utils.debug.testAccessibilityField)
+hyperKey
+  :bind("2")
+  :toFunction("Test accessibility", VimMode.utils.debug.testAccessibilityField)

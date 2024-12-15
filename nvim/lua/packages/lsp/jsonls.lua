@@ -23,7 +23,11 @@ require("lspconfig").cssls.setup({
         },
         {
           description = "Prettier config",
-          fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json" },
+          fileMatch = {
+            ".prettierrc",
+            ".prettierrc.json",
+            "prettier.config.json",
+          },
           url = "http://json.schemastore.org/prettierrc",
         },
         {
@@ -33,11 +37,14 @@ require("lspconfig").cssls.setup({
         },
         {
           description = "Stylelint config",
-          fileMatch = { ".stylelintrc", ".stylelintrc.json", "stylelint.config.json" },
+          fileMatch = {
+            ".stylelintrc",
+            ".stylelintrc.json",
+            "stylelint.config.json",
+          },
           url = "http://json.schemastore.org/stylelintrc",
         },
       },
     },
-
-  }
+  },
 })

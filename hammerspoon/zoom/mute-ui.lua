@@ -42,11 +42,11 @@ function MuteUI:new()
     h = 136,
   })
 
-  status.canvas:level('overlay')
+  status.canvas:level("overlay")
 
   status.canvas:insertElement({
-    type = 'rectangle',
-    action = 'fill',
+    type = "rectangle",
+    action = "fill",
     roundedRectRadii = { xRadius = 10, yRadius = 10 },
     fillColor = rgba(0, 0, 0, 0.85),
     withShadow = true,
@@ -58,9 +58,11 @@ function MuteUI:new()
   }, status.indexes.background)
 
   status.canvas:insertElement({
-    type = 'image',
-    action = 'fill',
-    image = hs.image.imageFromPath(os.getenv('HOME') .. '/.hammerspoon/zoom/volume-off.png'),
+    type = "image",
+    action = "fill",
+    image = hs.image.imageFromPath(
+      os.getenv("HOME") .. "/.hammerspoon/zoom/volume-off.png"
+    ),
     frame = {
       x = (status.canvas:size().w / 2) - 32,
       y = 4,
@@ -70,12 +72,12 @@ function MuteUI:new()
   }, status.indexes.icon)
 
   status.canvas:insertElement({
-    type = 'text',
-    action = 'fill',
-    text = 'Muted',
-    textAlignment = 'center',
+    type = "text",
+    action = "fill",
+    text = "Muted",
+    textAlignment = "center",
     textColor = status.colors.muted,
-    textFont = 'Helvetica Bold',
+    textFont = "Helvetica Bold",
     textSize = 14,
     frame = {
       x = (status.canvas:size().w / 2) - 32,
@@ -86,20 +88,20 @@ function MuteUI:new()
   }, status.indexes.muteText)
 
   status.canvas:insertElement({
-    type = 'rectangle',
-    action = 'fill',
+    type = "rectangle",
+    action = "fill",
     fillColor = rgba(255, 255, 255, 0.5),
     frame = {
       x = 0,
       y = 94,
-      w = '100%',
+      w = "100%",
       h = 1,
     },
   }, status.indexes.horizontalLine)
 
   status.canvas:insertElement({
-    type = 'rectangle',
-    action = 'fill',
+    type = "rectangle",
+    action = "fill",
     fillColor = rgba(255, 255, 255, 0.5),
     frame = {
       x = status.canvas:size().w / 2,
@@ -110,12 +112,12 @@ function MuteUI:new()
   }, status.indexes.verticalLine)
 
   status.canvas:insertElement({
-    type = 'text',
-    action = 'fill',
-    text = 'Toggle\n⌘⇧⌥⌃ M',
-    textAlignment = 'center',
+    type = "text",
+    action = "fill",
+    text = "Toggle\n⌘⇧⌥⌃ M",
+    textAlignment = "center",
     textColor = rgba(255, 255, 255, 0.9),
-    textFont = 'Helvetica Bold',
+    textFont = "Helvetica Bold",
     textSize = 12,
     frame = {
       x = 0,
@@ -126,12 +128,12 @@ function MuteUI:new()
   }, status.indexes.toggleHotkeyText)
 
   status.canvas:insertElement({
-    type = 'text',
-    action = 'fill',
-    text = 'Show/Hide\n⌘⇧⌥⌃ Z',
-    textAlignment = 'center',
+    type = "text",
+    action = "fill",
+    text = "Show/Hide\n⌘⇧⌥⌃ Z",
+    textAlignment = "center",
     textColor = rgba(255, 255, 255, 0.9),
-    textFont = 'Helvetica Bold',
+    textFont = "Helvetica Bold",
     textSize = 12,
     frame = {
       x = status.canvas:size().w / 2,
@@ -174,23 +176,35 @@ function MuteUI:setMuted(muted)
   if muted then
     self.canvas:elementAttribute(
       self.indexes.icon,
-      'image',
-      hs.image.imageFromPath(os.getenv('HOME') .. '/.hammerspoon/zoom/volume-off.png')
+      "image",
+      hs.image.imageFromPath(
+        os.getenv("HOME") .. "/.hammerspoon/zoom/volume-off.png"
+      )
     )
 
-    self.canvas:elementAttribute(self.indexes.muteText, 'text', 'Muted')
+    self.canvas:elementAttribute(self.indexes.muteText, "text", "Muted")
 
-    self.canvas:elementAttribute(self.indexes.muteText, 'textColor', self.colors.muted)
+    self.canvas:elementAttribute(
+      self.indexes.muteText,
+      "textColor",
+      self.colors.muted
+    )
   else
     self.canvas:elementAttribute(
       self.indexes.icon,
-      'image',
-      hs.image.imageFromPath(os.getenv('HOME') .. '/.hammerspoon/zoom/volume-on.png')
+      "image",
+      hs.image.imageFromPath(
+        os.getenv("HOME") .. "/.hammerspoon/zoom/volume-on.png"
+      )
     )
 
-    self.canvas:elementAttribute(self.indexes.muteText, 'text', 'Unmuted')
+    self.canvas:elementAttribute(self.indexes.muteText, "text", "Unmuted")
 
-    self.canvas:elementAttribute(self.indexes.muteText, 'textColor', self.colors.unmuted)
+    self.canvas:elementAttribute(
+      self.indexes.muteText,
+      "textColor",
+      self.colors.unmuted
+    )
   end
 end
 

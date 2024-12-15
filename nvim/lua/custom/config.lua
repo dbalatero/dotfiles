@@ -7,7 +7,8 @@ local function is_macos()
 end
 
 local function is_stripe_laptop()
-  return is_macos() and vim.fn.isdirectory(os.getenv("HOME") .. "/stripe/pay-server") == 1
+  return is_macos()
+    and vim.fn.isdirectory(os.getenv("HOME") .. "/stripe/pay-server") == 1
 end
 
 local function is_stripe_machine()
@@ -25,6 +26,6 @@ return {
     payServer = in_pay_server(),
     utils = {
       is_stripe_machine = is_stripe_machine,
-    }
-  }
+    },
+  },
 }

@@ -12,12 +12,12 @@ end
 -- see http://colorsafe.co for combos
 local layers = {
   default = {
-    name = 'qwerty',
+    name = "qwerty",
     background = rgba(187, 187, 187),
     foreground = rgba(46, 52, 59),
   },
   raise = {
-    name = 'raise',
+    name = "raise",
     background = rgba(163, 209, 255),
     foreground = rgba(15, 72, 128),
   },
@@ -50,23 +50,23 @@ function LayerIndicator:new(defaultLayer)
   })
 
   indicator.canvas:insertElement({
-    type = 'rectangle',
-    action = 'fill',
+    type = "rectangle",
+    action = "fill",
     roundedRectRadii = { xRadius = 4, yRadius = 4 },
     fillColor = { red = 0, green = 0, blue = 0, alpha = 1.0 },
-    frame = { x = '0%', y = '0%', h = '100%', w = '100%' },
+    frame = { x = "0%", y = "0%", h = "100%", w = "100%" },
   }, elementIndexBox)
 
   indicator.canvas:insertElement({
-    type = 'text',
-    action = 'fill',
+    type = "text",
+    action = "fill",
     frame = {
-      x = '10%',
-      y = '0%',
-      h = '100%',
-      w = '95%',
+      x = "10%",
+      y = "0%",
+      h = "100%",
+      w = "95%",
     },
-    text = '',
+    text = "",
   }, elementIndexText)
 
   indicator:render()
@@ -84,11 +84,13 @@ function LayerIndicator:startWatchers()
   end
 
   -- fix alt tabbing from fullscreen games/etc not re-rendering correctly
-  self.appWatcher = hs.application.watcher.new(function(applicationName, eventType)
-    if eventType == hs.application.watcher.activated then
-      delayRender()
+  self.appWatcher = hs.application.watcher.new(
+    function(applicationName, eventType)
+      if eventType == hs.application.watcher.activated then
+        delayRender()
+      end
     end
-  end)
+  )
 
   self.appWatcher:start()
 
@@ -113,16 +115,16 @@ function LayerIndicator:render()
   -- set the text
   canvas:elementAttribute(
     elementIndexText,
-    'text',
+    "text",
     hs.styledtext.new(self.layer.name, {
-      font = { name = 'Helvetica Bold', size = 11 },
+      font = { name = "Helvetica Bold", size = 11 },
       color = self.layer.foreground,
       kerning = 0.5,
     })
   )
 
   -- box color
-  canvas:elementAttribute(elementIndexBox, 'fillColor', self.layer.background)
+  canvas:elementAttribute(elementIndexBox, "fillColor", self.layer.background)
 
   -- position
   local frame = self:getFrame()
@@ -145,7 +147,7 @@ function LayerIndicator:show()
     self.canvas:show()
 
     -- show it above the Menu Bar
-    self.canvas:level('overlay')
+    self.canvas:level("overlay")
   end
 end
 
@@ -161,22 +163,26 @@ end
 
 --------------- bindings
 
-local lowTom = hs.sound.getByFile(os.getenv('HOME') .. '/.hammerspoon/sounds/808-tom-low.wav')
-local highTom = hs.sound.getByFile(os.getenv('HOME') .. '/.hammerspoon/sounds/808-tom-high.wav')
+local lowTom = hs.sound.getByFile(
+  os.getenv("HOME") .. "/.hammerspoon/sounds/808-tom-low.wav"
+)
+local highTom = hs.sound.getByFile(
+  os.getenv("HOME") .. "/.hammerspoon/sounds/808-tom-high.wav"
+)
 
 lowTom:volume(0.05)
 highTom:volume(0.05)
 
 local indicator = LayerIndicator:new(layers.default)
 
-hs.hotkey.bind({}, 'f17', function()
+hs.hotkey.bind({}, "f17", function()
   indicator:setLayer(layers.raise)
 
   highTom:currentTime(0)
   highTom:play()
 end)
 
-hs.hotkey.bind({}, 'f18', function()
+hs.hotkey.bind({}, "f18", function()
   indicator:setLayer(layers.default)
 
   lowTom:currentTime(0)

@@ -1,6 +1,6 @@
-local onModifierHold = require('which-key.on-modifier-hold')
-local Overlay = require('which-key.overlay')
-local bindings = require('which-key.bindings')
+local Overlay = require("which-key.overlay")
+local bindings = require("which-key.bindings")
+local onModifierHold = require("which-key.on-modifier-hold")
 
 ------------------------------------------
 
@@ -26,7 +26,8 @@ function WhichKey:new(modifiers)
     instance.overlay:hide()
   end
 
-  instance.holdTap = onModifierHold(modifiers, overlayTimeoutMs, onHold, onRelease)
+  instance.holdTap =
+    onModifierHold(modifiers, overlayTimeoutMs, onHold, onRelease)
 
   return instance
 end
@@ -44,10 +45,18 @@ function WhichKey:bind(displayedKey, bindKey)
   --   hyperKey:bind('t'):toApplication('/Applications/Utilities/Terminal.app')
   return {
     toApplication = function(_, applicationName)
-      return self:_bind(displayedKey, bindKey, bindings.ApplicationBinding:new(applicationName))
+      return self:_bind(
+        displayedKey,
+        bindKey,
+        bindings.ApplicationBinding:new(applicationName)
+      )
     end,
     toFunction = function(_, name, fn)
-      return self:_bind(displayedKey, bindKey, bindings.FunctionBinding:new(name, fn))
+      return self:_bind(
+        displayedKey,
+        bindKey,
+        bindings.FunctionBinding:new(name, fn)
+      )
     end,
   }
 end

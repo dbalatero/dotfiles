@@ -10,7 +10,12 @@ return {
       vim.o.shell = "/bin/bash --norc -i"
 
       -- <C-K>       * :<C-U>TmuxNavigateUp<CR>
-      vim.keymap.set({ "n" }, "<C-k>", ":<C-U>TmuxNavigateUp<CR>", { silent = true, noremap = true })
+      vim.keymap.set(
+        { "n" },
+        "<C-k>",
+        ":<C-U>TmuxNavigateUp<CR>",
+        { silent = true, noremap = true }
+      )
     end,
   },
 

@@ -6,7 +6,10 @@ hyperKey
   :bind("c")
   :toApplication("/Applications/Google Chrome.app")
   :bind("l")
-  :toApplication(os.getenv("HOME") .. "/Applications/Chrome Apps.localized/Google Calendar.app")
+  :toApplication(
+    os.getenv("HOME")
+      .. "/Applications/Chrome Apps.localized/Google Calendar.app"
+  )
   :bind("s")
   :toApplication("/Applications/Spotify.app")
   :bind("t")

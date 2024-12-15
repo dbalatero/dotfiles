@@ -1,9 +1,9 @@
 local snippets = {
-  ['+date'] = function()
-    return os.date('%B %d, %Y', os.time())
+  ["+date"] = function()
+    return os.date("%B %d, %Y", os.time())
   end,
-  ['+email'] = 'd@balatero.com',
-  ['+meet'] = 'https://zoom.us/12345678',
+  ["+email"] = "d@balatero.com",
+  ["+meet"] = "https://zoom.us/12345678",
 }
 
 local function buildTrie(snippets)
@@ -33,7 +33,7 @@ local function buildTrie(snippets)
       local isLastChar = i == #shortcode
 
       if isLastChar then
-        if type(snippet) == 'function' then
+        if type(snippet) == "function" then
           -- If the snippet is a function, just save it off to be called
           -- later.
           currentElement.expandFn = snippet
@@ -52,51 +52,51 @@ local function buildTrie(snippets)
 end
 
 local shiftedKeymap = {
-  ['1'] = '!',
-  ['2'] = '@',
-  ['3'] = '#',
-  ['4'] = '$',
-  ['5'] = '%',
-  ['6'] = '^',
-  ['7'] = '&',
-  ['8'] = '*',
-  ['9'] = '(',
-  ['0'] = ')',
-  ['`'] = '~',
-  ['-'] = '_',
-  ['='] = '+',
-  ['['] = '{',
-  [']'] = '}',
-  ['\\'] = '|',
-  ['/'] = '?',
-  [','] = '<',
-  ['.'] = '>',
+  ["1"] = "!",
+  ["2"] = "@",
+  ["3"] = "#",
+  ["4"] = "$",
+  ["5"] = "%",
+  ["6"] = "^",
+  ["7"] = "&",
+  ["8"] = "*",
+  ["9"] = "(",
+  ["0"] = ")",
+  ["`"] = "~",
+  ["-"] = "_",
+  ["="] = "+",
+  ["["] = "{",
+  ["]"] = "}",
+  ["\\"] = "|",
+  ["/"] = "?",
+  [","] = "<",
+  ["."] = ">",
   ["'"] = '"',
-  [';'] = ':',
+  [";"] = ":",
 }
 
 local unshiftedKeymap = {
-  ['!'] = '1',
-  ['@'] = '2',
-  ['#'] = '3',
-  ['$'] = '4',
-  ['%'] = '5',
-  ['^'] = '6',
-  ['&'] = '7',
-  ['*'] = '8',
-  ['('] = '9',
-  [')'] = '0',
-  ['~'] = '`',
-  ['_'] = '-',
-  ['+'] = '=',
-  ['{'] = '[',
-  ['}'] = ']',
-  ['|'] = '\\',
-  ['?'] = '/',
-  ['<'] = ',',
-  ['>'] = '.',
+  ["!"] = "1",
+  ["@"] = "2",
+  ["#"] = "3",
+  ["$"] = "4",
+  ["%"] = "5",
+  ["^"] = "6",
+  ["&"] = "7",
+  ["*"] = "8",
+  ["("] = "9",
+  [")"] = "0",
+  ["~"] = "`",
+  ["_"] = "-",
+  ["+"] = "=",
+  ["{"] = "[",
+  ["}"] = "]",
+  ["|"] = "\\",
+  ["?"] = "/",
+  ["<"] = ",",
+  [">"] = ".",
   ['"'] = "'",
-  [':'] = ';',
+  [":"] = ";",
 }
 
 -- Returns a table with a key down and key up event for a given (mods, key)
@@ -112,79 +112,87 @@ local snippetTrie = buildTrie(snippets)
 local numPresses = 0
 local currentTrieNode = snippetTrie
 
-snippetWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
-  local keyPressed = hs.keycodes.map[event:getKeyCode()]
+snippetWatcher = hs.eventtap.new(
+  { hs.eventtap.event.types.keyDown },
+  function(event)
+    local keyPressed = hs.keycodes.map[event:getKeyCode()]
 
-  if event:getFlags():containExactly({ 'shift' }) then
-    -- Convert the keycode to the shifted version of the key,
-    -- e.g. "=" turns into "+", etc.
-    keyPressed = shiftedKeymap[keyPressed] or keyPressed
-  end
+    if event:getFlags():containExactly({ "shift" }) then
+      -- Convert the keycode to the shifted version of the key,
+      -- e.g. "=" turns into "+", etc.
+      keyPressed = shiftedKeymap[keyPressed] or keyPressed
+    end
 
-  local shouldFireSnippet = keyPressed == 'return' or keyPressed == 'space'
+    local shouldFireSnippet = keyPressed == "return" or keyPressed == "space"
 
-  local reset = function()
-    currentTrieNode = snippetTrie
-    numPresses = 0
-  end
+    local reset = function()
+      currentTrieNode = snippetTrie
+      numPresses = 0
+    end
 
-  if currentTrieNode.expandFn then
-    if shouldFireSnippet then
-      local keyEventsToPost = {}
+    if currentTrieNode.expandFn then
+      if shouldFireSnippet then
+        local keyEventsToPost = {}
 
-      -- Delete backwards however many times a key has been typed, to remove
-      -- the snippet "+keyword"
-      for i = 1, numPresses do
-        keyEventsToPost = hs.fnutils.concat(keyEventsToPost, keySequence({}, 'delete'))
-      end
-
-      -- Call the snippet's function to get the snippet expansion.
-      local textToWrite = currentTrieNode.expandFn()
-
-      for i = 1, textToWrite:len() do
-        local char = textToWrite:sub(i, i)
-        local flags = {}
-
-        -- If you encounter a shifted character, like "*", you have to convert
-        -- it back to its modifiers + keycode form.
-        --
-        -- Example:
-        --   If char == "*"
-        --   Send `shift + 8` instead.
-        if unshiftedKeymap[char] then
-          flags = { 'shift' }
-          char = unshiftedKeymap[char]
+        -- Delete backwards however many times a key has been typed, to remove
+        -- the snippet "+keyword"
+        for i = 1, numPresses do
+          keyEventsToPost =
+            hs.fnutils.concat(keyEventsToPost, keySequence({}, "delete"))
         end
 
-        keyEventsToPost = hs.fnutils.concat(keyEventsToPost, keySequence(flags, char))
+        -- Call the snippet's function to get the snippet expansion.
+        local textToWrite = currentTrieNode.expandFn()
+
+        for i = 1, textToWrite:len() do
+          local char = textToWrite:sub(i, i)
+          local flags = {}
+
+          -- If you encounter a shifted character, like "*", you have to convert
+          -- it back to its modifiers + keycode form.
+          --
+          -- Example:
+          --   If char == "*"
+          --   Send `shift + 8` instead.
+          if unshiftedKeymap[char] then
+            flags = { "shift" }
+            char = unshiftedKeymap[char]
+          end
+
+          keyEventsToPost =
+            hs.fnutils.concat(keyEventsToPost, keySequence(flags, char))
+        end
+
+        -- Send along the keypress that activated the snippet (either space or
+        -- return).
+        -- hs.eventtap.keyStroke(event:getFlags(), keyPressed, 0)
+        keyEventsToPost = hs.fnutils.concat(
+          keyEventsToPost,
+          keySequence(event:getFlags(), event:getKeyCode())
+        )
+
+        -- Reset our pointers back to the beginning to get ready for the next
+        -- snippet.
+        reset()
+
+        -- Don't pass thru the original keypress, and return our replacement key
+        -- events instead.
+        return true, keyEventsToPost
+      else
+        reset()
+        return false
       end
+    end
 
-      -- Send along the keypress that activated the snippet (either space or
-      -- return).
-      -- hs.eventtap.keyStroke(event:getFlags(), keyPressed, 0)
-      keyEventsToPost = hs.fnutils.concat(keyEventsToPost, keySequence(event:getFlags(), event:getKeyCode()))
-
-      -- Reset our pointers back to the beginning to get ready for the next
-      -- snippet.
-      reset()
-
-      -- Don't pass thru the original keypress, and return our replacement key
-      -- events instead.
-      return true, keyEventsToPost
+    if currentTrieNode.children[keyPressed] then
+      currentTrieNode = currentTrieNode.children[keyPressed]
+      numPresses = numPresses + 1
     else
       reset()
-      return false
     end
-  end
 
-  if currentTrieNode.children[keyPressed] then
-    currentTrieNode = currentTrieNode.children[keyPressed]
-    numPresses = numPresses + 1
-  else
-    reset()
+    return false
   end
-
-  return false
-end)
+)
 
 snippetWatcher:start()

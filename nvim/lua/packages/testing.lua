@@ -78,6 +78,6 @@ return {
             call add(test#enabled_runners, "javascript#payserver")
           end
         ]])
-    end
-  }
+    end,
+  },
 }

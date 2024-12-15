@@ -23,40 +23,40 @@ local blueUtil = resolvePath({
 
 local function disconnectHeadphones()
   hs.task
-      .new(blueUtil, function()
-        p("Unpairing device: " .. getDeviceId() .. " with " .. blueUtil)
-        hs.alert("Disconnected headphones")
-      end, {
-        "--disconnect",
-        getDeviceId(),
-      })
-      :start()
+    .new(blueUtil, function()
+      p("Unpairing device: " .. getDeviceId() .. " with " .. blueUtil)
+      hs.alert("Disconnected headphones")
+    end, {
+      "--disconnect",
+      getDeviceId(),
+    })
+    :start()
 end
 
 local function connectHeadphones()
   hs.task
-      .new(blueUtil, function()
-        p("Pairing device: " .. getDeviceId() .. " with " .. blueUtil)
-        hs.alert("Connected headphones")
-      end, {
-        "--connect",
-        getDeviceId(),
-      })
-      :start()
+    .new(blueUtil, function()
+      p("Pairing device: " .. getDeviceId() .. " with " .. blueUtil)
+      hs.alert("Connected headphones")
+    end, {
+      "--connect",
+      getDeviceId(),
+    })
+    :start()
 end
 
 local function checkHeadphonesConnected(fn)
   hs.task
-      .new(blueUtil, function(_, stdout)
-        stdout = string.gsub(stdout, "\n$", "")
-        local isConnected = stdout == "1"
+    .new(blueUtil, function(_, stdout)
+      stdout = string.gsub(stdout, "\n$", "")
+      local isConnected = stdout == "1"
 
-        fn(isConnected)
-      end, {
-        "--is-connected",
-        getDeviceId(),
-      })
-      :start()
+      fn(isConnected)
+    end, {
+      "--is-connected",
+      getDeviceId(),
+    })
+    :start()
 end
 
 local function toggleHeadphones()

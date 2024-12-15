@@ -2,7 +2,11 @@ local M = {}
 
 M.build_capabilities = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+  capabilities = vim.tbl_deep_extend(
+    "force",
+    capabilities,
+    require("cmp_nvim_lsp").default_capabilities()
+  )
 
   return capabilities
 end
@@ -56,8 +60,16 @@ M.on_attach = function(_client, bufnr)
 
   -- Lesser used LSP functionality
   nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-  nmap("<leader>lwa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-  nmap("<leader>lwr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+  nmap(
+    "<leader>lwa",
+    vim.lsp.buf.add_workspace_folder,
+    "[W]orkspace [A]dd Folder"
+  )
+  nmap(
+    "<leader>lwr",
+    vim.lsp.buf.remove_workspace_folder,
+    "[W]orkspace [R]emove Folder"
+  )
   nmap("<leader>lwl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, "[W]orkspace [L]ist Folders")

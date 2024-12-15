@@ -42,8 +42,6 @@ local function create_hs_config()
   return settings
 end
 
-print(vim.inspect(create_hs_config()))
-
 require("lspconfig").lua_ls.setup({
   capabilities = setup.build_capabilities(),
   on_attach = function(client, bufnr)
@@ -55,6 +53,8 @@ require("lspconfig").lua_ls.setup({
     local path = client.workspace_folders[1].name
 
     if string.match(path, "hammerspoon") then
+      -- TODO: This is not working because it thinks the path is
+      -- ~/.config/dotfiles
       client.config.settings = create_hs_config()
       client.notify("workspace/didChangeConfiguration")
     end

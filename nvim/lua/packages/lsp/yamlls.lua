@@ -14,5 +14,4 @@ require("lspconfig").bashls.setup({
       },
     },
   },
-
 })

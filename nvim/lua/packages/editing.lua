@@ -34,7 +34,11 @@ return {
         { "n" },
         "<leader>nf",
         ":lua require('neogen').generate()<CR>",
-        { noremap = true, silent = true, desc = "Generate [f]unction annotations" }
+        {
+          noremap = true,
+          silent = true,
+          desc = "Generate [f]unction annotations",
+        }
       )
     end,
     opts = {
@@ -66,8 +70,18 @@ return {
         pattern = "*",
         callback = function()
           if langs[vim.bo.filetype] then
-            vim.keymap.set("n", "gS", "<Cmd>TSJSplit<CR>", { buffer = true, desc = "[S]plit under cursor" })
-            vim.keymap.set("n", "gJ", "<Cmd>TSJJoin<CR>", { buffer = true, desc = "[J]oin under cursor" })
+            vim.keymap.set(
+              "n",
+              "gS",
+              "<Cmd>TSJSplit<CR>",
+              { buffer = true, desc = "[S]plit under cursor" }
+            )
+            vim.keymap.set(
+              "n",
+              "gJ",
+              "<Cmd>TSJJoin<CR>",
+              { buffer = true, desc = "[J]oin under cursor" }
+            )
           else
             vim.keymap.set(
               "n",

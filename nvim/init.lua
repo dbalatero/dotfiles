@@ -97,7 +97,8 @@ vim.g.loaded_perl_provider = 0
 
 -- Python
 vim.g.python_host_prog = vim.env.HOME .. "/.pyenv/versions/py2neovim/bin/python"
-vim.g.python3_host_prog = vim.env.HOME .. "/.pyenv/versions/py3neovim/bin/python"
+vim.g.python3_host_prog = vim.env.HOME
+  .. "/.pyenv/versions/py3neovim/bin/python"
 
 -- Node
 vim.g.latest_node_path = vim.env.HOME .. "/.nodenv/versions/15.7.0/bin/node"
@@ -145,7 +146,8 @@ vim.cmd([[
 --  │ See `:help vim.highlight.on_yank()`                      │
 --  ╰──────────────────────────────────────────────────────────╯
 
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+local highlight_group =
+  vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()

@@ -31,7 +31,7 @@ return {
       if require("custom.config").stripe.machine then
         vim.g.github_enterprise_urls = { "https://git.corp.stripe.com" }
       end
-    end
+    end,
   },
 
   {

@@ -52,14 +52,13 @@ return {
           },
         },
       })
-    end
+    end,
   },
 
   {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
     opts = {
-      debug = true,
       library = {
         -- See the configuration section for more details
         -- Load luvit types when the `vim.uv` word is found
@@ -132,7 +131,12 @@ return {
         vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
       end, { desc = "Go to next error message" })
 
-      vim.keymap.set("n", "g>", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+      vim.keymap.set(
+        "n",
+        "g>",
+        vim.diagnostic.goto_next,
+        { desc = "Go to next diagnostic" }
+      )
 
       vim.keymap.set(
         "n",
@@ -178,13 +182,13 @@ return {
           require("mason").setup({
             install_root_dir = get_mason_path(),
           })
-        end
+        end,
       },
       "williamboman/mason-lspconfig.nvim",
       {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         config = function()
-          require('mason-tool-installer').setup({
+          require("mason-tool-installer").setup({
             ensure_installed = {
               -- LSPs
               "bashls",
@@ -195,29 +199,29 @@ return {
               "yamlls",
             },
           })
-        end
+        end,
       },
       {
         url = "git@git.corp.stripe.com:nms/nvim-lspconfig-stripe.git",
         cond = require("custom.config").stripe.utils.is_stripe_machine,
         config = function()
           require("packages.lsp.payserver_sorbet")
-        end
-      }
+        end,
+      },
     },
   },
 
   {
     "j-hui/fidget.nvim",
     config = function()
-      require('fidget').setup({
+      require("fidget").setup({
         progress = {
           ignore = {
             -- "none-ls",
             -- "null-ls",
-          }
-        }
+          },
+        },
       })
-    end
+    end,
   },
 }
