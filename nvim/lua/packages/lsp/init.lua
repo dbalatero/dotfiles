@@ -212,6 +212,13 @@ return {
     config = function()
       -- Configure servers
       require("packages.lsp.servers")
+
+      vim.keymap.set(
+        "n",
+        "<leader>li",
+        ":LspInfo<CR>",
+        { desc = "LSP: [I]nfo" }
+      )
     end,
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
