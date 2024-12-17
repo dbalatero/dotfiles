@@ -1,9 +1,9 @@
 -- ╭─────────────────────────────────────────────────────────╮
 -- │ LSP                                                     │
 -- ╰─────────────────────────────────────────────────────────╯
-local function get_mason_path()
-  local config = require("custom.config")
+local config = require("custom.config")
 
+local function get_mason_path()
   if config.stripe.machine then
     return os.getenv("HOME") .. "/stripe/mason"
   else
@@ -27,7 +27,7 @@ return {
       "nvim-lua/plenary.nvim",
     },
     config = function()
-      require("typescript-tools").setup({
+      local ts_config = {
         on_attach = function(client, bufnr)
           client.server_capabilities.documentFormattingProvider = false
           client.server_capabilities.documentRangeFormattingProvider = false
@@ -40,6 +40,7 @@ return {
           publish_diagnostic_on = "insert_leave",
           tsserver_max_memory = "auto",
           tsserver_locale = "en",
+          -- tsserver_logs = "verbose",
           tsserver_file_preferences = {
             includeInlayParameterNameHints = "all",
             includeInlayParameterNameHintsWhenArgumentMatchesName = true,
@@ -51,7 +52,14 @@ return {
             includeInlayEnumMemberValueHints = true,
           },
         },
-      })
+      }
+
+      if config.stripe.payServer then
+        ts_config.settings.tsserver_path = config.stripe.payServerRootPath
+          .. "/frontend/js-scripts/node_modules/typescript/lib/tsserver.js"
+      end
+
+      require("typescript-tools").setup(ts_config)
     end,
   },
 
@@ -215,12 +223,12 @@ return {
     "j-hui/fidget.nvim",
     config = function()
       require("fidget").setup({
-        progress = {
-          ignore = {
-            -- "none-ls",
-            -- "null-ls",
-          },
-        },
+        -- progress = {
+        --   ignore = {
+        --     -- "none-ls",
+        --     -- "null-ls",
+        --   },
+        -- },
       })
     end,
   },

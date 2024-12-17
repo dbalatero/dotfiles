@@ -12,7 +12,7 @@ local function is_stripe_laptop()
 end
 
 local function is_stripe_machine()
-  -- TODO: add remove devbox detection here when I get around to it
+  -- TODO: add remote devbox detection here when I get around to it
   return is_stripe_laptop()
 end
 
@@ -20,11 +20,17 @@ local function in_pay_server()
   return string.find(vim.fn.getcwd(), "pay-server", 1, true)
 end
 
+local function pay_server_root_path()
+  -- TODO: add remote devbox support...
+  return os.getenv("HOME") .. "/stripe/pay-server"
+end
+
 return {
   stripe = {
     machine = is_stripe_machine(),
     laptop = is_stripe_laptop(),
     payServer = in_pay_server(),
+    payServerRootPath = pay_server_root_path(),
     utils = {
       is_stripe_machine = is_stripe_machine,
     },
