@@ -12,6 +12,7 @@ local function is_stripe_laptop()
 end
 
 local function is_stripe_machine()
+  -- TODO: add remove devbox detection here when I get around to it
   return is_stripe_laptop()
 end
 
