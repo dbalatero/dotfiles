@@ -177,6 +177,7 @@ return {
               -- LSPs
               "bashls",
               "cssls",
+              "eslint",
               "jsonls",
               "lua_ls",
               "stylua",
