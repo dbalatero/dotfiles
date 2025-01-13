@@ -58,7 +58,12 @@ return {
           file_icons = false,
           git_icons = false,
         },
-        winopts = { preview = { layout = "vertical" } },
+        winopts = {
+          preview = {
+            -- put preview on the right side
+            layout = "horizontal",
+          },
+        },
       })
 
       vim.keymap.set(
