@@ -7,7 +7,6 @@ sudo apt-get install -y \
   bat \
   direnv \
   eza \
-  fzf \
   libreadline-dev \
   libreadline8t64 \
   openssl \
@@ -39,14 +38,57 @@ function install_github_release() {
   popd >/dev/null || exit
 }
 
+install_github_release diff-so-fancy \
+  https://github.com/so-fancy/diff-so-fancy/releases/download/v1.4.4/diff-so-fancy
+
 # Grab the latest nvim dev version (0.11.x at time of writing)
 install_github_release nvim \
   https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-arm64.appimage
 
-~/.local/bin/nvim --headless \
-  +':Lazy install' \
-  +':TSUpdate' \
-  +qa
+# install packages
+if [ -d "$HOME/.local/share/nvim/lazy" ]; then
+  echo "Skipping lazy.nvim init install, packages already exist"
+else
+  ~/.local/bin/nvim --headless \
+    +':Lazy install' \
+    +':TSUpdate' \
+    +qa
+fi
 
-install_github_release diff-so-fancy \
-  https://github.com/so-fancy/diff-so-fancy/releases/download/v1.4.4/diff-so-fancy
+function install_fzf() {
+  # Define the URL and the target directory
+  local fzf_url="https://github.com/junegunn/fzf/releases/download/v0.60.0/fzf-0.60.0-linux_arm64.tar.gz"
+  local target_dir="$HOME/.local/bin"
+  local tar_file="fzf-0.60.0-linux_arm64.tar.gz"
+
+  # Download the tar.gz file
+  curl -L "$fzf_url" -o "$tar_file" || {
+    echo "Error downloading $fzf_url"
+    return 1
+  }
+
+  # Extract the tar.gz file to ~/.local/bin
+  tar -xzf "$tar_file" -C "$target_dir" || {
+    echo "Error extracting $tar_file"
+    return 1
+  }
+
+  # Verify that fzf exists
+  if [ ! -f "$target_dir/fzf" ]; then
+    echo "fzf not found in $target_dir"
+    return 1
+  fi
+
+  # Set executable permissions
+  chmod +x "$target_dir/fzf" || {
+    echo "Error setting permissions on $target_dir/fzf"
+    return 1
+  }
+
+  # Delete the downloaded tar.gz file
+  rm "$tar_file"
+
+  echo "fzf installed successfully to $target_dir!"
+}
+
+install_fzf
