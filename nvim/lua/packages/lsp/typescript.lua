@@ -5,8 +5,13 @@ local ts_config = {
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
+    if client.config.flags then
+      client.config.flags.allow_incremental_sync = true
+    end
+
     require("packages.lsp.setup").on_attach(client, bufnr)
   end,
+  root_dir = require("lspconfig").util.root_pattern("tsconfig.json"),
   settings = {
     expose_as_code_action = "all",
     separate_diagnostic_server = true,
@@ -23,6 +28,9 @@ local ts_config = {
       includeInlayPropertyDeclarationTypeHints = true,
       includeInlayFunctionLikeReturnTypeHints = true,
       includeInlayEnumMemberValueHints = true,
+
+      -- Ensure we always import from absolute paths
+      importModuleSpecifierPreference = "non-relative",
     },
   },
   handlers = {

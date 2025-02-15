@@ -169,6 +169,7 @@ return {
         end,
       },
       "williamboman/mason-lspconfig.nvim",
+      "jay-babu/mason-null-ls.nvim",
       {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         config = function()
@@ -181,7 +182,11 @@ return {
               "jsonls",
               "lua_ls",
               "stylua",
+              "ts_ls",
               "yamlls",
+
+              -- mason-null-ls
+              "prettierd",
             },
           })
         end,

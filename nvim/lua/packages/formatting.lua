@@ -7,6 +7,15 @@ return {
           bash = { "shfmt" },
           lua = { "stylua" },
           ruby = { lsp_format = "prefer" },
+          javascript = { "prettierd" },
+          typescript = { "prettierd" },
+          javascriptreact = { "prettierd" },
+          typescriptreact = { "prettierd" },
+          html = { "prettierd" },
+          json = { "prettierd" },
+          jsonc = { "prettierd" },
+          graphql = { "prettierd" },
+
           -- -- Conform will run multiple formatters sequentially
           -- python = { "isort", "black" },
           -- -- You can customize some of the format options for the filetype (:help conform.format)
