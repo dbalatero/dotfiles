@@ -4,6 +4,11 @@ function command_exists() {
   command -v "$name" >/dev/null 2>&1
 }
 
+function source_if_exists() {
+  local file="$1"
+  [ -f "$file" ] && source "$file"
+}
+
 _symlinks_current_dir="${BASH_SOURCE%/*}"
 
 function dotfiles_location() {

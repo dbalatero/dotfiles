@@ -43,5 +43,10 @@ function install_github_release() {
 install_github_release nvim \
   https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-arm64.appimage
 
+~/.local/bin/nvim --headless \
+  +':Lazy install' \
+  +':TSUpdate' \
+  +qa
+
 install_github_release diff-so-fancy \
   https://github.com/so-fancy/diff-so-fancy/releases/download/v1.4.4/diff-so-fancy
