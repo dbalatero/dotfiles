@@ -177,9 +177,11 @@ fi
 if is_stripe_laptop; then
   function new-devbox() {
     pay remote new "$1" \
+      --host-type qa-mydev-graviton \
       --repo stripe-internal/pay-server:master \
       --ide none \
-      --no-notify-on-ready
+      --no-notify-on-ready \
+      --skip-confirm
   }
 fi
 
