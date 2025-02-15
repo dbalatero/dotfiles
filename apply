@@ -76,7 +76,8 @@ fi
 # │ Homebrew                                                 │
 # ╰──────────────────────────────────────────────────────────╯
 if is_stripe_devbox; then
-  echo "Skipping homebrew install on devbox"
+  # subshell to avoid the cd back
+  (cd "$(dotfiles_location)" && ./linux-packages)
 else
   install_homebrew
   brew bundle

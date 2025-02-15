@@ -1,99 +1,94 @@
-# empty file
+# frozen_string_literal: true
 
-is_stripe = Dir.exist?("/Applications/Santa.app")
+is_stripe = Dir.exist?('/Applications/Santa.app')
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Terminal                                                 │
 # ╰──────────────────────────────────────────────────────────╯
-if OS.mac? && !is_stripe
-  cask "alacritty"
-end
+cask 'alacritty' if OS.mac? && !is_stripe
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Core                                                     │
 # ╰──────────────────────────────────────────────────────────╯
-brew "fd"
-brew "imagemagick" if OS.mac?
-brew "readline"
-brew "ripgrep"
-brew "wget"
-brew "xz"
+brew 'fd'
+brew 'imagemagick' if OS.mac?
+brew 'readline'
+brew 'ripgrep'
+brew 'wget'
+brew 'xz'
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Fonts                                                    │
 # ╰──────────────────────────────────────────────────────────╯
 if OS.mac?
   # cask "font-jetbrains-mono-nerd-font"
-  cask "font-inconsolata-go-nerd-font"
+  cask 'font-inconsolata-go-nerd-font'
 end
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Hammerspoon                                              │
 # ╰──────────────────────────────────────────────────────────╯
 if OS.mac?
-  cask "Hammerspoon"
-  brew "blueutil"
-  brew "m1ddc" unless is_stripe
+  cask 'Hammerspoon'
+  brew 'blueutil'
+  brew 'm1ddc' unless is_stripe
 end
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Git                                                      │
 # ╰──────────────────────────────────────────────────────────╯
-brew "diff-so-fancy"
-brew "gh" if OS.mac?
-brew "git"
-brew "go-jira" if OS.mac?
-brew "lazygit"
+brew 'diff-so-fancy'
+brew 'gh' if OS.mac?
+brew 'git'
+brew 'go-jira' if OS.mac?
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Node                                                     │
 # ╰──────────────────────────────────────────────────────────╯
-brew "nodenv"
-brew "node-build"
+brew 'nodenv'
+brew 'node-build'
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Python                                                   │
 # ╰──────────────────────────────────────────────────────────╯
-brew "pyenv"
-brew "pyenv-virtualenv"
+brew 'pyenv'
+brew 'pyenv-virtualenv'
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Ruby                                                     │
 # ╰──────────────────────────────────────────────────────────╯
-brew "openssl"
-brew "rbenv"
-brew "ruby-build"
+brew 'openssl'
+brew 'rbenv'
+brew 'ruby-build'
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Backups                                                  │
 # ╰──────────────────────────────────────────────────────────╯
-if OS.mac? && !is_stripe
-  brew "restic"
-end
+brew 'restic' if OS.mac? && !is_stripe
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Neovim                                                   │
 # ╰──────────────────────────────────────────────────────────╯
-brew "bat"
-brew "neovim"
-brew "tree-sitter"
+brew 'bat'
+brew 'neovim'
+brew 'tree-sitter'
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ ZSH                                                      │
 # ╰──────────────────────────────────────────────────────────╯
-brew "autojump"
-brew "direnv"
-brew "eza"
-brew "fzf"
-brew "neofetch" if OS.mac?
-brew "zplug"
-brew "zsh"
+brew 'autojump'
+brew 'direnv'
+brew 'eza'
+brew 'fzf'
+brew 'neofetch' if OS.mac?
+brew 'zplug'
+brew 'zsh'
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ tmux                                                     │
 # ╰──────────────────────────────────────────────────────────╯
-brew "reattach-to-user-namespace" if OS.mac?
-brew "tmux"
-brew "tmuxinator"
+brew 'reattach-to-user-namespace' if OS.mac?
+brew 'tmux'
+brew 'tmuxinator'
 
 # vim: set ft=ruby
