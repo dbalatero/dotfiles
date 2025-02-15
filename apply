@@ -75,8 +75,12 @@ fi
 # ╭──────────────────────────────────────────────────────────╮
 # │ Homebrew                                                 │
 # ╰──────────────────────────────────────────────────────────╯
-install_homebrew
-brew bundle
+if is_stripe_devbox; then
+  echo "Skipping homebrew install on devbox"
+else
+  install_homebrew
+  brew bundle
+fi
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ tmux                                                     │

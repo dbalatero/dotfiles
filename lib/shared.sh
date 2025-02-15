@@ -35,8 +35,17 @@ function is_stripe_laptop() {
   [ -e "/Applications/Santa.app" ]
 }
 
+IS_STRIPE_DEVBOX="false"
+if [[ -v STRIPE_USER ]]; then
+  IS_STRIPE_DEVBOX="true"
+fi
+
+function is_stripe_devbox() {
+  [[ "$IS_STRIPE_DEVBOX" == "true" ]]
+}
+
 function is_stripe_machine() {
-  is_stripe_laptop
+  is_stripe_laptop || is_stripe_devbox
 }
 
 function xdg_config_dir() {
