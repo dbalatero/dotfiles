@@ -1,6 +1,11 @@
-# Source functions for machine
+# Source functions for devbox / other laptops
 if [ -f "$HOME/.config/dotfiles/lib/shared.sh" ]; then
   source "$HOME/.config/dotfiles/lib/shared.sh"
+fi
+
+# Source functions for laptop
+if [ -f "$HOME/stripe/dotfiles/lib/shared.sh" ]; then
+  source "$HOME/stripe/dotfiles/lib/shared.sh"
 fi
 
 if is_stripe_machine; then
@@ -167,6 +172,15 @@ export PATH="./node_modules/.bin:$HOME/.config/base16-shell:$PATH"
 if is_stripe_machine; then
   export PATH="$PATH:$HOME/stripe/work/exe"
   export PATH="$HOME/stripe/mason/bin:$PATH"
+fi
+
+if is_stripe_laptop; then
+  function new-devbox() {
+    pay remote new "$1" \
+      --repo stripe-internal/pay-server:master \
+      --ide none \
+      --no-notify-on-ready
+  }
 fi
 
 export POWERLEVEL9K_DISABLE_GITSTATUS=true

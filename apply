@@ -2,17 +2,6 @@
 
 source "${BASH_SOURCE%/*}/lib/shared.sh"
 
-function install_homebrew() {
-  if ! command_exists "brew"; then
-    echo "Installing homebrew..."
-
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-
-    brew update
-  fi
-}
-
 # ╭──────────────────────────────────────────────────────────╮
 # │ Basics                                                   │
 # ╰──────────────────────────────────────────────────────────╯
@@ -73,36 +62,6 @@ if is_macos; then
 fi
 
 # ╭──────────────────────────────────────────────────────────╮
-# │ Homebrew                                                 │
-# ╰──────────────────────────────────────────────────────────╯
-if is_stripe_devbox; then
-  # subshell to avoid the cd back
-  (cd "$(dotfiles_location)" && ./linux-packages)
-else
-  install_homebrew
-  brew bundle
-fi
-
-# ╭──────────────────────────────────────────────────────────╮
-# │ tmux                                                     │
-# ╰──────────────────────────────────────────────────────────╯
-symlink_dotfile tmux "$(xdg_config_dir)/tmux"
-symlink_dotfile tmuxinator "$(xdg_config_dir)/tmuxinator"
-
-export TMUX_PLUGIN_MANAGER_PATH="$HOME/.local/share/tmux/plugins"
-
-function install_tpm() {
-  if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  fi
-
-  if [ ! -d "$TMUX_PLUGIN_MANAGER_PATH" ]; then
-    TMUX_PLUGIN_MANAGER_PATH="$TMUX_PLUGIN_MANAGER_PATH" ~/.tmux/plugins/tpm/bin/install_plugins
-  fi
-}
-install_tpm
-
-# ╭──────────────────────────────────────────────────────────╮
 # │ ZSH                                                      │
 # ╰──────────────────────────────────────────────────────────╯
 symlink_dotfile zsh/inputrc ~/.inputrc
@@ -153,3 +112,44 @@ symlink_dotfile ruby/pryrc.rb ~/.pryrc
 # │ Neovim                                                   │
 # ╰──────────────────────────────────────────────────────────╯
 symlink_dotfile nvim "$(xdg_config_dir)/nvim"
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ Homebrew                                                 │
+# ╰──────────────────────────────────────────────────────────╯
+function install_homebrew() {
+  if ! command_exists "brew"; then
+    echo "Installing homebrew..."
+
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    brew update
+  fi
+}
+
+if is_stripe_devbox; then
+  # subshell to avoid the cd back
+  (cd "$(dotfiles_location)" && ./linux-packages)
+else
+  install_homebrew
+  brew bundle
+fi
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ tmux                                                     │
+# ╰──────────────────────────────────────────────────────────╯
+symlink_dotfile tmux "$(xdg_config_dir)/tmux"
+symlink_dotfile tmuxinator "$(xdg_config_dir)/tmuxinator"
+
+export TMUX_PLUGIN_MANAGER_PATH="$HOME/.local/share/tmux/plugins"
+
+function install_tpm() {
+  if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  fi
+
+  if [ ! -d "$TMUX_PLUGIN_MANAGER_PATH" ]; then
+    TMUX_PLUGIN_MANAGER_PATH="$TMUX_PLUGIN_MANAGER_PATH" ~/.tmux/plugins/tpm/bin/install_plugins
+  fi
+}
+install_tpm
