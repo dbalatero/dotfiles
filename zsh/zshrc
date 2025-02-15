@@ -19,7 +19,6 @@ source_if_exists ~/.zshenv
 
 GITSTATUS_LOG_LEVEL=debug
 
-BREW_PREFIX="$(brew --prefix)"
 export TERM="xterm-256color"
 
 # Disable auto title so tmux window titles don't get messed up.
@@ -45,7 +44,10 @@ bindkey -v
 
 # ========== Plugins ===========
 if is_stripe_devbox; then
+  export ZPLUG_BIN="/usr/share/zplug/bin"
   export ZPLUG_HOME="$(xdg_data_dir)/zplug"
+  mkdir -p "$ZPLUG_HOME"
+
   source /usr/share/zplug/init.zsh
 else
   export ZPLUG_HOME="$(brew --prefix)/opt/zplug"
@@ -111,8 +113,11 @@ done
 
 # node, py, ruby
 export PYENV_ROOT="$HOME/.local/share/pyenv"
-eval "$(pyenv virtualenv-init -)"
-eval "$(pyenv init -)"
+if command_exists "pyenv"; then
+  eval "$(pyenv virtualenv-init -)"
+  eval "$(pyenv init -)"
+fi
+
 eval "$(nodenv init -)"
 eval "$(rbenv init - zsh)"
 eval "$(direnv hook zsh)"
