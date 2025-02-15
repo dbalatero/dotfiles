@@ -488,7 +488,7 @@
   # config: `git config bash.showDirtyState false`.
   typeset -g POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY=100000
 
-  typeset -g POWERLEVEL9K_VCS_DISABLED_DIR_PATTERN="~/stripe/pay-server(|/*)"
+  typeset -g POWERLEVEL9K_VCS_DISABLED_DIR_PATTERN="~/stripe/(pay-server|zoolander)(|/*)"
 
   # Don't show Git status in prompt for repositories whose workdir matches this pattern.
   # For example, if set to '~', the Git repository at $HOME/.git will be ignored.
