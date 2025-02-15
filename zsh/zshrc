@@ -45,6 +45,7 @@ bindkey -v
 
 # ========== Plugins ===========
 if is_stripe_devbox; then
+  export ZPLUG_HOME="$(xdg_data_dir)/zplug"
   source /usr/share/zplug/init.zsh
 else
   export ZPLUG_HOME="$(brew --prefix)/opt/zplug"
