@@ -1,5 +1,7 @@
 inspect = hs.inspect.inspect
 
+hs.application.enableSpotlightForNameSearches(true)
+
 require("hs.ipc")
 hs.loadSpoon("EmmyLua")
 
@@ -24,10 +26,10 @@ require("course")
 -- require "autocomplete"
 require("jira-markdown")
 require("read-later")
-require("pull-request-comments")
+-- require("pull-request-comments")
 require("paste-code-to-gdocs")
 require("keys-pressed")
-require("water-menubar")
+-- require("water-menubar")
 -- require "good-morning-obsidian"
 require("code-screen-recorder")
 require("graphite")
@@ -53,7 +55,7 @@ if hs.host.localizedName() == "sorny" then
   require("vim-mode")
 end
 
-if hs.host.localizedName() == "st-dbalatero3" then
+if hs.host.localizedName() == "st-dbalatero1" then
   require("vim-mode")
 end
 
