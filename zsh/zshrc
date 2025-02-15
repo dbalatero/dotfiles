@@ -45,12 +45,11 @@ bindkey -v
 
 # ========== Plugins ===========
 if is_stripe_devbox; then
-  export ZPLUG_HOME="/usr/share/zplug"
+  source /usr/share/zplug/init.zsh
 else
   export ZPLUG_HOME="$(brew --prefix)/opt/zplug"
+  source "$ZPLUG_HOME/init.zsh"
 fi
-
-source "$ZPLUG_HOME/init.zsh"
 
 zplug "dbalatero/fzf-git"
 zplug "twang817/zsh-ssh-agent"
