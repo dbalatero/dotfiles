@@ -178,6 +178,7 @@ if is_stripe_laptop; then
   function new-devbox() {
     pay remote new "$1" \
       --host-type qa-mydev-graviton \
+      --service sorbet-lsp \
       --repo stripe-internal/pay-server:master \
       --ide none \
       --no-notify-on-ready \
