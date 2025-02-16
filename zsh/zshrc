@@ -168,6 +168,7 @@ export SYNC_REPO="$RESTIC_REPOSITORY:/Sync"
 export FREEZE_REPO="$RESTIC_REPOSITORY:/Freeze"
 
 export PATH="./node_modules/.bin:$HOME/.config/base16-shell:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 if is_stripe_machine; then
   export PATH="$PATH:$HOME/stripe/work/exe"
