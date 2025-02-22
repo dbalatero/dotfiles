@@ -36,6 +36,7 @@
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
     dir                     # current directory
+    remote_box
     vcs_branch
     # =========================[ Line #2 ]=========================
     newline                 # \n
@@ -228,7 +229,10 @@
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=254
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
-  typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
+  # typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
+  typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
+  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   # Color of the shortened directory segments.
@@ -1794,6 +1798,14 @@
     if [[ -n $branch_name ]]; then
       p10k segment -b green -t "$branch_name"
     fi
+  }
+
+  function prompt_remote_box() {
+    if [ -z "$remote_name" ]; then
+      return 0
+    fi
+
+    p10k segment -b '#fbc4ab' -t "📡 $remote_name"
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
