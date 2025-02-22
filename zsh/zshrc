@@ -62,6 +62,7 @@ else
 fi
 
 zplug "dbalatero/fzf-git"
+zplug "MichaelAquilina/zsh-you-should-use"
 zplug "twang817/zsh-ssh-agent"
 zplug "dbalatero/fast-syntax-highlighting"
 zplug "hlissner/zsh-autopair"
@@ -186,6 +187,22 @@ if is_stripe_laptop; then
       --no-notify-on-ready \
       --skip-confirm
   }
+
+  function pay() {
+    case "$*" in
+      "remote ssh "*)
+        # Extract hostname (everything after "remote ssh ")
+        hostname="${@:3:1}"
+        echo "Running faster ssh: pay --name $hostname ssh"
+        command pay --name "$hostname" ssh
+        ;;
+      *)
+        # Pass through to original command
+        command pay "$@"
+        ;;
+    esac
+  }
+
 fi
 
 export POWERLEVEL9K_DISABLE_GITSTATUS=true

@@ -56,9 +56,15 @@ else
 fi
 
 function install_fzf() {
+  local target_dir="$HOME/.local/bin"
+
+  if [ -f "$target_dir/fzf" ]; then
+    echo "Skipping fzf install, already exists!"
+    return 0
+  fi
+
   # Define the URL and the target directory
   local fzf_url="https://github.com/junegunn/fzf/releases/download/v0.60.0/fzf-0.60.0-linux_arm64.tar.gz"
-  local target_dir="$HOME/.local/bin"
   local tar_file="fzf-0.60.0-linux_arm64.tar.gz"
 
   # Download the tar.gz file

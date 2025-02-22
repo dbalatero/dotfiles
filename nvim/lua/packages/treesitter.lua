@@ -11,9 +11,6 @@ return {
     -- Extended matchers for %
     "andymass/vim-matchup",
 
-    -- Highlight parenthesis pairs w/ different colors
-    "p00f/nvim-ts-rainbow",
-
     -- Auto close <html> tags
     "windwp/nvim-ts-autotag",
   },
@@ -105,9 +102,6 @@ return {
       },
       -- Plugins
       matchup = {
-        enable = true,
-      },
-      rainbow = {
         enable = true,
       },
       autotag = {

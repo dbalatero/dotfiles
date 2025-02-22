@@ -127,19 +127,30 @@ vim.keymap.set({ "n" }, "vv", "<C-w>v", { noremap = true })
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
-vim.cmd([[
-  " relative path  (src/foo.txt)
-  nnoremap <leader>cf :let @*=expand("%")<CR>
+-- Copy file paths to clipboard
+vim.keymap.set("n", "<leader>yf", function()
+  local relative_path = vim.fn.expand("%")
+  vim.fn.setreg("*", relative_path)
+  vim.notify("Copied relative path: " .. relative_path)
+end, { desc = "Copy relative filepath to clipboard" })
 
-  " absolute path  (/something/src/foo.txt)
-  nnoremap <leader>cF :let @*=expand("%:p")<CR>
+vim.keymap.set("n", "<leader>yF", function()
+  local absolute_path = vim.fn.expand("%:p")
+  vim.fn.setreg("*", absolute_path)
+  vim.notify("Copied absolute path: " .. absolute_path)
+end, { desc = "Copy absolute filepath to clipboard" })
 
-  " filename       (foo.txt)
-  nnoremap <leader>ct :let @*=expand("%:t")<CR>
+vim.keymap.set("n", "<leader>yt", function()
+  local filename = vim.fn.expand("%:t")
+  vim.fn.setreg("*", filename)
+  vim.notify("Copied filename: " .. filename)
+end, { desc = "Copy filename to clipboard" })
 
-  " directory name (/something/src)
-  nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
-]])
+vim.keymap.set("n", "<leader>yh", function()
+  local directory = vim.fn.expand("%:p:h")
+  vim.fn.setreg("*", directory)
+  vim.notify("Copied directory path: " .. directory)
+end, { desc = "Copy directory path to clipboard" })
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ Highlight on yank                                        │
