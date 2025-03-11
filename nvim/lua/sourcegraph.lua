@@ -58,10 +58,7 @@ function M.browse(line1, line2)
   -- Copy to clipboard
   vim.fn.setreg("+", sourcegraph_url)
 
-  vim.notify(
-    "Copied Sourcegraph link to clipboard\n" .. sourcegraph_url,
-    vim.log.levels.INFO
-  )
+  vim.notify(sourcegraph_url, vim.log.levels.INFO)
 end
 
 vim.api.nvim_create_user_command("Sgbrowse", function(opts)
@@ -79,17 +76,5 @@ vim.api.nvim_create_user_command("Sgbrowse", function(opts)
     M.browse(opts.line1, opts.line2)
   end
 end, { range = true })
-
-vim.keymap.set("n", "<leader>ys", ":Sgbrowse<CR>", {
-  desc = "Copy Sourcegraph link to current file",
-  noremap = true,
-  silent = true,
-})
-
-vim.keymap.set("v", "<leader>ys", ":<C-u>'<,'>Sgbrowse<CR>", {
-  desc = "Copy Sourcegraph link to current selection",
-  noremap = true,
-  silent = true,
-})
 
 return M

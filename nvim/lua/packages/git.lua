@@ -15,11 +15,48 @@ return {
         end,
       })
 
+      -- require the :Sgbrowse command
+      require("sourcegraph")
+
+      -- Add new unified browse command
+      vim.api.nvim_create_user_command("Browse", function(opts)
+        -- Check if we're in a stripe-internal repo
+        local remote_url =
+          vim.fn.system("git config --get remote.origin.url"):gsub("%s+$", "")
+        if remote_url:match("stripe%-internal") then
+          -- Use Sgbrowse for stripe-internal repos
+          if opts.range == 0 then
+            -- No range, use the whole file
+            vim.cmd("Sgbrowse")
+          else
+            -- Pass along the range
+            vim.cmd(opts.line1 .. "," .. opts.line2 .. "Sgbrowse")
+          end
+        else
+          -- Use Gbrowse for other repos
+          if opts.bang then
+            -- With bang (!) - copy to clipboard only
+            if opts.range == 0 then
+              vim.cmd("GBrowse!")
+            else
+              vim.cmd(opts.line1 .. "," .. opts.line2 .. "GBrowse!")
+            end
+          else
+            -- Without bang - open in browser
+            if opts.range == 0 then
+              vim.cmd("GBrowse")
+            else
+              vim.cmd(opts.line1 .. "," .. opts.line2 .. "GBrowse")
+            end
+          end
+        end
+      end, { range = true, bang = true })
+
       vim.api.nvim_set_keymap(
         "v",
         "<leader>g",
-        ":GBrowse!<CR>",
-        { noremap = true, desc = "Copy link to source in Github" }
+        ":<C-u>'<,'>Browse!<CR>",
+        { noremap = true, desc = "Copy link to source (GitHub/Sourcegraph)" }
       )
     end,
   },
