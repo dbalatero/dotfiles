@@ -194,6 +194,8 @@ if config.stripe.laptop then
     },
     fallback = true,
   }
+
+  require("sourcegraph")
 end
 
 require("lazy").setup({
