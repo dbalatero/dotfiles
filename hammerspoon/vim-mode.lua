@@ -19,6 +19,7 @@ vim
   :disableForApp("kitty")
   :disableForApp("Obsidian")
   :disableForApp("Code")
+  :disableForApp("Cursor")
   :disableForApp("Terminal")
   :disableForApp("Tuple")
   :disableForApp("Visual Studio Code")
