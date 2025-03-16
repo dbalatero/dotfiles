@@ -18,6 +18,7 @@ if config.stripe.payServer then
 end
 
 require("lint").linters.rubocop = {
+  name = "Rubocop",
   cmd = rubocop_cmd,
   stdin = true, -- or false if it doesn't support content input via stdin. In that case the filename is automatically added to the arguments.
   args = rubocop_args, -- list of arguments. Can contain functions with zero arguments that will be evaluated once the linter is used.

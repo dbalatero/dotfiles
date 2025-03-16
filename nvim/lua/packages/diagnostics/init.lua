@@ -1,5 +1,7 @@
 return {
-  "mfussenegger/nvim-lint",
+  "dbalatero/nvim-lint",
+  -- Get stevearc's patch for fixing lint timeouts & lock ups
+  branch = "custom-fork",
   config = function()
     require("packages.diagnostics.rubocop")
 
