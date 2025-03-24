@@ -1,3 +1,5 @@
+local config = require("custom.config")
+
 return {
   "dbalatero/nvim-lint",
   -- Get stevearc's patch for fixing lint timeouts & lock ups
@@ -10,6 +12,15 @@ return {
     lint.linters_by_ft = {
       ruby = { "rubocop" },
     }
+
+    if config.stripe.payServer then
+      lint.linters.vale.args = vim.list_extend({
+        "--config",
+        config.stripe.payServerRootPath .. "/docs/vale/.vale.ini",
+      }, lint.linters.vale.args)
+
+      lint.linters_by_ft.markdown = { "vale" }
+    end
 
     -- ╭─────────────────────────────────────────────────────────╮
     -- │ Autocmds for linting                                    │
