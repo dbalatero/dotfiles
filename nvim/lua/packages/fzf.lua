@@ -50,6 +50,10 @@ return {
           git_icons = false,
         },
         fzf_color = true,
+        buffers = {
+          file_icons = false,
+          git_icons = false,
+        },
         git = {
           file_icons = false,
           git_icons = false,
