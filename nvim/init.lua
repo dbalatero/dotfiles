@@ -191,6 +191,7 @@ if config.stripe.laptop then
     patterns = {
       "nvim-lspconfig",
       "nvim-lspconfig-stripe",
+      "stripe-luasnips.nvim",
     },
     fallback = true,
   }
