@@ -16,7 +16,8 @@ local ts_config = {
     expose_as_code_action = "all",
     separate_diagnostic_server = true,
     publish_diagnostic_on = "insert_leave",
-    tsserver_max_memory = "auto",
+    -- Apparently "auto" is a lie, we should set an actual maximum
+    tsserver_max_memory = 8192,
     tsserver_locale = "en",
     -- tsserver_logs = "verbose",
     tsserver_file_preferences = {
