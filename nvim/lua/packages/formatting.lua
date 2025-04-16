@@ -1,3 +1,13 @@
+local function is_eslint_attached(bufnr)
+  local clients = vim.lsp.get_clients({ bufnr = bufnr or 0 })
+  for _, client in ipairs(clients) do
+    if client.name == "eslint" then
+      return true
+    end
+  end
+  return false
+end
+
 return {
   {
     "stevearc/conform.nvim",
@@ -25,11 +35,21 @@ return {
         },
 
         -- Setup autocmd to format on save
-        format_after_save = {
-          -- These options will be passed to conform.format()
-          timeout_ms = 500,
-          lsp_format = "fallback",
-        },
+        format_after_save = function(bufnr)
+          return {
+            -- These options will be passed to conform.format()
+            timeout_ms = 500,
+            lsp_format = "fallback",
+          }, function(err)
+            if err then
+              return
+            end
+
+            if is_eslint_attached(bufnr) then
+              vim.api.nvim_command("EslintFixAll")
+            end
+          end
+        end,
       })
     end,
   },
