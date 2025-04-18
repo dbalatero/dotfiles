@@ -38,12 +38,14 @@ local function swapToDomain(domain)
 end
 
 -- I use a super special keybind system for jerks
-superKey
-  :bind("1")
-  :toFunction("Swap to localhost:3000", swapToDomain("localhost:3000"))
-superKey
-  :bind("2")
-  :toFunction("Swap to staging", swapToDomain("app.stg.graphite.dev"))
+superKey:bind("1"):toFunction(
+  "Swap to local devapp",
+  swapToDomain("dbalatero-stripejs-demos.tunnel.stripe.me")
+)
+superKey:bind("2"):toFunction(
+  "Swap to staging devapp",
+  swapToDomain("stripejsdevapp.corp.stripe.com")
+)
 
 -- But you can just use this for standard keybinding by uncommenting the
 -- following lines & deleting the 2 lines above:
@@ -51,8 +53,3 @@ superKey
 
 -- hs.hotkey.bind({ 'cmd', 'alt', 'ctrl' }, '1', swapToDomain('localhost:3000'))
 -- hs.hotkey.bind({ 'cmd', 'alt', 'ctrl' }, '2', swapToDomain('app.stg.graphite.dev'))
-
--- Rebind the keyboard shortcut for Graphite menu bar app
-hyperKey:bind("i"):toFunction("Graphite menu bar", function()
-  hs.eventtap.keyStroke({ "cmd", "alt" }, "g", 10)
-end)
