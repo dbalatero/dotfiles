@@ -25,6 +25,7 @@ return {
           json = { "prettierd" },
           jsonc = { "prettierd" },
           graphql = { "prettierd" },
+          css = { "prettierd" },
 
           -- -- Conform will run multiple formatters sequentially
           -- python = { "isort", "black" },
@@ -40,8 +41,12 @@ return {
             -- These options will be passed to conform.format()
             timeout_ms = 500,
             lsp_format = "fallback",
-          }, function(err)
+          }, function(err, did_edit)
             if err then
+              return
+            end
+
+            if not did_edit then
               return
             end
 
