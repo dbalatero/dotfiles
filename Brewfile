@@ -14,6 +14,7 @@ brew 'fd'
 brew 'imagemagick' if OS.mac?
 brew 'readline'
 brew 'ripgrep'
+brew 'starship'
 brew 'wget'
 brew 'xz'
 

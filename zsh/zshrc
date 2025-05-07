@@ -13,18 +13,9 @@ if is_stripe_machine; then
   mkdir -p "$XDG_CACHE_HOME"
 fi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 export PATH="$HOME/.local/bin:$PATH"
 
 source_if_exists ~/.zshenv
-
-GITSTATUS_LOG_LEVEL=debug
 
 export TERM="xterm-256color"
 
@@ -67,7 +58,6 @@ zplug "twang817/zsh-ssh-agent"
 zplug "dbalatero/fast-syntax-highlighting"
 zplug "hlissner/zsh-autopair"
 zplug "chriskempson/base16-shell"
-zplug romkatv/powerlevel10k, as:theme, depth:1
 zplug "plugins/git", from:oh-my-zsh
 
 if ! zplug check; then
@@ -202,12 +192,10 @@ if is_stripe_laptop; then
         ;;
     esac
   }
-
 fi
 
-export POWERLEVEL9K_DISABLE_GITSTATUS=true
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-source_if_exists ~/.p10k.zsh
-
-POWERLEVEL9K_DISABLE_GITSTATUS=true
+if command_exists starship ; then
+  eval "$(starship init zsh)"
+else
+  echo "starship is not installed, falling back to default ZSH prompt"
+fi

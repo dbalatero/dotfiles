@@ -64,11 +64,11 @@ fi
 # ╭──────────────────────────────────────────────────────────╮
 # │ ZSH                                                      │
 # ╰──────────────────────────────────────────────────────────╯
+symlink_dotfile starship.toml "$(xdg_config_dir)/starship.toml"
 symlink_dotfile zsh/inputrc ~/.inputrc
 symlink_dotfile zsh/zshenv ~/.zshenv
 symlink_dotfile zsh/zshrc ~/.zshrc
 symlink_dotfile zsh/zsh ~/.zsh
-symlink_dotfile zsh/p10k.zsh ~/.p10k.zsh
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ Terminal                                                 │
