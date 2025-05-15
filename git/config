@@ -20,7 +20,7 @@
 	nb = "checkout -b"
 	p = "push -u --force-with-lease"
 	pl = "pull"
-	please = "push -u --force-with-lease"
+	; please = "push -u --force-with-lease"
 	ps = "push -u"
 	qsync = "!git fetch origin $(git main-branch):$(git main-branch) && git rebase --no-keep-empty $(git main-branch)"
 	r = "remote -v"

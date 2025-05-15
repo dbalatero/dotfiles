@@ -1,4 +1,4 @@
-local function swapToDomain(domain)
+local function swapToDomain(domain, protocol)
   return function()
     local application = hs.application.frontmostApplication()
 
@@ -15,7 +15,14 @@ local function swapToDomain(domain)
 
     -- Swap the domain
     local _, url = hs.osascript.applescript(script)
-    local newUrl = string.gsub(url, "([^/]+)//([^/]+)", "%1//" .. domain)
+
+    if not url then
+      return
+    end
+
+    local newUrl = url
+      :gsub("^https?://", protocol .. "://")
+      :gsub("([^/]+)//([^/]+)", "%1//" .. domain)
 
     local updateScript = [[
       const chrome = Application('Google Chrome');
@@ -40,12 +47,19 @@ end
 -- I use a super special keybind system for jerks
 superKey:bind("1"):toFunction(
   "Swap to local devapp",
-  swapToDomain("dbalatero-stripejs-demos.tunnel.stripe.me")
+  swapToDomain("dbalatero-stripejs-demos.tunnel.stripe.me", "https")
 )
 superKey:bind("2"):toFunction(
   "Swap to staging devapp",
-  swapToDomain("stripejsdevapp.corp.stripe.com")
+  swapToDomain("stripejsdevapp.corp.stripe.com", "https")
 )
+
+superKey
+  :bind("3")
+  :toFunction(
+    "Swap to localhost devapp",
+    swapToDomain("localhost:3000", "http")
+  )
 
 -- But you can just use this for standard keybinding by uncommenting the
 -- following lines & deleting the 2 lines above:
