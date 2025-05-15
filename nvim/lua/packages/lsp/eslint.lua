@@ -3,6 +3,7 @@ local setup = require("packages.lsp.setup")
 require("lspconfig").eslint.setup({
   capabilities = setup.build_capabilities(),
   on_attach = setup.on_attach,
+  root_dir = require("lspconfig.util").root_pattern("package.json"),
 })
 
 vim.keymap.set("n", "<leader>le", ":EslintFixAll<CR>", {
