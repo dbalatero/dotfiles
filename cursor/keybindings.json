@@ -1,0 +1,48 @@
+[
+  {
+    "command": "workbench.action.navigateLeft",
+    "key": "ctrl+h"
+  },
+  {
+    "command": "workbench.action.navigateRight",
+    "key": "ctrl+l"
+  },
+  {
+    "command": "workbench.action.navigateUp",
+    "key": "ctrl+k"
+  },
+  {
+    "command": "workbench.action.navigateDown",
+    "key": "ctrl+j"
+  },
+  {
+    "command": "workbench.action.quickOpen",
+    "key": "ctrl+p"
+  },
+  {
+    "command": "workbench.action.terminal.resizePaneLeft",
+    "key": "alt+left",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.terminal.resizePaneRight",
+    "key": "alt+right",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.terminal.toggleTerminal",
+    "key": "ctrl+t"
+  },
+  {
+    "command": "pay.cmd.test.currentLine",
+    "key": "ctrl+a t"
+  },
+  {
+    "command": "pay.cmd.test.activeEditor",
+    "key": "ctrl+a s"
+  },
+  {
+    "key": "cmd+i",
+    "command": "composerMode.agent"
+  }
+]

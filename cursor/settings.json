@@ -1,0 +1,90 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "breadcrumbs.enabled": false,
+  "editor.accessibilitySupport": "off",
+  "editor.detectIndentation": false,
+  "editor.fontFamily": "'JetBrainsMono'",
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.tabSize": 2,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "security.workspace.trust.enabled": false,
+  "terminal.external.linuxExec": "xterm-256color",
+  "terminal.integrated.fontFamily": "'JetBrainsMono'",
+  "terminal.integrated.fontSize": 14,
+  "update.channel": "none",
+  "update.mode": "none",
+  "vscode-neovim.neovimClean": false,
+  "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
+  "vscode-neovim.neovimInitVimPaths.darwin": "/Users/dbalatero/.config/nvim/vscode.lua",
+  "vscode-neovim.compositeKeys": {
+    "jk": {
+      "command": "vscode-neovim.escape"
+    }
+  },
+  "window.nativeFullScreen": false,
+  "window.newWindowDimensions": "maximized",
+  "window.zoomLevel": 3,
+  "workbench.colorTheme": "Stylix",
+  "workbench.panel.defaultLocation": "right",
+  "workbench.statusBar.visible": true,
+  "zenMode.fullScreen": false,
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "window.title": "${rootPath}${separator}${activeEditorMedium}",
+  "remote.autoForwardPorts": false,
+  "remote.restoreForwardedPorts": false,
+  "remote.SSH.enableDynamicForwarding": false,
+  "remote.forwardOnOpen": false,
+  "remote.otherPortsAttributes": {
+    "onAutoForward": "ignore"
+  },
+  "remote.SSH.enableAgentForwarding": false,
+  "remote.SSH.path": "sc-ssh-wrapper",
+  "remote.SSH.useLocalServer": true,
+  "remote.SSH.connectTimeout": 60,
+  "remote.SSH.configFile": "~/.ssh/devboxes",
+  "remote.SSH.enableRemoteCommand": true,
+  "search.followSymlinks": false,
+  "debug.javascript.automaticallyTunnelRemoteServer": false,
+  "github.copilot.enable": {
+    "*": false,
+    "apex": true,
+    "erb": true,
+    "go": true,
+    "java": true,
+    "javascript": true,
+    "python": true,
+    "ruby": true,
+    "rust": true,
+    "scala": true,
+    "shellscript": true,
+    "starlark": true,
+    "terraform": true,
+    "typescript": true,
+    "typescriptreact": true
+  },
+  "gitlens.remotes": [
+    {
+      "domain": "git.corp.stripe.com",
+      "type": "GitHub"
+    }
+  ],
+  "gitlens.ai.experimental.generateCommitMessage.enabled": false,
+  "ruby.rubocop.hideDisableSuggestions": true,
+  "typescript.tsdk": "~/stripe/pay-server/frontend/js-scripts/node_modules/typescript/lib",
+  "remote.autoForwardPortsSource": "output",
+  "cody.override.serverEndpoint": "http://sourcegraph.corp.stripe.com",
+  "cody.override.authToken": "sgp_unused_but_must_be_nonempty",
+  "cody.net.proxy.endpoint": "unix://~/.stripeproxy",
+  "vale.doNotShowWarningForFileToBeSavedBeforeLinting": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "vscode-neovim.neovimInitVimPaths.win32": "/Users/dbalatero/.config/nvim/vscode.lua",
+  "telemetry.telemetryLevel": "off",
+  "ruby.rubocop.executePath": "/bin/false"
+}

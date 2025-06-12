@@ -17,6 +17,15 @@ if is_macos; then
   symlink_dotfile bin/emoji-intensifies.sh ~/.local/bin/emoji-intensifies
 
   # ╭──────────────────────────────────────────────────────────╮
+  # │ Cursor                                                   │
+  # ╰──────────────────────────────────────────────────────────╯
+  CURSOR_DIR="$HOME/Library/Application Support/Cursor/User"
+  mkdir -p "$CURSOR_DIR"
+
+  symlink_dotfile cursor/keybindings.json "$CURSOR_DIR/keybindings.json"
+  symlink_dotfile cursor/settings.json "$CURSOR_DIR/settings.json"
+
+  # ╭──────────────────────────────────────────────────────────╮
   # │ Hammerspoon                                              │
   # ╰──────────────────────────────────────────────────────────╯
   function ensure_spoon_zip() {
