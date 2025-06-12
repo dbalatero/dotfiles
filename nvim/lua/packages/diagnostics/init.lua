@@ -9,9 +9,7 @@ return {
 
     local lint = require("lint")
 
-    lint.linters_by_ft = {
-      ruby = { "rubocop" },
-    }
+    lint.linters_by_ft = {}
 
     if config.stripe.payServer then
       lint.linters.vale.args = vim.list_extend({
@@ -20,6 +18,7 @@ return {
       }, lint.linters.vale.args)
 
       lint.linters_by_ft.markdown = { "vale" }
+      lint.linters_by_ft.ruby = { "rubocop" }
     end
 
     -- ╭─────────────────────────────────────────────────────────╮

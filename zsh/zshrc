@@ -133,7 +133,6 @@ alias -- ls=eza
 alias -- lt='eza --tree'
 alias -- p='work pr show'
 alias -- r='work review'
-alias -- st='~/stripe/st/bin/repo-dev'
 alias -- tk='tmux kill-session'
 alias -- tn=tmuxinator
 alias -- vim=nvim
@@ -165,6 +164,8 @@ export PATH="./node_modules/.bin:$HOME/.config/base16-shell:$PATH"
 if is_stripe_machine; then
   export PATH="$PATH:$HOME/stripe/work/exe"
   export PATH="$HOME/stripe/mason/bin:$PATH"
+
+  [ -x "$HOME/stripe/st/exe/st" ] && eval "$($HOME/stripe/st/exe/st shell)"
 fi
 
 if is_stripe_laptop; then

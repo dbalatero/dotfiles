@@ -1,21 +1,22 @@
 local config = require("custom.config")
 
+if not config.stripe.payServer then
+  return
+end
+
 local function get_file_name()
   return vim.api.nvim_buf_get_name(0)
 end
 
-local rubocop_cmd = "rubocop"
+local rubocop_cmd = "scripts/bin/rubocop-server/rubocop"
 local rubocop_args = {
+  "--except",
+  "PrisonGuard/AutogenLoaderPreamble",
   "-f",
   "json",
   "--stdin",
   get_file_name,
 }
-
-if config.stripe.payServer then
-  rubocop_cmd = "scripts/bin/rubocop-server/rubocop"
-  table.insert(rubocop_args, 1, "--except PrisonGuard/AutogenLoaderPreamble")
-end
 
 require("lint").linters.rubocop = {
   name = "Rubocop",
