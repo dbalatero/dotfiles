@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Install starship
+sudo curl -sS https://starship.rs/install.sh | sh
+
 sudo apt-get update
 
 sudo apt-get install -y \
@@ -11,7 +14,6 @@ sudo apt-get install -y \
   libreadline8t64 \
   openssl \
   ripgrep \
-  starship \
   tmux \
   tmuxinator \
   wget \
