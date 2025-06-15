@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
+function command_exists() {
+  local name=$1
+  command -v "$name" >/dev/null 2>&1
+}
+
 # Install starship
-sudo curl -sS https://starship.rs/install.sh | sh
+if ! command_exists starship ; then
+  sudo curl -sS https://starship.rs/install.sh | sh
+fi
 
 sudo apt-get update
 
