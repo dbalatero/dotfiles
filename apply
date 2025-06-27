@@ -7,6 +7,7 @@ source "${BASH_SOURCE%/*}/lib/shared.sh"
 # ╰──────────────────────────────────────────────────────────╯
 mkdir -p ~/.local/bin
 
+symlink_dotfile bin/fzf-fast-file-search.sh ~/.local/bin/fzf-fast-file-search
 symlink_dotfile bin/slack-thread-format.rb ~/.local/bin/slack-thread-format
 symlink_dotfile bin/truecolor.sh ~/.local/bin/truecolor
 
