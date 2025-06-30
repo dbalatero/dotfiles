@@ -1,14 +1,33 @@
 #!/usr/bin/env bash
 
-function command_exists() {
-  local name=$1
-  command -v "$name" >/dev/null 2>&1
-}
+source "${BASH_SOURCE%/*}/lib/shared.sh"
+
+case $(uname -m) in
+  x86_64) arch=amd64 ;;
+  aarch64|arm64) arch=arm64 ;;
+  *) echo "unsupported architecture" && exit 1 ;;
+esac
+readonly arch
 
 # Install starship
-if ! command_exists starship ; then
-  sudo curl -sS https://starship.rs/install.sh | sh
-fi
+function install_starship() {
+  if ! command_exists starship ; then
+    if is_stripe_devbox ; then
+      case "${arch}" in
+        arm64) ss_arch=aarch64 ;;
+        amd64) ss_arch=x86_64 ;;
+        *) exit 1 ;;
+      esac
+
+      curl -sSfL "https://artifactory-content.stripe.build/artifactory/github-releases/starship/starship/releases/download/v1.23.0/starship-${ss_arch}-unknown-linux-musl.tar.gz" \
+        | sudo tar --no-same-owner -xz -C /usr/local/bin starship
+    else
+      sudo curl -sS https://starship.rs/install.sh | sh
+    fi
+  fi
+}
+
+install_starship
 
 sudo apt-get update
 
