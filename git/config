@@ -10,6 +10,7 @@
 	changes = "log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status"
 	ci = "commit"
 	co = "checkout"
+	corb = "!git fetch origin $1 && git checkout -b $1 origin/$1"
 	cp = "cherry-pick -x"
 	d = "diff"
 	dc = "diff --cached"
