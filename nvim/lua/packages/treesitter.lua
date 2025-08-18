@@ -34,6 +34,7 @@ return {
         "json",
         "lua",
         "nix",
+        "php",
         "python",
         "regex",
         "ruby",
