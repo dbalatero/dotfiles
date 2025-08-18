@@ -28,8 +28,9 @@ setopt AUTO_PUSHD
 # Allow extended matchers like ^file, etc
 set -o EXTENDED_GLOB
 
-# ========== History settings ===========
-
+# ╭──────────────────────────────────────────────────────────╮
+# │ History settings                                         │
+# ╰──────────────────────────────────────────────────────────╯
 setopt append_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
@@ -40,7 +41,39 @@ setopt extended_glob
 # Use viins keymap as the default.
 bindkey -v
 
-# ========== Plugins ===========
+# ╭──────────────────────────────────────────────────────────╮
+# │ Completion                                               │
+# ╰──────────────────────────────────────────────────────────╯
+# Tell Stripe's init script to skip its compinit call
+export __STRIPE_SHELLINIT_ZSH_SKIP_COMPINIT=1
+
+function setup_completion() {
+
+  # Load completion system
+  autoload -Uz compinit
+
+  # Only regenerate completions once per day
+  if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+  else
+    compinit -C  # Skip security check for speed
+  fi
+
+  # Basic settings for better completion experience
+  zstyle ':completion:*' menu select
+  zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+  # Load bash completion compatibility if needed
+  autoload -Uz bashcompinit
+  bashcompinit
+}
+
+# Call the function once
+setup_completion
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ Plugins                                                  │
+# ╰──────────────────────────────────────────────────────────╯
 if is_stripe_devbox; then
   export ZPLUG_BIN="/usr/share/zplug/bin"
   export ZPLUG_HOME="$(xdg_data_dir)/zplug"
@@ -66,7 +99,9 @@ fi
 
 zplug load
 
-# =========== more history options =========
+# ╭──────────────────────────────────────────────────────────╮
+# │ More history                                             │
+# ╰──────────────────────────────────────────────────────────╯
 HISTSIZE="10000"
 SAVEHIST="10000"
 
@@ -88,7 +123,9 @@ if [[ $options[zle] = on ]]; then
   eval "$(fzf --zsh)"
 fi
 
-# ============ Stripe ==============
+# ╭──────────────────────────────────────────────────────────╮
+# │ Stripe                                                   │
+# ╰──────────────────────────────────────────────────────────╯
 source_if_exists ~/.stripe/shellinit/zshrc
 
 if is_stripe_devbox; then
@@ -103,22 +140,27 @@ bindkey -M viins 'jk' vi-cmd-mode
 # Set vi mode AGAIN
 bindkey -v
 
-# secrets
+# ╭──────────────────────────────────────────────────────────╮
+# │ Secrets                                                  │
+# ╰──────────────────────────────────────────────────────────╯
 for file in $HOME/.zsh/secrets/**/*.zsh
 do
   source $file
 done
 
-# node, py, ruby
-export PYENV_ROOT="$HOME/.local/share/pyenv"
-if command_exists "pyenv"; then
-  eval "$(pyenv virtualenv-init -)"
-  eval "$(pyenv init -)"
-fi
+# Stripe already inits nodenv, rbenv, direnv, and pyenv in shellinit... :(
+if [[ -z "${__STRIPE_SHELLINIT_ZSH_COMPLETE}" ]]; then
+  # node, py, ruby
+  export PYENV_ROOT="$HOME/.local/share/pyenv"
+  if command_exists "pyenv"; then
+    eval "$(pyenv virtualenv-init -)"
+    eval "$(pyenv init -)"
+  fi
 
-eval "$(nodenv init -)"
-eval "$(rbenv init - zsh)"
-eval "$(direnv hook zsh)"
+  eval "$(nodenv init -)"
+  eval "$(rbenv init - zsh)"
+  eval "$(direnv hook zsh)"
+fi
 
 # aliases
 alias -- 6='exec zsh'
@@ -192,6 +234,10 @@ if is_stripe_laptop; then
         command pay "$@"
         ;;
     esac
+  }
+
+  function sgit() {
+    GIT_SSH_COMMAND='ssh -i ~/.ssh/github_stripe -o IdentitiesOnly=yes' git "$@"
   }
 fi
 

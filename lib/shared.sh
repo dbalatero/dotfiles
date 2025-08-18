@@ -5,20 +5,35 @@ function command_exists() {
 }
 
 function source_if_exists() {
-  local file="$1"
+  local file
+  file="$1"
+
   [ -f "$file" ] && source "$file"
 }
+
+# function source_if_exists() {
+#   local file="$1"
+#   if [ -f "$file" ]; then
+#     echo "Sourcing $file..."
+#     local start=$(($(date +%s%N)/1000000))
+#     source "$file"
+#     local end=$(($(date +%s%N)/1000000))
+#     echo "Sourced $file in $((end-start))ms"
+#   fi
+# }
 
 _symlinks_current_dir="${BASH_SOURCE%/*}"
 
 function dotfiles_location() {
-  echo $(cd $_symlinks_current_dir/.. && pwd)
+  cd "$_symlinks_current_dir/.." && pwd
 }
 
 function symlink_dotfile() {
   local file="$1"
   local destination="$2"
-  local full_file_path="$(dotfiles_location)/$file"
+
+  local full_file_path
+  full_file_path="$(dotfiles_location)/$file"
 
   if [ ! -e "$destination" ]; then
     echo "Symlinking $full_file_path -> $destination"
