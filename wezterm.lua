@@ -1,3 +1,5 @@
+-- cp this to /mnt/c/Users/<user>/.wezterm.lua
+
 local wezterm = require("wezterm")
 local config = {}
 
