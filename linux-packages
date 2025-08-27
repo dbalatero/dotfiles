@@ -138,10 +138,6 @@ function install_stripe() {
   install_fzf
 }
 
-# Add to /etc/pacman.conf
-#
-# [chaotic-aur]
-# Include = /etc/pacman.d/chaotic-mirrorlist
 function install_arch() {
   # update system
   sudo pacman -Syyu
