@@ -48,7 +48,6 @@ bindkey -v
 export __STRIPE_SHELLINIT_ZSH_SKIP_COMPINIT=1
 
 function setup_completion() {
-
   # Load completion system
   autoload -Uz compinit
 
@@ -80,6 +79,8 @@ if is_stripe_devbox; then
   mkdir -p "$ZPLUG_HOME"
 
   source /usr/share/zplug/init.zsh
+elif is_arch_linux ; then
+  source ~/.zplug/init.zsh
 else
   export ZPLUG_HOME="$(brew --prefix)/opt/zplug"
   source "$ZPLUG_HOME/init.zsh"
@@ -130,6 +131,8 @@ source_if_exists ~/.stripe/shellinit/zshrc
 
 if is_stripe_devbox; then
   source_if_exists /usr/share/autojump/autojump.sh
+elif is_arch_linux; then
+  source_if_exists /usr/share/autojump/autojump.zsh
 else
   source_if_exists "$(brew --prefix)/etc/profile.d/autojump.sh"
 fi

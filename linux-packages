@@ -149,21 +149,24 @@ function install_arch() {
   # setup yay
   ./arch-aur-setup
 
-  sudo pacman -Syu --needed \
+  sudo pacman -Syu --noconfirm --needed \
     awk \
     bat \
     curl \
     diff-so-fancy \
     direnv \
     eza \
+    fzf \
     git \
     less \
     nano \
     neovim \
     openssh \
     openssl \
+    rbenv \
     readline \
     ripgrep \
+    ruby-build \
     starship \
     tmux \
     wget \
@@ -173,13 +176,14 @@ function install_arch() {
 
   yay -S --noconfirm --needed \
     autojump \
+    nodenv \
     tmuxinator \
-    zplug 
+    zplug
 
   install_vim_packages
 }
 
-if [ -f /etc/arch-release ]; then
+if is_arch_linux ; then
   install_arch
 else
   install_stripe
