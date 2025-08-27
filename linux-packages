@@ -27,26 +27,6 @@ function install_starship() {
   fi
 }
 
-install_starship
-
-sudo apt-get update
-
-sudo apt-get install -y \
-  autojump \
-  bat \
-  direnv \
-  eza \
-  libreadline-dev \
-  libreadline8t64 \
-  openssl \
-  ripgrep \
-  tmux \
-  tmuxinator \
-  wget \
-  xz-utils \
-  zplug \
-  zsh
-
 function install_github_release() {
   local bin_name="$1"
   local url="$2"
@@ -66,23 +46,6 @@ function install_github_release() {
 
   popd >/dev/null || exit
 }
-
-install_github_release diff-so-fancy \
-  https://github.com/so-fancy/diff-so-fancy/releases/download/v1.4.4/diff-so-fancy
-
-# Grab the latest nvim dev version (0.11.x at time of writing)
-install_github_release nvim \
-  https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-arm64.appimage
-
-# install packages
-if [ -d "$HOME/.local/share/nvim/lazy" ]; then
-  echo "Skipping lazy.nvim init install, packages already exist"
-else
-  ~/.local/bin/nvim --headless \
-    +':Lazy install' \
-    +':TSUpdate' \
-    +qa
-fi
 
 function install_fzf() {
   local target_dir="$HOME/.local/bin"
@@ -126,4 +89,98 @@ function install_fzf() {
   echo "fzf installed successfully to $target_dir!"
 }
 
-install_fzf
+function install_vim_packages() {
+  local nvim_binary
+  nvim_binary=${1:-nvim}
+
+  # install packages
+  if [ -d "$HOME/.local/share/nvim/lazy" ]; then
+    echo "Skipping lazy.nvim init install, packages already exist"
+  else
+    $nvim_binary --headless \
+      +':Lazy install' \
+      +':TSUpdate' \
+      +qa
+  fi
+}
+
+function install_stripe() {
+  install_starship
+
+  install_github_release diff-so-fancy \
+    https://github.com/so-fancy/diff-so-fancy/releases/download/v1.4.4/diff-so-fancy
+
+  # Grab the latest nvim dev version (0.11.x at time of writing)
+  install_github_release nvim \
+    https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-arm64.appimage
+
+  install_vim_packages
+
+  sudo apt-get update
+
+  sudo apt-get install -y \
+    autojump \
+    bat \
+    direnv \
+    eza \
+    libreadline-dev \
+    libreadline8t64 \
+    openssl \
+    ripgrep \
+    tmux \
+    tmuxinator \
+    wget \
+    xz-utils \
+    zplug \
+    zsh
+
+
+  install_fzf
+}
+
+# Add to /etc/pacman.conf
+#
+# [chaotic-aur]
+# Include = /etc/pacman.d/chaotic-mirrorlist
+function install_arch() {
+  # update system
+  sudo pacman -Syyu
+
+  # setup yay
+  ./arch-aur-setup
+
+  sudo pacman -Syu --needed \
+    awk \
+    bat \
+    curl \
+    diff-so-fancy \
+    direnv \
+    eza \
+    git \
+    less \
+    nano \
+    neovim \
+    openssh \
+    openssl \
+    readline \
+    ripgrep \
+    starship \
+    tmux \
+    wget \
+    vim \
+    xz \
+    zsh
+
+  yay -S --noconfirm --needed \
+    autojump \
+    tmuxinator \
+    zplug 
+
+  install_vim_packages
+}
+
+if [ -f /etc/arch-release ]; then
+  install_arch
+else
+  install_stripe
+fi

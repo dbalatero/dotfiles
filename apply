@@ -137,7 +137,7 @@ function install_homebrew() {
   fi
 }
 
-if is_stripe_devbox; then
+if [[ "$(uname)" == "Linux" ]] ; then
   # subshell to avoid the cd back
   (cd "$(dotfiles_location)" && ./linux-packages)
 else
