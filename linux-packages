@@ -155,14 +155,19 @@ function install_arch() {
     fzf \
     git \
     less \
+    lua \
+    luarocks \
     nano \
     neovim \
+    npm \
     openssh \
     openssl \
+    python3 \
     rbenv \
     readline \
     ripgrep \
     ruby-build \
+    rustup \
     starship \
     tmux \
     wget \
@@ -177,6 +182,8 @@ function install_arch() {
     zplug
 
   install_vim_packages
+
+  rustup default stable
 }
 
 if is_arch_linux ; then
