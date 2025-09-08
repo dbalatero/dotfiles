@@ -3,6 +3,9 @@
 --  ╰──────────────────────────────────────────────────────────╯
 return {
   {
+    "tpope/vim-eunuch",
+  },
+  {
     "stevearc/quicker.nvim",
     event = "FileType qf",
     ---@module "quicker"
