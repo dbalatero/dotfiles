@@ -86,6 +86,9 @@ symlink_dotfile zsh/zsh ~/.zsh
 mkdir -p "$(xdg_config_dir)/alacritty"
 symlink_dotfile alacritty/alacritty.toml "$(xdg_config_dir)/alacritty/alacritty.toml"
 
+mkdir -p "$(xdg_config_dir)/ghostty"
+symlink_dotfile ghostty/config "$(xdg_config_dir)/ghostty/config"
+
 # ╭──────────────────────────────────────────────────────────╮
 # │ Git                                                      │
 # ╰──────────────────────────────────────────────────────────╯

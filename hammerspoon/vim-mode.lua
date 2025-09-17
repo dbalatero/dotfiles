@@ -16,6 +16,7 @@ end
 -- vim
 vim
   :disableForApp("Alacritty")
+  :disableForApp("Ghostty")
   :disableForApp("kitty")
   :disableForApp("Obsidian")
   :disableForApp("Code")
