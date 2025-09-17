@@ -3,6 +3,7 @@
 # General settings
 term = "xterm-256color"
 font-family = "BerkeleyMono Nerd Font Mono"
+font-style = "Normal"
 font-size = 18
 cursor-style = "block"
 window-theme = "dark"
@@ -15,6 +16,11 @@ window-padding-x = 0
 window-padding-y = 0
 window-save-state = "default"
 shell-integration = "zsh"
+
+# Match spacing "feel" from Alacritty/iTerm
+adjust-cell-width = "-5%"
+adjust-cell-height = "5%"
+font-thicken = true
 
 # 50mb, in bytes
 scrollback-limit = 50000000
