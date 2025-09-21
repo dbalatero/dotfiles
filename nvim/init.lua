@@ -236,6 +236,7 @@ require("lazy").setup({
     { import = "packages.tmux" },
     { import = "packages.treesitter" },
     { import = "packages.ui" },
+    { import = "packages.ai" },
   },
 })
 
