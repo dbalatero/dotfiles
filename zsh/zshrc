@@ -117,7 +117,7 @@ unsetopt HIST_EXPIRE_DUPS_FIRST
 setopt SHARE_HISTORY
 setopt EXTENDED_HISTORY
 
-export FZF_DEFAULT_COMMAND="$HOME/.local/bin/fzf-fast-file-search"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!node_modules/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 if [[ $options[zle] = on ]]; then
