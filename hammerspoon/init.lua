@@ -33,6 +33,7 @@ require("keys-pressed")
 -- require "good-morning-obsidian"
 require("code-screen-recorder")
 require("domain-swappin")
+require("ghostty")
 
 local SkyRocket = hs.loadSpoon("SkyRocket")
 
