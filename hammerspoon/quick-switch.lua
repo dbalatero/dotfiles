@@ -13,4 +13,4 @@ hyperKey
   :bind("s")
   :toApplication("/Applications/Spotify.app")
   :bind("t")
-  :toApplication("/Applications/Alacritty.app")
+  :toApplication("/Applications/Ghostty.app")
