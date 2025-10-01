@@ -82,7 +82,6 @@ brew 'direnv'
 brew 'eza'
 brew 'fzf'
 brew 'neofetch' if OS.mac?
-brew 'zplug'
 brew 'zsh'
 
 # ╭──────────────────────────────────────────────────────────╮

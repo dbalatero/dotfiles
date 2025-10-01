@@ -131,9 +131,7 @@ function install_stripe() {
     tmuxinator \
     wget \
     xz-utils \
-    zplug \
     zsh
-
 
   install_fzf
 }
@@ -178,8 +176,7 @@ function install_arch() {
   yay -S --noconfirm --needed \
     autojump \
     nodenv \
-    tmuxinator \
-    zplug
+    tmuxinator
 
   install_vim_packages
 

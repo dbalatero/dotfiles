@@ -1,0 +1,8 @@
+chriskempson/base16-shell
+dbalatero/fast-syntax-highlighting
+dbalatero/fzf-git
+hlissner/zsh-autopair
+MichaelAquilina/zsh-you-should-use
+twang817/zsh-ssh-agent
+
+ohmyzsh/ohmyzsh path:plugins/git

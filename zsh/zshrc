@@ -73,32 +73,10 @@ setup_completion
 # ╭──────────────────────────────────────────────────────────╮
 # │ Plugins                                                  │
 # ╰──────────────────────────────────────────────────────────╯
-if is_stripe_devbox; then
-  export ZPLUG_BIN="/usr/share/zplug/bin"
-  export ZPLUG_HOME="$(xdg_data_dir)/zplug"
-  mkdir -p "$ZPLUG_HOME"
-
-  source /usr/share/zplug/init.zsh
-elif is_arch_linux ; then
-  source ~/.zplug/init.zsh
-else
-  export ZPLUG_HOME="$(brew --prefix)/opt/zplug"
-  source "$ZPLUG_HOME/init.zsh"
+if [ -f "$HOME/.antidote/antidote.zsh" ]; then
+  source "$HOME/.antidote/antidote.zsh"
+  antidote load "$HOME/.zsh_plugins.txt"
 fi
-
-zplug "dbalatero/fzf-git"
-zplug "MichaelAquilina/zsh-you-should-use"
-zplug "twang817/zsh-ssh-agent"
-zplug "dbalatero/fast-syntax-highlighting"
-zplug "hlissner/zsh-autopair"
-zplug "chriskempson/base16-shell"
-zplug "plugins/git", from:oh-my-zsh
-
-if ! zplug check; then
-  zplug install
-fi
-
-zplug load
 
 # ╭──────────────────────────────────────────────────────────╮
 # │ More history                                             │
