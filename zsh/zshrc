@@ -160,7 +160,7 @@ alias -- tk='tmux kill-session'
 alias -- tn=tmuxinator
 alias -- vim=nvim
 alias -- weather='curl wttr.in'
-
+alias -- e2e='yarn convert-e2e'
 
 export EDITOR="nvim"
 export NVIM_TUI_ENABLE_TRUE_COLOR="1"
