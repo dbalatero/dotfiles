@@ -175,7 +175,12 @@ function install_arch() {
 
   if is_arch_desktop; then
     sudo pacman -Syu --noconfirm --needed \
-      ghostty
+      ghostty \
+      lib32-mesa \
+      steam \
+      steam-native-runtime \
+      ttf-liberation \
+      wqy-zenhei
   fi
 
   yay -S --noconfirm --needed \
