@@ -89,3 +89,7 @@ function is_linux() {
 function is_arch_linux() {
   [ -f /etc/arch-release ]
 }
+
+function is_arch_desktop() {
+  grep -q "EndeavourOS" /etc/os-release
+}

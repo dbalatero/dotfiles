@@ -173,6 +173,11 @@ function install_arch() {
     xz \
     zsh
 
+  if is_arch_desktop; then
+    sudo pacman -Syu --noconfirm --needed \
+      ghostty
+  fi
+
   yay -S --noconfirm --needed \
     autojump \
     nodenv \
