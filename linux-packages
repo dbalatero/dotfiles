@@ -251,7 +251,8 @@ function install_arch() {
       steam \
       steam-native-runtime \
       ttf-liberation \
-      wqy-zenhei
+      wqy-zenhei \
+      xorg-xev
 
     setup_avahi
   fi

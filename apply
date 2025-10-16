@@ -86,6 +86,10 @@ if is_arch_desktop; then
 
     symlink_dotfile half-life/userconfig.cfg "$USERCONFIG_PATH"
   fi
+
+  # Caps lock -> control
+  symlink_dotfile x11/Xmodmap ~/.Xmodmap
+  symlink_dotfile x11/xprofile ~/.xprofile
 fi
 
 # ╭──────────────────────────────────────────────────────────╮
