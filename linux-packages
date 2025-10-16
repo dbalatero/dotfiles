@@ -246,6 +246,7 @@ function install_arch() {
 
   if is_arch_desktop; then
     sudo pacman -Syu --noconfirm --needed \
+      chromium \
       ghostty \
       lib32-mesa \
       steam \
@@ -255,6 +256,10 @@ function install_arch() {
       xorg-xev
 
     setup_avahi
+
+    yay -S --noconfirm --needed \
+      discord \
+      slack-desktop
   fi
 
   yay -S --noconfirm --needed \
