@@ -136,6 +136,77 @@ function install_stripe() {
   install_fzf
 }
 
+function setup_avahi() {
+  local work_needed=false
+  local output=""
+  local status=""
+
+  # Check if Avahi is already installed
+  if ! pacman -Q avahi nss-mdns &>/dev/null; then
+    work_needed=true
+    output+="» Installing Avahi and nss-mdns...\n"
+    status=$(sudo pacman -S --noconfirm avahi nss-mdns 2>&1) || {
+      echo "✗ Failed to install required packages. Exiting."
+          echo "$status"
+          return 1
+        }
+  fi
+
+  # Check if Avahi service is enabled
+  if ! systemctl is-enabled avahi-daemon.service &>/dev/null; then
+    work_needed=true
+    output+="» Enabling Avahi daemon...\n"
+    status=$(sudo systemctl enable avahi-daemon.service 2>&1) || {
+      echo "✗ Failed to enable Avahi daemon. Exiting."
+          echo "$status"
+          return 1
+        }
+  fi
+
+  # Check if Avahi service is running
+  if ! systemctl is-active avahi-daemon.service &>/dev/null; then
+    work_needed=true
+    output+="» Starting Avahi daemon...\n"
+    status=$(sudo systemctl start avahi-daemon.service 2>&1) || {
+      echo "✗ Failed to start Avahi daemon. Exiting."
+          echo "$status"
+          return 1
+        }
+  fi
+
+  # Configure nsswitch.conf
+  if ! grep -q "mdns_minimal \[NOTFOUND=return\]" /etc/nsswitch.conf; then
+    work_needed=true
+    output+="» Configuring nsswitch.conf...\n"
+
+    # Create backup
+    status=$(sudo cp /etc/nsswitch.conf /etc/nsswitch.conf.bak 2>&1) || {
+      echo "✗ Failed to create nsswitch.conf backup. Exiting."
+          echo "$status"
+          return 1
+        }
+
+        # Update the hosts line in nsswitch.conf
+        status=$(sudo sed -i 's/^hosts:.*/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns/' /etc/nsswitch.conf 2>&1) || {
+          echo "✗ Failed to modify nsswitch.conf. Exiting."
+                  echo "$status"
+                  return 1
+                }
+
+                # Restart Avahi daemon to apply changes
+                output+="» Restarting Avahi daemon to apply changes...\n"
+                status=$(sudo systemctl restart avahi-daemon.service 2>&1)
+  fi
+
+  if [ "$work_needed" = true ]; then
+    echo -e "$output"
+    echo "✅ Setup complete! Your computer should now broadcast as $(hostname).local"
+    echo "   To test, run: ping -c 3 $(hostname).local"
+  else
+    echo "✓ Avahi is already fully configured. No changes needed."
+  fi
+}
+
 function install_arch() {
   # update system
   sudo pacman -Syyu
@@ -181,6 +252,8 @@ function install_arch() {
       steam-native-runtime \
       ttf-liberation \
       wqy-zenhei
+
+    setup_avahi
   fi
 
   yay -S --noconfirm --needed \
