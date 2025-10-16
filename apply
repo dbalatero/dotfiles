@@ -72,6 +72,23 @@ if is_macos; then
 fi
 
 # ╭──────────────────────────────────────────────────────────╮
+# │ Arch desktop                                             │
+# ╰──────────────────────────────────────────────────────────╯
+if is_arch_desktop; then
+  # Half-life
+  USERCONFIG_PATH="$HOME/.local/share/Steam/steamapps/common/Half-Life/valve/userconfig.cfg"
+
+  if [ ! -L "$USERCONFIG_PATH" ]; then
+    echo "+ Creating Half-Life userconfig"
+
+    rm -fr "$USERCONFIG_PATH"
+    mkdir -p "$(dirname "$USERCONFIG_PATH")"
+
+    symlink_dotfile half-life/userconfig.cfg "$USERCONFIG_PATH"
+  fi
+fi
+
+# ╭──────────────────────────────────────────────────────────╮
 # │ ZSH                                                      │
 # ╰──────────────────────────────────────────────────────────╯
 if [ ! -d "$HOME/.antidote" ]; then
