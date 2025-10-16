@@ -247,18 +247,38 @@ function install_arch() {
   if is_arch_desktop; then
     sudo pacman -Syu --noconfirm --needed \
       chromium \
+      gamemode \
       ghostty \
+      lib32-gamemode \
       lib32-mesa \
+      lib32-mesa-vdpau \
+      lib32-vulkan-icd-loader \
+      lib32-vulkan-radeon \
+      lshw \
+      lutris \
+      mesa \
+      mesa \
+      mesa-vdpau \
+      mesa-vdpau \
       steam \
       steam-native-runtime \
       ttf-liberation \
+      vulkan-icd-loader \
+      vulkan-radeon \
+      vulkan-tools \
+      wine \
+      wine-gecko \
+      wine-mono \
+      winetricks \
       wqy-zenhei \
-      xorg-xev
+      xorg-xev \
 
     setup_avahi
 
     yay -S --noconfirm --needed \
       discord \
+      dxvk-bin \
+      protonup-qt \
       slack-desktop
   fi
 
