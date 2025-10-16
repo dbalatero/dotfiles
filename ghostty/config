@@ -29,3 +29,5 @@ bell-features="no-audio,no-system,no-attention,no-title,no-border"
 
 # Catppuccin Mocha Theme
 theme = "Catppuccin Mocha"
+
+config-file = ?config.local

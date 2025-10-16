@@ -113,6 +113,10 @@ symlink_dotfile alacritty/alacritty.toml "$(xdg_config_dir)/alacritty/alacritty.
 mkdir -p "$(xdg_config_dir)/ghostty"
 symlink_dotfile ghostty/config "$(xdg_config_dir)/ghostty/config"
 
+if [[ "$(hostname)" == "zapp" ]]; then
+  symlink_dotfile ghostty/config.zapp "$(xdg_config_dir)/ghostty/config.local"
+fi
+
 # ╭──────────────────────────────────────────────────────────╮
 # │ Git                                                      │
 # ╰──────────────────────────────────────────────────────────╯
