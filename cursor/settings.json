@@ -86,5 +86,14 @@
   },
   "vscode-neovim.neovimInitVimPaths.win32": "/Users/dbalatero/.config/nvim/vscode.lua",
   "telemetry.telemetryLevel": "off",
-  "ruby.rubocop.executePath": "/bin/false"
+  "ruby.rubocop.executePath": "/bin/false",
+  "gitlens.ai.enabled": false,
+  "typescript.native-preview.tsdk": "~/stripe/pay-server/frontend/js-scripts/scripts",
+  "claude-code.claudeProcessWrapper": "/usr/local/bin/claude",
+  "claude-code.environmentVariables": [
+    {
+      "name": "CLAUDE_CODE_SKIP_AUTH_LOGIN",
+      "value": "true"
+    }
+  ]
 }
