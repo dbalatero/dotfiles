@@ -135,43 +135,22 @@ return M
 
 ---
 
-### 3. Mini.ai (High Priority)
+### 3. ~~Mini.ai~~ ✅ INSTALLED
 **What:** Extended text objects for arguments, quotes, brackets, function calls
 **Why:** More powerful than vim-surround alone
 
-**Your Current Setup:** vim-surround for surroundings
-**Benefit:** Work with function arguments (`via`), nested objects, custom patterns
+**Status:** ✅ Installed in `nvim/lua/packages/editing.lua`
 
-**Example Use Cases:**
+**Key Text Objects:**
 - `via` - Select inside argument
 - `vaa` - Select around argument
 - `vin(` - Select inside next parentheses
 - `val(` - Select inside last parentheses
+- `vif` / `vaf` - Inside/around function (treesitter)
+- `vic` / `vac` - Inside/around class (treesitter)
+- `vio` / `vao` - Inside/around block/conditional/loop (treesitter)
 
-**Config Suggestion:**
-```lua
-{
-  "echasnovski/mini.ai",
-  event = "VeryLazy",
-  opts = function()
-    local ai = require("mini.ai")
-    return {
-      n_lines = 500,
-      custom_textobjects = {
-        o = ai.gen_spec.treesitter({
-          a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-          i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-        }),
-        f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
-        c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
-        t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },
-      },
-    }
-  end,
-}
-```
-
-**Effort:** Low | **Impact:** High (daily editing efficiency)
+**Note:** Works with all vim operators (d, c, y, etc.) and counts (e.g., `v2in(` for 2nd next paren)
 
 ---
 
@@ -500,7 +479,7 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 ### High Priority (Do Soon)
 1. **Flash.nvim** - Significantly better navigation
-2. **Mini.ai** - Extended text objects for daily editing
+2. ~~**Mini.ai**~~ ✅ - Extended text objects for daily editing
 3. **Audit lazy-loading** - Improve startup time
 
 ### Medium Priority (Nice to Have)
@@ -567,22 +546,18 @@ LazyVim is opinionated and you have many Stripe-specific customizations. Full mi
 1. ~~**ts-comments.nvim**~~ - Treesitter-aware commenting (replaced Comment.nvim)
 2. ~~**todo-comments.nvim**~~ - TODO highlighting and navigation
 3. ~~**noice.nvim**~~ - Modern UI for messages and cmdline
+4. ~~**mini.ai**~~ - Extended text objects (arguments, functions, classes, blocks)
 
-### Remaining Quick Wins
+### Remaining Quick Win
 
-If you have 20 more minutes, do these two things:
+If you have 10 more minutes:
 
-1. **Install Flash.nvim** (~10 min)
-   - Add plugin spec
-   - Try `s` to jump around a file
-   - Game-changing navigation
+**Install Flash.nvim** (~10 min)
+- Add plugin spec
+- Try `s` to jump around a file
+- Game-changing navigation
 
-2. **Install Mini.ai** (~10 min)
-   - Add plugin spec
-   - Try `via` to select function arguments
-   - Try `vin(` to select inside next parentheses
-
-These two plugins integrate seamlessly with your existing config and require zero configuration changes beyond adding the plugin specs.
+This plugin integrates seamlessly with your existing config and requires zero configuration changes beyond adding the plugin spec.
 
 ---
 
