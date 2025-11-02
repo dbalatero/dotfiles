@@ -5,7 +5,7 @@ M.build_capabilities = function()
   capabilities = vim.tbl_deep_extend(
     "force",
     capabilities,
-    require("cmp_nvim_lsp").default_capabilities()
+    require("blink.cmp").get_lsp_capabilities()
   )
 
   return capabilities
