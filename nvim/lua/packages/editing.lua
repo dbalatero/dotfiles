@@ -236,20 +236,40 @@ return {
   {
     "echasnovski/mini.ai",
     event = "VeryLazy",
-    opts = function()
+    config = function()
       local ai = require("mini.ai")
-      return {
+
+      -- Wrapper to make treesitter specs fail silently when parser unavailable
+      local function ts_spec(...)
+        local spec = ai.gen_spec.treesitter(...)
+        return function(...)
+          local ok, result = pcall(spec, ...)
+          if ok then
+            return result
+          end
+          -- Return empty when treesitter fails (no parser available)
+          return { from = { line = 0, col = 0 }, to = { line = 0, col = 0 } }
+        end
+      end
+
+      ai.setup({
         n_lines = 500,
         custom_textobjects = {
-          o = ai.gen_spec.treesitter({
+          o = ts_spec({
             a = { "@block.outer", "@conditional.outer", "@loop.outer" },
             i = { "@block.inner", "@conditional.inner", "@loop.inner" },
           }),
-          f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
-          c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+          f = ts_spec({
+            a = "@function.outer",
+            i = "@function.inner",
+          }),
+          c = ts_spec({
+            a = "@class.outer",
+            i = "@class.inner",
+          }),
           t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },
         },
-      }
+      })
     end,
   },
 
