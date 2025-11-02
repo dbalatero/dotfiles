@@ -69,32 +69,20 @@ return M
 
 ## Missing LazyVim Plugins Worth Considering
 
-### 1. Flash.nvim (High Priority)
+### 1. ~~Flash.nvim~~ ✅ INSTALLED
 **What:** Enhanced navigation that shows jump labels at the end of search matches
 **Why:** Faster navigation than current search workflow
+
+**Status:** ✅ Installed in `nvim/lua/packages/editing.lua`
+
 **Keymaps:**
-- `s` - Flash jump
-- `S` - Flash treesitter
-- `r` - Remote flash
+- `s` - Flash jump (type search, then jump labels appear)
+- `S` - Flash treesitter (select treesitter nodes)
+- `r` - Remote flash (operator-pending mode)
+- `R` - Treesitter search
+- `<c-s>` - Toggle flash search in command mode
 
-**Your Current Setup:** Standard `/` search with `vim-cool`
-**Benefit:** Significantly faster file navigation, especially in large files
-
-**Config Suggestion:**
-```lua
-{
-  "folke/flash.nvim",
-  event = "VeryLazy",
-  opts = {},
-  keys = {
-    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-  },
-}
-```
-
-**Effort:** Low | **Impact:** High
+**Usage:** Type `s`, then start typing what you want to jump to. Labels appear at matches - press the label to jump there instantly!
 
 ---
 
@@ -478,7 +466,7 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 ## Implementation Priority
 
 ### High Priority (Do Soon)
-1. **Flash.nvim** - Significantly better navigation
+1. ~~**Flash.nvim**~~ ✅ - Significantly better navigation
 2. ~~**Mini.ai**~~ ✅ - Extended text objects for daily editing
 3. **Audit lazy-loading** - Improve startup time
 
@@ -542,22 +530,14 @@ LazyVim is opinionated and you have many Stripe-specific customizations. Full mi
 
 ## Summary: Quick Wins
 
-### ✅ Completed
+### ✅ Completed (All Quick Wins Done!)
 1. ~~**ts-comments.nvim**~~ - Treesitter-aware commenting (replaced Comment.nvim)
 2. ~~**todo-comments.nvim**~~ - TODO highlighting and navigation
 3. ~~**noice.nvim**~~ - Modern UI for messages and cmdline
 4. ~~**mini.ai**~~ - Extended text objects (arguments, functions, classes, blocks)
+5. ~~**flash.nvim**~~ - Enhanced navigation with jump labels
 
-### Remaining Quick Win
-
-If you have 10 more minutes:
-
-**Install Flash.nvim** (~10 min)
-- Add plugin spec
-- Try `s` to jump around a file
-- Game-changing navigation
-
-This plugin integrates seamlessly with your existing config and requires zero configuration changes beyond adding the plugin spec.
+**Great work!** You've installed all the high-value plugins. Your config now has the best features from LazyVim while keeping your unique Stripe customizations.
 
 ---
 

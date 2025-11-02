@@ -2,6 +2,41 @@
 --  │   Editing                                                │
 --  ╰──────────────────────────────────────────────────────────╯
 return {
+  -- Enhanced navigation with jump labels
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {
+      labels = "asdfghjklqwertyuiopzxcvbnm",
+      search = {
+        multi_window = true,
+        forward = true,
+        wrap = true,
+      },
+      label = {
+        uppercase = false,
+        rainbow = {
+          enabled = false,
+        },
+      },
+      modes = {
+        char = {
+          enabled = false,
+        },
+      },
+    },
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+    },
+  },
+
   {
     "tpope/vim-eunuch",
   },
